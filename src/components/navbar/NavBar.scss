@@ -1,9 +1,6 @@
-@import "../../styles/Colors.scss";
+@import "../../styles/theme.scss";
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
-a:hover {
-  font-weight: bold;
-}
 
 .nav_component {
   position: fixed;
@@ -12,15 +9,11 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  height: 30px;
   justify-content: space-between;
-  padding: 20px 55px;
+  padding: 12px 55px;
   align-items: center;
-  background-color: transparent;
-  font-weight: 500;
-  line-height: 23px;
+  background-color: $white;
   transition: all 0.3s ease-in-out;
-  font-family: Nunito Sans, sans-serif;
   @include landscape {
     padding: 15px;
   }
@@ -32,87 +25,90 @@ a:hover {
     display: flex;
     align-items: center;
     flex: 1;
-    margin-left: 3%;
+    img {
+      height: 40px;
+    }
     @include landscape {
       margin-left: 0;
     }
-
-    .nav_title {
-      font-family: Nunito Sans-Bold, sans-serif;
-      font-style: normal;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 22px;
-      color: #333333;
-      @include tablet {
-        color: $White;
-      }
-      span {
-        background: -webkit-linear-gradient(
-          180deg,
-          #ff8900 0%,
-          #fff500 48.44%,
-          rgba(255, 137, 0, 0.978495) 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
   }
-  .links_content {
+  .content {
     margin-right: 2%;
-    flex: 3;
+    flex: 2;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     @include landscape {
       margin-right: 0;
     }
-    .center {
+    .search {
+      padding: 5px;
+      padding-left: 15px;
+      border-radius: $border-radius;
+      border: 1px solid $text-fade;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 50%;
+      input {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        color: $text;
+        border: none;
+        outline: none;
+        width: 100%;
+        &::placeholder {
+          color: $text-fade;
+        }
+      }
+      button {
+        all: unset;
+        background-color: $primary;
+        border-radius: $border-radius;
+        text-align: center;
+        padding: 5px 15px;
+        cursor: pointer;
+        color: $white;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+      }
     }
-    .links {
-      text-decoration: none;
-      font-family: Nunito Sans-Light, sans-serif;
-      padding: 10px;
-      margin-right: 20px;
-      cursor: pointer;
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: $Poppins;
       font-style: normal;
       font-weight: 400;
-      font-size: 18px;
-      line-height: 25px;
-      color: $linksInactive;
-      .active {
-        font-weight: bold;
-        color: $text-heading;
-      }
-    }
-
-    .Contact_Link {
-      border: 2px solid $Contact-btn;
-      background-color: transparent;
-      border-radius: 35px;
-      padding: 12px 24px;
-      font-family: Nunito Sans-Bold, sans-serif;
-      font-style: normal;
-      font-weight: 700;
       font-size: 16px;
-      line-height: 22px;
-      color: #ff8900 !important;
-      cursor: pointer;
-      @include landscape {
-        padding: 8px 16px;
-        align-self: center;
+      line-height: 24px;
+      color: $text;
+      button {
+        all: unset;
+        border: 1px solid $text-fade;
+        background-color: transparent;
+        border-radius: $border-radius;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 6px;
+        cursor: pointer;
       }
-    }
-    .active {
-      font-weight: bold;
-      color: $text-heading;
+      .cart {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
     }
   }
 }
 .colorChange {
-  background-color: $bg-off;
+  background-color: $white;
   box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
 }
