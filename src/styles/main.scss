@@ -1,0 +1,12 @@
+@import "./breakpoints";
+@import "./fonts";
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+  text-decoration: none;
+}
