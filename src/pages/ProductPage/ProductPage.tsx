@@ -48,9 +48,12 @@ export default function ProductPage() {
   let oldPrice = 290000;
   const formatPrice = FormatNaira(price);
   let formatOldPrice = null;
+  let discountPercentage = null;
   if (oldPrice) {
     formatOldPrice = FormatNaira(oldPrice);
+    discountPercentage = ((oldPrice - price) / oldPrice) * 100;
   }
+
   return (
     <section className="single-product">
       <div className="product-wrapper">
@@ -108,7 +111,10 @@ export default function ProductPage() {
             <p className="current-price">
               {formatPrice}
               {formatOldPrice && (
-                <span className="old-price">{formatOldPrice}</span>
+                <>
+                  <span className="old-price">{formatOldPrice}</span>
+                  <span className="discount">{`-${discountPercentage}%`}</span>
+                </>
               )}
             </p>
             <button className="add-to-cart-btn" type="submit">
