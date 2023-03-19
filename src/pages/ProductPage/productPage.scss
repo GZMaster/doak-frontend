@@ -66,8 +66,8 @@
         margin-right: 0.5rem;
         width: 70px;
         height: 45px;
-        border-radius: 5px;
-        border: 1px solid lightgray;
+        border-radius: $border-radius;
+        border: 1px solid $text-fade;
         text-align: center;
         line-height: 45px;
         cursor: pointer;
@@ -107,16 +107,71 @@
         font-size: 14px;
         line-height: 24px;
         color: $text;
+        margin-bottom: 10px;
       }
       .quantity-controls {
         display: flex;
         align-items: center;
         gap: 10px;
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-          display: none;
+        button {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: $text;
+          border: none;
+          background-color: transparent;
+        }
+        input {
+          width: 55px;
+          height: 45px;
+          border-radius: $border-radius;
+          border: 2px solid $primary;
+          text-align: center;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: $text;
+          &:focus,
+          &:focus-visible {
+            outline: none;
+          }
+        }
+      }
+    }
+    .product-price {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: $text;
+      .current-price {
+        font-weight: 800;
+        font-size: 32px;
+        line-height: 48px;
+        .old-price {
+          margin-left: 2%;
+          vertical-align: middle;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: $text-fade;
+          text-decoration-line: line-through;
+        }
+        .discount {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: $primary;
+          background-color: #ffd9da;
+          vertical-align: middle;
+          margin-left: 5px;
         }
       }
     }
