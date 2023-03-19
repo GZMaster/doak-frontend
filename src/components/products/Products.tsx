@@ -1,3 +1,4 @@
+import React from "react";
 import Product from "./product/Product";
 import "./products.scss";
 import ProductImg from "../../assets/Images/others/Product-Img.png";
