@@ -1,0 +1,81 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.products {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  width: 1000px;
+}
+.product {
+  border: 1px solid $text-fade;
+  box-shadow: 4px 4px 34px rgba(0, 0, 0, 0.05);
+  border-radius: $border-radius-large;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: $Poppins;
+  font-style: normal;
+  cursor: pointer;
+  .product-img {
+    width: 290px;
+    height: 240px;
+    object-position: center;
+  }
+
+  .product-btn {
+    display: none;
+    transition: all 0.5s ease-in-out;
+  }
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    .product-btn {
+      border-radius: $border-radius;
+      background-color: $primary;
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: 0.5rem;
+    }
+  }
+  .product-wrapper {
+    padding: 1rem;
+    padding-bottom: 1.5rem;
+    .product-category {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: $text-fade;
+      text-transform: capitalize;
+    }
+    .product-name {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+    }
+    .product-price {
+      font-weight: 800;
+      font-size: 20px;
+      line-height: 30px;
+      color: $text;
+      .old-price {
+        margin-left: 2%;
+        vertical-align: middle;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: $text-fade;
+        text-decoration-line: line-through;
+      }
+    }
+  }
+}
