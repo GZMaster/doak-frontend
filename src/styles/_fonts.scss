@@ -1,0 +1,28 @@
+//REMOTE
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,900;1,300&display=swap");
+
+//LOCAL
+@font-face {
+  font-family: "Nunito Sans";
+  src: local("Nunito Sans"),
+    url("../assets/fonts/Nunito/NunitoSans-Regular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Sora";
+  src: local("Sora"), url("../assets/fonts/Sora/Sora-Regular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"),
+    url("../assets/fonts/Inter/Inter-Regular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"),
+    url("../assets/fonts/Poppins/Poppins-Regular.ttf") format("ttf");
+}
+
+$Inter: "Inter", sans-serif;
+$Sora: Sora, sans-serif;
+$Nunito: Nunito Sans, sans-serif;
+$Poppins: "Poppins", sans-serif;
