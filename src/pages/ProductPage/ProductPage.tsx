@@ -52,7 +52,7 @@ export default function ProductPage() {
   let discountPercentage = null;
   if (oldPrice) {
     formatOldPrice = FormatNaira(oldPrice);
-    discountPercentage = ((oldPrice - price) / oldPrice) * 100;
+    discountPercentage = Math.floor(((oldPrice - price) / oldPrice) * 100);
   }
 
   return (

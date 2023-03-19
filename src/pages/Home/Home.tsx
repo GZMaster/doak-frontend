@@ -1,3 +1,4 @@
+import React from "react";
 import Hero from "../../components/hero/Hero";
 import Newsletter from "../../components/news/Newsletter";
 import Products from "../../components/products/Products";
