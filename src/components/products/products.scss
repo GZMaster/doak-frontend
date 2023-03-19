@@ -18,6 +18,11 @@
   font-family: $Poppins;
   font-style: normal;
   cursor: pointer;
+  .product-img {
+    width: 290px;
+    height: 240px;
+    object-position: center;
+  }
 
   .product-btn {
     display: none;

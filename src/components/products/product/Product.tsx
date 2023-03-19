@@ -1,6 +1,7 @@
 import "../products.scss";
 import { FormatNaira } from "../../../utils/FormatCurrency";
 import { IProducts } from "../../../types/products";
+import { Link } from "react-router-dom";
 
 export default function Product({
   img,
@@ -15,7 +16,7 @@ export default function Product({
     formatOldPrice = FormatNaira(oldPrice);
   }
   return (
-    <div className="product">
+    <Link to="/product" className="product">
       <img src={img} alt={name} className="product-img" />
       <div className="product-wrapper">
         <p className="product-category">{category}</p>
@@ -28,6 +29,6 @@ export default function Product({
         </p>
         <div className="product-btn">Add to Cart</div>
       </div>
-    </div>
+    </Link>
   );
 }
