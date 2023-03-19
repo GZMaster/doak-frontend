@@ -1,3 +1,4 @@
+import React from "react";
 import "./Footer.scss";
 import Brand from "../../assets/Images/logo/logo.png";
 import { Link } from "react-router-dom";

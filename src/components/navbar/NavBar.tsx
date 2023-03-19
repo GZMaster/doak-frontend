@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
@@ -9,7 +10,7 @@ import user from "../../assets/Images/icons/user-square.svg";
 import "./NavBar.scss";
 
 const NavBar = () => {
-  let isPageWide = UseMediaQuery("(min-width: 769px)");
+  const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [colorChange, setColorChange] = useState(false);
   const changeNavbarColor = () => {
     if (window.scrollY >= 50 || !isPageWide) {
