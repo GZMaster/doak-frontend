@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
 import "./BurgerMenu.scss";
