@@ -1,13 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import NavConfig from "./navigation/NavConfig";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return (
-    <Router>
-      <NavConfig />
-    </Router>
-  );
+  return <Outlet />;
 }
 
 export default App;
