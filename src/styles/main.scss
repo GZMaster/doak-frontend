@@ -24,3 +24,9 @@ a:hover {
   line-height: 24px;
   color: $text;
 }
+.main-content {
+  display: flex;
+  gap: 1rem;
+  padding-top: 8rem;
+  justify-content: center;
+}
