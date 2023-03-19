@@ -1,12 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import NavConfig from "./navigation/NavConfig";
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/navbar/NavBar";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
-    <Router>
-      <NavConfig />
-    </Router>
+    <>
+      <NavBar />
+
+      <Outlet />
+
+      <Footer />
+    </>
   );
 }
 
