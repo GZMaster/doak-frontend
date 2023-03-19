@@ -1,3 +1,4 @@
+import React from "react";
 import "./hero.scss";
 import BG from "../../assets/Images/others/HeroBg.png";
 export default function Hero() {
