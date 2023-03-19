@@ -1,3 +1,4 @@
+import React from "react";
 import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import { useState } from "react";
@@ -44,8 +45,8 @@ export default function ProductPage() {
     { label: "75cl", value: "75cl" },
     { label: "125cl", value: "125cl" },
   ];
-  let price = 200000;
-  let oldPrice = 290000;
+  const price = 200000;
+  const oldPrice = 290000;
   const formatPrice = FormatNaira(price);
   let formatOldPrice = null;
   if (oldPrice) {

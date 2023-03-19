@@ -8,8 +8,6 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
@@ -19,6 +17,6 @@ module.exports = {
   },
   plugins: ["react", "@typescript-eslint", "prettier"],
   rules: {
-    "prettier/prettier": "warn",
+    "prettier/prettier": ["warn", { endOfLine: "auto" }],
   },
 };

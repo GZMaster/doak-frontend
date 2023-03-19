@@ -1,3 +1,4 @@
+import React from "react";
 import "./Newsletter.scss";
 import notification from "../../assets/Images/icons/notification-white.svg";
 export default function Newsletter() {
