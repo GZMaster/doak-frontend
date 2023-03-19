@@ -7,7 +7,7 @@ const NavConfig = () => {
   return (
     <Routes>
       <Route path="/" element={<Main />}>
-        <Route path="/product" element={<Product />} />
+        <Route path="product" element={<Product />} />
       </Route>
     </Routes>
   );
