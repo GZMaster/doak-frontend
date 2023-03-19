@@ -12,6 +12,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: $foot-bg;
+  border-top: 1px solid #c5c5c5;
   gap: 10rem;
   @include tablet {
     padding: 3rem 1.5rem;
