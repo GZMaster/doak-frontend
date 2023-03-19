@@ -12,6 +12,7 @@
     width: 910px;
     justify-content: space-around;
     gap: 2rem;
+    align-items: center;
     .product-image {
       flex: 1;
       border-radius: $border-radius-large;
@@ -149,6 +150,9 @@
       font-size: 14px;
       line-height: 21px;
       color: $text;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       .current-price {
         font-weight: 800;
         font-size: 32px;
@@ -173,6 +177,20 @@
           vertical-align: middle;
           margin-left: 5px;
         }
+      }
+      .add-to-cart-btn {
+        all: unset;
+        height: 50px;
+        width: 100%;
+        background-color: $primary;
+        text-align: center;
+        font-family: $Poppins;
+        border-radius: $border-radius;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 24px;
+        color: $white;
       }
     }
   }
