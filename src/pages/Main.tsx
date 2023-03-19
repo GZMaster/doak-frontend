@@ -1,13 +1,17 @@
 import React from "react";
-import { Outlet } from "react-router";
-import Footer from "../components/footer/Footer";
-import NavBar from "../components/navbar/NavBar";
+import Hero from "../components/hero/Hero";
+import Newsletter from "../components/news/Newsletter";
+import Products from "../components/products/Products";
+import Sidebar from "../components/sidebar/Sidebar";
 
 export default function Main() {
   return (
     <>
-      <NavBar />
-      <Outlet />
+      <Hero />
+      <section className="main-content">
+        <Sidebar />
+        <Products />
+      </section>
       <div
         style={{
           height: "30vh",
@@ -18,7 +22,7 @@ export default function Main() {
       >
         COMING SOON
       </div>
-      <Footer />
+      <Newsletter />
     </>
   );
 }
