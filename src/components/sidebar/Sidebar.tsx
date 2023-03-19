@@ -1,3 +1,4 @@
+import React from "react";
 import "./sidebar.scss";
 import filter from "../../assets/Images/icons/sort.svg";
 import arrowUp from "../../assets/Images/icons/arrow-up.svg";
