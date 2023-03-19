@@ -1,3 +1,124 @@
 @import "../../styles/theme.scss";
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
+.single-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+  .product-wrapper {
+    display: flex;
+    width: 910px;
+    justify-content: space-around;
+    gap: 2rem;
+    .product-image {
+      flex: 1;
+      border-radius: $border-radius-large;
+    }
+    .product-details {
+      flex: 1;
+      display: flex;
+      border-radius: $border-radius-large;
+      flex-direction: column;
+      border: 1px solid $text-fade;
+      box-shadow: 1px 4px 45px rgba(0, 0, 0, 0.08);
+    }
+    .product-brand,
+    .product-size,
+    .product-quantity,
+    .product-price {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid $text-fade;
+    }
+    .product-brand {
+      border-top: none;
+      p {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 36px;
+        color: $text;
+      }
+      .product-category {
+        font-size: 14px;
+        line-height: 21px;
+        color: #a52a2a;
+      }
+    }
+
+    .product-size {
+      p {
+        margin-bottom: 0.5rem;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
+        color: $text;
+      }
+
+      label {
+        display: inline-block;
+        margin-right: 0.5rem;
+        width: 70px;
+        height: 45px;
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        text-align: center;
+        line-height: 45px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        background-color: transparent;
+        position: relative;
+        overflow: hidden;
+
+        input[type="radio"] {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        input[type="radio"]:checked + span {
+          background-color: red;
+          color: white;
+        }
+
+        span {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 45px;
+        }
+      }
+    }
+    .product-quantity {
+      p {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        color: $text;
+      }
+      .quantity-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+          display: none;
+        }
+      }
+    }
+  }
+}
