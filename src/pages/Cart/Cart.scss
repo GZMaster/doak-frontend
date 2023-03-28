@@ -1,0 +1,120 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.Cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+  gap: 16px;
+  padding-bottom: 60px;
+  background-color: #f7f7f7;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .title {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 48px;
+      color: $text;
+    }
+    .cart-wrapper {
+      width: 1250px;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: baseline;
+      .cart-summary {
+        padding: 16px;
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+        width: 315px;
+        border-radius: $border-radius-large;
+        border: 1px solid $text-fade;
+        background-color: $white;
+        .title {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 27px;
+          color: $text;
+        }
+        .items-total {
+          display: flex;
+          justify-content: space-between;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: $text;
+        }
+        .promo-code {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: $text;
+          margin-bottom: -16px;
+        }
+        input {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 21px;
+          color: $text;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 11px 14px;
+          border-radius: $border-radius;
+          border: 1px solid $text-fade;
+          outline: none;
+          &::placeholder {
+            color: $text-fade;
+          }
+        }
+        .line {
+          height: 1px;
+          width: 100%;
+          background-color: $text-fade;
+        }
+        .subtotal {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: $text;
+          display: flex;
+          justify-content: space-between;
+          span {
+            font-weight: 700;
+          }
+        }
+        .btn {
+          background-color: $primary;
+          border-radius: $border-radius;
+          text-align: center;
+          padding: 10px 15px;
+          width: 100%;
+          cursor: pointer;
+          color: $white;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}
