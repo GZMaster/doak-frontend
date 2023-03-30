@@ -3,6 +3,8 @@ import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import { useState } from "react";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import ProductTab from "../../components/productTab/ProductTab";
+import { Link } from "react-router-dom";
 interface IOption {
   label: string;
   value: string;
@@ -64,7 +66,7 @@ export default function ProductPage() {
         <div className="product-details">
           <div className="product-brand">
             <p className="product-category">BRANDY</p>
-            <p>Hennessy VS Cognac ORIGINAL 70cl X6</p>
+            <p>Hennessy VS Coginac ORIGINAL 70cl X6</p>
           </div>
           <div className="product-size">
             <p>BOTTLE SIZE</p>
@@ -118,12 +120,13 @@ export default function ProductPage() {
                 </>
               )}
             </p>
-            <button className="add-to-cart-btn" type="submit">
+            <Link to="/cart" className="add-to-cart-btn" type="submit">
               Add to Cart
-            </button>
+            </Link>
           </div>
         </div>
       </div>
+      <ProductTab />
     </section>
   );
 }
