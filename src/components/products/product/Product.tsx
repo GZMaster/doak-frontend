@@ -1,3 +1,4 @@
+import React from "react";
 import "../products.scss";
 import { FormatNaira } from "../../../utils/FormatCurrency";
 import { IProducts } from "../../../types/products";

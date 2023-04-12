@@ -1,10 +1,9 @@
 import React from "react";
-import Hero from "../components/hero/Hero";
-import Newsletter from "../components/news/Newsletter";
-import Products from "../components/products/Products";
-import Sidebar from "../components/sidebar/Sidebar";
-
-export default function Main() {
+import Hero from "../../components/hero/Hero";
+import Newsletter from "../../components/news/Newsletter";
+import Products from "../../components/products/Products";
+import Sidebar from "../../components/sidebar/Sidebar";
+export default function Home() {
   return (
     <>
       <Hero />
