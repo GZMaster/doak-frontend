@@ -7,17 +7,17 @@ const SigninPage = () => {
   const [register, setRegister] = useState(false);
 
   return (
-    <>
-      <div className="signin_title">
+    <div className="signinpage">
+      <header className="signin_title">
         <h1>DOAK</h1>
         <button>x</button>
-      </div>
+      </header>
       <div className="signin_options">
         <button className="signin_registerbtn">Register</button>
         <button className="signin_loginbtn">Log in</button>
       </div>
       <div>{register ? <RegisterPage /> : <LoginPage />}</div>
-    </>
+    </div>
   );
 };
 
