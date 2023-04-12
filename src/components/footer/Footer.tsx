@@ -1,3 +1,4 @@
+import React from "react";
 import "./Footer.scss";
 import Brand from "../../assets/Images/logo/logo.png";
 import { Link } from "react-router-dom";
@@ -69,8 +70,8 @@ const Footer = () => {
       <div className="foot-bottom">
         <div className="F_text">
           <p>
-            Copyright © {new Date().getFullYear()} IntricateDesignSpaces All
-            rights reserved.
+            Copyright © {new Date().getFullYear()} dorkdrinks. All rights
+            reserved.
           </p>
           <p>
             Designed by <span className="F_Team">Retro Developers</span>

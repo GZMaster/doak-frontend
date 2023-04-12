@@ -1,15 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
-import ProductPage from "./pages/ProductPage/ProductPage";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import NavBar from "./components/navbar/NavBar";
+import Footer from "./components/footer/Footer";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/product" element={<ProductPage />} />
-      </Routes>
-    </Router>
+    <>
+      <NavBar />
+
+      <Outlet />
+
+      <Footer />
+    </>
   );
 }
 
