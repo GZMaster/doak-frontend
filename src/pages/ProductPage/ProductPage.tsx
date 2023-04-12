@@ -3,7 +3,7 @@ import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import { useState } from "react";
 import { FormatNaira } from "../../utils/FormatCurrency";
-import ProductTab from "../../components/productTab/ProductTab";
+import ProductTab from "../../components/Tabs/ProductTab";
 import { Link } from "react-router-dom";
 interface IOption {
   label: string;
