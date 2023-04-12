@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import App from "../App";
 import Main from "../pages/Main";
 import Cart from "../pages/Cart/Cart";
+import Checkout from "../pages/Cart/Checkout";
+import Main from "../pages/Main";
 import ProductPage from "../pages/ProductPage/ProductPage";
 import SigninPage from "../pages/signin/SigninPage";
 
@@ -13,7 +15,7 @@ const NavConfig = () => {
         <Route path="/" element={<Main />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/identification" element={<SigninPage />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Route>
     </Routes>
   );

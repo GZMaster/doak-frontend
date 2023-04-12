@@ -25,9 +25,9 @@
     }
     .cart-wrapper {
       width: 1250px;
+      display: flex;
       justify-content: space-between;
       gap: 20px;
-      align-items: baseline;
       .cart-summary {
         padding: 16px;
         display: flex;
@@ -113,6 +113,38 @@
           font-weight: 700;
           font-size: 16px;
           line-height: 24px;
+        }
+      }
+      .cart-table {
+        width: 900px;
+        background-color: $white;
+        border-radius: $border-radius-large;
+        border: 1px solid $text-fade;
+        table {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .table-content {
+            display: inline-table;
+          }
+          td {
+            border: 1px solid black;
+            padding: 1rem;
+          }
+          .table-header {
+            border-bottom: 1px solid $text-fade;
+            padding: 1rem 1.5rem;
+            display: inline-table;
+            th {
+              font-family: $Poppins;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 18px;
+              color: #333333;
+              border: 1px solid red;
+            }
+          }
         }
       }
     }
