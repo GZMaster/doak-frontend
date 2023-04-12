@@ -1,30 +1,13 @@
 import React from "react";
 import "./Cart.scss";
 
-export default function Cart() {
+export default function Checkout() {
   return (
     <section className="Cart">
       <div className="wrapper">
-        <h2 className="title">Shopping Cart</h2>
+        <h2 className="title">Checkout</h2>
         <div className="cart-wrapper">
-          <div className="cart-table">
-            <table className="table">
-              <tr className="table-header">
-                <th>PRODUCT DETAILS</th>
-                <th>PRICE</th>
-                <th>QUANTITY</th>
-                <th>TOTAL</th>
-                <th style={{ visibility: "hidden" }}>DELETE</th>
-              </tr>
-              <tr className="table-content">
-                <td>5000</td>
-                <td>5000</td>
-                <td>5000</td>
-                <td>5000</td>
-                <td>5000</td>
-              </tr>
-            </table>
-          </div>
+          <div className="cart-table"></div>
           <div className="cart-summary">
             <div className="title">Cart Summary</div>
             <p className="items-total">
