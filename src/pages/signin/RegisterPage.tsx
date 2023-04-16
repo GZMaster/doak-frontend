@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { InputFields } from "../../components/Main";
 import "./AuthPage.scss";
 
 const RegisterPage = () => {
   const [step, setStep] = useState("step1");
-  const [buttonText, setButtonText] = useState("Continue");
+  const [buttonText] = useState("Continue");
 
   const onChangeStep = (stepvalue: string) => {
     setStep(stepvalue);
