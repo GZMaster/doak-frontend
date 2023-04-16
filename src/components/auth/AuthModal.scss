@@ -2,11 +2,7 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-.authpage__modal {
-  color: rgba(0, 0, 0, 0.9);
-}
-
-.authpage {
+.authmodal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +20,7 @@
   height: auto;
 }
 
-.authpage_title {
+.authmodal_title {
   display: flex;
   width: 382px;
   height: 46px;
