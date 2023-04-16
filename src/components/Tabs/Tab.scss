@@ -14,6 +14,9 @@
     align-items: center;
     border-bottom: 1px solid $text-fade;
     list-style: none;
+    .react-tabs__tab-panel--selected {
+      border-bottom: 3px solid black;
+    }
     .tabs-title {
       font-family: $Poppins;
       font-style: normal;

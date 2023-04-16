@@ -1,7 +1,7 @@
 import React from "react";
 import "./Tab.scss";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
+// import "react-tabs/style/react-tabs.css";
 export default function ProductTab() {
   return (
     <section>
