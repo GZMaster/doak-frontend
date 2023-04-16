@@ -2,7 +2,7 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-.signinpage {
+.authpage {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@
   height: auto;
 }
 
-.signin_title {
+.authpage_title {
   display: flex;
   width: 382px;
   height: 46px;
@@ -36,7 +36,6 @@
     line-height: 46px;
     text-align: center;
     margin-left: 9rem;
-    // margin-top: 1rem;
   }
 
   > button {
