@@ -3,7 +3,7 @@ import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import { useState } from "react";
 import { FormatNaira } from "../../utils/FormatCurrency";
-import ProductTab from "../../components/productTab/ProductTab";
+import ProductTab from "../../components/Tabs/ProductTab";
 import { Link } from "react-router-dom";
 interface IOption {
   label: string;
@@ -11,12 +11,12 @@ interface IOption {
 }
 export default function ProductPage() {
   const [size, setSize] = useState("");
-  const [quantity, setQuantity] = useState("1");
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSize(event.target.value);
   };
 
+  const [quantity, setQuantity] = useState("1");
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity || prevQuantity === "1") {

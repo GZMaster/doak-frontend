@@ -86,7 +86,7 @@
         }
 
         input[type="radio"]:checked + span {
-          background-color: red;
+          background-color: $primary;
           color: white;
         }
 
@@ -102,49 +102,7 @@
         }
       }
     }
-    .product-quantity {
-      p {
-        font-family: $Poppins;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        color: $text;
-        margin-bottom: 10px;
-      }
-      .quantity-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        button {
-          font-family: $Poppins;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 24px;
-          color: $text;
-          border: none;
-          background-color: transparent;
-        }
-        input {
-          width: 55px;
-          height: 45px;
-          border-radius: $border-radius;
-          border: 2px solid $primary;
-          text-align: center;
-          font-family: $Poppins;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 16px;
-          line-height: 24px;
-          color: $text;
-          &:focus,
-          &:focus-visible {
-            outline: none;
-          }
-        }
-      }
-    }
+
     .product-price {
       font-family: $Poppins;
       font-style: normal;
@@ -178,6 +136,7 @@
           background-color: #ffd9da;
           vertical-align: middle;
           margin-left: 5px;
+          padding: 3px;
         }
       }
       .add-to-cart-btn {
@@ -193,6 +152,53 @@
         font-size: 16px;
         line-height: 24px;
         color: $white;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+.product-quantity {
+  p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $text;
+    margin-bottom: 10px;
+  }
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    button {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+      border: none;
+      background-color: transparent;
+    }
+    input {
+      width: 55px;
+      height: 45px;
+      border-radius: $border-radius;
+      border: 2px solid $primary;
+      text-align: center;
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+      &:focus,
+      &:focus-visible {
+        outline: none;
       }
     }
   }

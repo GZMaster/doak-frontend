@@ -71,8 +71,9 @@ const Footer = () => {
         <div className="F_text">
           <p>
             Copyright © {new Date().getFullYear()} dorkdrinks. All rights
-            reserved.
+            reserved
           </p>
+          <div className="circle" />
           <p>
             Designed by <span className="F_Team">Retro Developers</span>
           </p>
