@@ -1,11 +1,22 @@
 import React from "react";
-import "./SigninPage.scss";
+import { InputFields } from "../../components/Main";
+import "./AuthPage";
 
 const LoginPage = () => {
+  const forgotPassword = () => {
+    console.log("forgot password");
+  };
+
   return (
-    <>
-      <h1>login</h1>
-    </>
+    <div className="loginpage">
+      <form action="">
+        <InputFields type="email" label="Email" placeholder="Email" />
+        <InputFields type="string" label="Password" placeholder="Password" />
+        <button onClick={forgotPassword}>Forgot password</button>
+
+        <button>Log in</button>
+      </form>
+    </div>
   );
 };
 
