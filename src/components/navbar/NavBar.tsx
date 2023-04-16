@@ -6,7 +6,7 @@ import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
 import user from "../../assets/Images/icons/user-square.svg";
-import AuthPage from "../../pages/auth/AuthPage";
+import AuthPage from "../auth/AuthPage";
 import "./NavBar.scss";
 
 const NavBar = () => {

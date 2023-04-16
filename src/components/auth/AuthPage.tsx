@@ -17,7 +17,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose}>
+    <Modal isOpen={isOpen} onRequestClose={onClose} className="authpage__modal">
       <div className="authpage">
         <header className="authpage_title">
           <h1>DOAK</h1>
