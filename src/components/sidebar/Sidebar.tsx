@@ -25,8 +25,8 @@ const wineOptions: FilterOption[] = [
 const drinkOptions: FilterOption[] = [
   { name: "all", label: "All" },
   { name: "100ml", label: "100ml" },
-  { name: "100ml", label: "100ml" },
-  { name: "100ml", label: "100ml" },
+  { name: "120ml", label: "120ml" },
+  { name: "150ml", label: "150ml" },
 ];
 const brandOptions: FilterOption[] = [
   { name: "all", label: "All" },
