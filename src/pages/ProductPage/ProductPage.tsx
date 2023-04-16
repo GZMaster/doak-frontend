@@ -11,12 +11,12 @@ interface IOption {
 }
 export default function ProductPage() {
   const [size, setSize] = useState("");
-  const [quantity, setQuantity] = useState("1");
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSize(event.target.value);
   };
 
+  const [quantity, setQuantity] = useState("1");
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity || prevQuantity === "1") {
