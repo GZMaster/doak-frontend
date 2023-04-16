@@ -2,6 +2,10 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
+.authpage__modal {
+  color: rgba(0, 0, 0, 0.9);
+}
+
 .authpage {
   display: flex;
   flex-direction: column;
