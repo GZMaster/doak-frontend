@@ -1,5 +1,5 @@
 import React from "react";
-import { InputFields } from "../../components/Main";
+import { InputFields } from "../../lib/Main";
 import "./AuthPage";
 
 const LoginPage = () => {
