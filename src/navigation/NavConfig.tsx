@@ -19,7 +19,7 @@ const NavConfig = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/contactus" element={<ContactPage />} />
+        <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<Page404 />} />
       </Route>
