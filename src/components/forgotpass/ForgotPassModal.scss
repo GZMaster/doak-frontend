@@ -2,7 +2,7 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-.signinpage {
+.forgotpassmodal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@
   height: auto;
 }
 
-.signin_title {
+.forgotpassmodal_title {
   display: flex;
   width: 382px;
   height: 46px;
@@ -35,7 +35,7 @@
     font-size: 32px;
     line-height: 46px;
     text-align: center;
-    margin-left: 9rem;
+    margin-right: 9rem;
   }
 
   > button {
