@@ -1,5 +1,5 @@
 import React from "react";
-import "./About.scss";
+import "./AboutPage.scss";
 
 const icons = [
   {
