@@ -2,11 +2,7 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-.authpage__modal {
-  color: rgba(0, 0, 0, 0.9);
-}
-
-.authpage {
+.forgotpassmodal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +20,7 @@
   height: auto;
 }
 
-.authpage_title {
+.forgotpassmodal_title {
   display: flex;
   width: 382px;
   height: 46px;
@@ -39,7 +35,7 @@
     font-size: 32px;
     line-height: 46px;
     text-align: center;
-    margin-left: 9rem;
+    margin-right: 9rem;
   }
 
   > button {
