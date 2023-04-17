@@ -17,7 +17,21 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} className="modal">
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className="modal"
+      style={{
+        overlay: {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      }}
+    >
       <div className="authmodal">
         <header className="authmodal_title">
           <h1>DOAK</h1>
