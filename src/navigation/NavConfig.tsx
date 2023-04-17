@@ -8,6 +8,7 @@ import ProductPage from "../pages/ProductPage/ProductPage";
 import AboutPage from "../pages/about/AboutPage";
 import ContactPage from "../pages/Contact/ContactPage";
 import FaqPage from "../pages/faq/FaqPage";
+import Page404 from "../pages/404/404Page";
 
 const NavConfig = () => {
   return (
@@ -20,6 +21,7 @@ const NavConfig = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contactus" element={<ContactPage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="*" element={<Page404 />} />
       </Route>
     </Routes>
   );
