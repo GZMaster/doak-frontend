@@ -6,7 +6,7 @@ import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
 import user from "../../assets/Images/icons/user-square.svg";
-import AuthPage from "../auth/AuthPage";
+import AuthModal from "../auth/AuthModal";
 import "./NavBar.scss";
 
 const NavBar = () => {
@@ -60,7 +60,7 @@ const NavBar = () => {
         )}
       </nav>
 
-      <AuthPage isOpen={isAuthOpen} onClose={handleAuthClose} />
+      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
     </>
   );
 };
