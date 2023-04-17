@@ -12,6 +12,24 @@ const icons = [
   },
 ];
 
+const aboutimages = [
+  {
+    image: "image1",
+    name: "Samuel Sangotayo",
+    position: "CEO",
+  },
+  {
+    image: "image2",
+    name: "Samuel Sangotayo",
+    position: "CEO",
+  },
+  {
+    image: "image3",
+    name: "Samuel Sangotayo",
+    position: "CEO",
+  },
+];
+
 export const AboutPage = () => {
   return (
     <div className="aboutpage">
@@ -51,6 +69,19 @@ export const AboutPage = () => {
               <div className="aboutpage__icon" key={data.icon}>
                 <img src={data.icon} alt="" />
                 <p>{data.text}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="aboutpage__body__bottom">
+          <h1>Our Mission</h1>
+          {aboutimages.map((data) => {
+            return (
+              <div className="aboutpage__image" key={data.image}>
+                <img src={data.image} alt="" />
+                <h2>{data.name}</h2>
+                <p>{data.position}</p>
               </div>
             );
           })}
