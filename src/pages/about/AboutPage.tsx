@@ -1,32 +1,49 @@
 import React from "react";
 import "./AboutPage.scss";
+import people from "../../assets/Images/others/people.png";
+import samuel from "../../assets/Images/others/samuel.png";
+import chidiebere from "../../assets/Images/others/chidiebere.png";
+import faith from "../../assets/Images/others/faith.png";
+import lilian from "../../assets/Images/others/lilian.png";
+import crown from "../../assets/Images/icons/crown.svg";
+import nigeria from "../../assets/Images/icons/nigeria.svg";
+import house from "../../assets/Images/icons/house.svg";
 
 const icons = [
   {
-    icon: "icon1",
+    icon: house,
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
-    icon: "icon2",
-    text: "",
+    icon: crown,
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores totam itaque sed in. A, voluptatem maiores odio neque dolores dicta, et dolor modi, nostrum necessitatibus architecto amet perferendis est rem!",
+  },
+  {
+    icon: nigeria,
+    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut optio sapiente maiores perspiciatis perferendis esse fugiat explicabo voluptate sint, eaque praesentium rem fuga pariatur non nam, voluptas reprehenderit delectus at.",
   },
 ];
 
 const aboutimages = [
   {
-    image: "image1",
+    image: samuel,
     name: "Samuel Sangotayo",
-    position: "CEO",
+    position: "Managing Director",
   },
   {
-    image: "image2",
-    name: "Samuel Sangotayo",
-    position: "CEO",
+    image: lilian,
+    name: "Lilian Obere",
+    position: "Financial Manager",
   },
   {
-    image: "image3",
-    name: "Samuel Sangotayo",
-    position: "CEO",
+    image: chidiebere,
+    name: "Chidiebere Nwanuku",
+    position: "Account ManagerAccount Manager",
+  },
+  {
+    image: faith,
+    name: "Faith Eneghalu",
+    position: "Product Manager",
   },
 ];
 
@@ -41,7 +58,7 @@ export const AboutPage = () => {
       </div>
 
       <div className="aboutpage__hero">
-        <img src="heroimage" alt="heroimage" />
+        <img src={people} alt="people discussing" />
       </div>
 
       <div className="aboutpage__body">
@@ -73,9 +90,10 @@ export const AboutPage = () => {
             );
           })}
         </div>
-
-        <div className="aboutpage__body__bottom">
-          <h1>Our Mission</h1>
+      </div>
+      <div className="aboutpage__body__bottom">
+        <h1>Meet the the team/ Board of Directors</h1>
+        <div className="aboutpage__us">
           {aboutimages.map((data) => {
             return (
               <div className="aboutpage__image" key={data.image}>
