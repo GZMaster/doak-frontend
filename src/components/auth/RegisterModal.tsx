@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { InputFields } from "../../components/Main";
-import "./AuthPage.scss";
+import { InputFields } from "../../lib/Main";
+import "./AuthModal.scss";
 
-const RegisterPage = () => {
+const RegisterModal = () => {
   const [step, setStep] = useState("step1");
   const [buttonText] = useState("Continue");
 
@@ -59,12 +59,14 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="registerpage">
+    <div className="registermodal">
       {step === "step1" && step1()}
       {step === "step2" && step2()}
       {step === "step3" && step3()}
+
+      <div className="registermodal__footer">{/* PAGINATION GOES HERE */}</div>
     </div>
   );
 };
 
-export default RegisterPage;
+export default RegisterModal;

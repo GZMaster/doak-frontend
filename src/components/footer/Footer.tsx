@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.scss";
-import Brand from "../../assets/Images/logo/logo.png";
+import Brand from "../../assets/Images/logo/logo_white.svg";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
