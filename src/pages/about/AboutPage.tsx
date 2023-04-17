@@ -1,5 +1,11 @@
 import React from "react";
 import "./AboutPage.scss";
+import people from "../../assets/Images/others/people.png";
+import samuel from "../../assets/Images/others/samuel.png";
+import chidiebere from "../../assets/Images/others/chidiebere.png";
+import faith from "../../assets/Images/others/faith.png";
+import lilian from "../../assets/Images/others/lilian.png";
+import crown from "../../assets/Images/icons/crown.svg";
 
 const icons = [
   {
