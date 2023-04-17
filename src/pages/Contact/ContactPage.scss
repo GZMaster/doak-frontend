@@ -1,0 +1,45 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.cntctimg {
+  width: 100%;
+}
+.contactimg {
+  padding-bottom: 5.125rem;
+}
+.more_info {
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
+  padding-bottom: 6rem;
+}
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+}
+.wicon .igicon .fbicon {
+  padding-top: 0.125rem;
+}
+h2 {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #000000;
+}
+p {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #333333;
+}
