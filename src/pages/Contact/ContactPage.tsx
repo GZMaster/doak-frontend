@@ -1,9 +1,9 @@
 import React from "react";
 import "./ContactPage.scss";
 import contactpagebg from "../../assets/Images/others/contactpagebg.png";
-import fbicon from "../../assets/Images/logo/facebook-icon.png";
-import wicon from "../../assets/Images/logo/whatsapp-icon.png";
-import igicon from "../../assets/Images/logo/instagram-icon.png";
+import fbicon from "../../assets/Images/icons/facebook.svg";
+import wicon from "../../assets/Images/icons/whatsapp.svg";
+import igicon from "../../assets/Images/icons/instagram.svg";
 
 const ContactPage = () => {
   return (
