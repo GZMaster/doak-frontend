@@ -14,6 +14,7 @@
   align-items: center;
   background-color: $white;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
   @include landscape {
     padding: 15px;
   }
@@ -107,8 +108,4 @@
       }
     }
   }
-}
-.colorChange {
-  background-color: $white;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 10%);
 }
