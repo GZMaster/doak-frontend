@@ -46,3 +46,21 @@
     margin-right: 1rem;
   }
 }
+
+.registermodal {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  overflow: hidden;
+
+  > form {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2.5rem);
+
+    > button {
+      width: 100%;
+    }
+  }
+}

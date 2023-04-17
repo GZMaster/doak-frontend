@@ -17,8 +17,10 @@ function InputFields({
 }: IInput) {
   return (
     <label className="inputfield">
-      {label && <span className="inputfield__label">{label}</span>}
-      <span className="inputfield__label">{label}</span>
+      <span className="inputfield__label">
+        {label}
+        {required && <span className="inputfield__label__required">*</span>}
+      </span>
       <div>
         {prefix && <span className="inputfield__verify">{prefix}</span>}
         <input
