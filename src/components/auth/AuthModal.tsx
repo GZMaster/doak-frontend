@@ -37,9 +37,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             Log in
           </button>
         </div>
-        <div>
-          {authModal === "register" ? <RegisterModal /> : <LoginPage />}
-        </div>
+        {authModal === "register" ? <RegisterModal /> : <LoginPage />}
         <div>
           <p>or</p>
         </div>
