@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
-import logo from "../../assets/Images/logo/logo.png";
+import logo from "../../assets/Images/logo/logo.svg";
 import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
@@ -11,15 +11,6 @@ import "./NavBar.scss";
 
 const NavBar = () => {
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const [colorChange, setColorChange] = useState(false);
-  const changeNavbarColor = () => {
-    if (window.scrollY >= 50 || !isPageWide) {
-      setColorChange(true);
-    } else {
-      setColorChange(false);
-    }
-  };
-  window.addEventListener("scroll", changeNavbarColor);
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
@@ -29,9 +20,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav
-        className={colorChange ? "nav_component colorChange" : "nav_component"}
-      >
+      <nav className="nav_component">
         <div className="nav_header">
           <img className="logo" src={logo} alt="Brand Name" />
         </div>
