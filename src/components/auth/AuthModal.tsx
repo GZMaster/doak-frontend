@@ -3,6 +3,8 @@ import Modal from "react-modal";
 import RegisterModal from "./RegisterModal";
 import LoginPage from "./LoginModal";
 import "./AuthModal.scss";
+import logo from "../../assets/Images/logo/logo.svg";
+import cancel from "../../assets/Images/icons/Cancel.svg";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -24,17 +26,28 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         overlay: {
           position: "fixed",
           top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+        content: {
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+          background: "transparent",
+          border: "none",
+          zIndex: 5,
+          marginTop: "2%",
         },
       }}
     >
       <div className="authmodal">
         <header className="authmodal_title">
-          <h1>DOAK</h1>
-          <button onClick={onClose}>x</button>
+          <img className="logo" src={logo} alt="Brand Name" />
+          <button onClick={onClose}>
+            <img src={cancel} alt="" />
+          </button>
         </header>
         <div className="authmodal_options">
           <button
