@@ -1,4 +1,11 @@
 import React from "react";
+import ProfileMenu from "./ProfileMenu";
+import OrdersMenu from "./OrdersMenu";
+import NotificationsMenu from "./NotificationsMenu";
+import AddressesMenu from "./AddressesMenu";
+import VouchersMenu from "./VouchersMenu";
+import RateUsMenu from "./RateUsMenu";
+import HelpMenu from "./HelpMenu";
 import "./AccountPage.scss";
 
 const sidbaritems = [
@@ -36,13 +43,23 @@ const sidbaritems2 = [
 ];
 
 const AccountPage = () => {
+  const [activeMenu, setActiveMenu] = React.useState("Profile");
+
+  const onMenuChange = (e: string) => {
+    setActiveMenu(e);
+  };
+
   return (
     <div className="accountpage">
       <div className="accountpage__sidebar">
         <div className="accountpage__sidebar__title">My Doak Account</div>
         <div className="accountpage__sidebar__section">
           {sidbaritems.map((item, index) => (
-            <button className="accountpage__sidebar_item" key={index}>
+            <button
+              className="accountpage__sidebar_item"
+              key={index}
+              onClick={() => onMenuChange(item.text)}
+            >
               <span className="accountpage__sidebar_item__icon">
                 <img src={item.icon} alt="" />
               </span>
@@ -72,6 +89,16 @@ const AccountPage = () => {
         <div className="accountpage__sidebar__section">
           <button className="accountpage__sidebar_logout">Log Out</button>
         </div>
+      </div>
+
+      <div className="accountpage__content">
+        {activeMenu === "Profile" && <ProfileMenu />}
+        {activeMenu === "Orders" && <OrdersMenu />}
+        {activeMenu === "Notifications" && <NotificationsMenu />}
+        {activeMenu === "Addresses" && <AddressesMenu />}
+        {activeMenu === "Vouchers" && <VouchersMenu />}
+        {activeMenu === "Rate Us" && <RateUsMenu />}
+        {activeMenu === "Help" && <HelpMenu />}
       </div>
     </div>
   );

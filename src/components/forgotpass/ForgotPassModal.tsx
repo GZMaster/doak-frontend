@@ -74,7 +74,20 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onClose} className="modal">
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={{
+        overlay: {
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+        },
+      }}
+    >
       <div className="forgotpassmodal">
         <header className="forgotpassmodal_title">
           <button onClick={onClose}>x</button>
