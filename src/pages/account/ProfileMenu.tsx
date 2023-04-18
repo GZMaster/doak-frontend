@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { InputFields } from "../../lib/Main";
-import SelectAddress from "../../components/address/SelectAddress";
+import SelectAddress from "../../components/address/SelectAddressModal";
 import "./AccountPage.scss";
 
 const ProfileMenu = () => {
