@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import "./SelectAddress.scss";
+import "./AddressModal.scss";
 
 interface SelectAddressProps {
   handleAddressChange: () => void;
