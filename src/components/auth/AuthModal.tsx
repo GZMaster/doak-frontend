@@ -5,6 +5,7 @@ import LoginPage from "./LoginModal";
 import "./AuthModal.scss";
 import logo from "../../assets/Images/logo/logo.svg";
 import cancel from "../../assets/Images/icons/Cancel.svg";
+import google_icon from "../../assets/Images/icons/google.svg";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -27,6 +28,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           position: "fixed",
           top: 0,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 1000,
         },
         content: {
           top: "50%",
@@ -38,7 +40,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           background: "transparent",
           border: "none",
           zIndex: 5,
-          marginTop: "2%",
+          padding: 0,
         },
       }}
     >
@@ -65,11 +67,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         </div>
         {authModal === "register" ? <RegisterModal /> : <LoginPage />}
         <div>
-          <p>or</p>
+          <p className="auth__or">or</p>
         </div>
-        <div className="authmodal__footer">
-          <button>Continue with Google</button>
-        </div>
+        <button className="authmodal__footer">
+          <img src={google_icon} alt="icon" /> Continue with Google
+        </button>
       </div>
     </Modal>
   );
