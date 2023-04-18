@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 export default function CheckOutTab() {
   return (
-    <section>
+    <>
       <Tabs className="tabs">
         <TabList className="tabs-header">
           <Tab className="tabs-title">DELIVERY</Tab>
@@ -57,6 +57,6 @@ export default function CheckOutTab() {
           </div>
         </TabPanel>
       </Tabs>
-    </section>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
 import product from "../../assets/Images/others/Rectangle 62.png";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const [quantity, setQuantity] = useState("1");
@@ -106,7 +107,9 @@ export default function Cart() {
             <div className="subtotal">
               Subtotal <span>N3,000,000</span>
             </div>
-            <button className="btn">CHECK OUT</button>
+            <Link to="/checkout" className="btn">
+              CHECK OUT
+            </Link>
           </div>
         </div>
       </div>
