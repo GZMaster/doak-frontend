@@ -7,37 +7,44 @@ import VouchersMenu from "./VouchersMenu";
 import RateUsMenu from "./RateUsMenu";
 import HelpMenu from "./HelpMenu";
 import "./AccountPage.scss";
+import profileicon from "../../assets/Images/icons/profileicon.svg";
+import ordersicon from "../../assets/Images/icons/ordersicon.svg";
+import notificationicon from "../../assets/Images/icons/notificationicon.svg";
+import addressicon from "../../assets/Images/icons/addressicon.svg";
+import vouchericon from "../../assets/Images/icons/vouchericon.svg";
+import rateicon from "../../assets/Images/icons/rateicon.svg";
+import helpicon from "../../assets/Images/icons/helpicon.svg";
 
 const sidbaritems = [
   {
-    icon: "profilelogo",
+    icon: profileicon,
     text: "Profile",
   },
   {
-    icon: "orderlogo",
+    icon: ordersicon,
     text: "Orders",
   },
   {
-    icon: "notificationlogo",
+    icon: notificationicon,
     text: "Notifications",
   },
   {
-    icon: "Addresslogo",
+    icon: addressicon,
     text: "Addresses",
   },
   {
-    icon: "voucherlogo",
+    icon: vouchericon,
     text: "Vouchers",
   },
 ];
 
 const sidbaritems2 = [
   {
-    icon: "rateuslogo",
+    icon: rateicon,
     text: "Rate Doak Services",
   },
   {
-    icon: "helplogo",
+    icon: helpicon,
     text: "Help Center",
   },
 ];
@@ -77,7 +84,7 @@ const AccountPage = () => {
           {sidbaritems2.map((item, index) => (
             <button className="accountpage__sidebar_item" key={index}>
               <span className="accountpage__sidebar_item__icon">
-                <img src="" alt="" />
+                <img src={item.icon} alt="" />
               </span>
               <span className="accountpage__sidebar_item__text">
                 {item.text}
