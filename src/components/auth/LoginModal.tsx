@@ -21,9 +21,14 @@ const LoginPage = () => {
               label="Password"
               placeholder="Password"
             />
-            <button onClick={() => setForgotPass(true)}>Forgot password</button>
+            <button
+              className="auth__forgot__pass"
+              onClick={() => setForgotPass(true)}
+            >
+              Forgot password?
+            </button>
 
-            <button>Log in</button>
+            <button className="auth_continue_btn">Log in</button>
           </form>
         </div>
       ) : (
