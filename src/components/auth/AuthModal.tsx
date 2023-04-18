@@ -20,7 +20,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      className="modal"
       style={{
         overlay: {
           position: "fixed",
