@@ -3,7 +3,8 @@
 @import "../../styles/breakpoints";
 
 .aboutpage {
-  background-color: $background;
+  height: auto;
+  // background-color: $background;
 }
 .aboutpage__header {
   font-family: $Poppins;
