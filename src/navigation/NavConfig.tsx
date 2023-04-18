@@ -15,14 +15,14 @@ const NavConfig = () => {
   return (
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="/" element={<Main />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/product" element={<ProductPage />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contactus" element={<ContactPage />} />
-        <Route path="/faq" element={<FaqPage />} />
+        <Route path="" element={<Main />} />
+        <Route path="account" element={<AccountPage />} />
+        <Route path="product" element={<ProductPage />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact-us" element={<ContactPage />} />
+        <Route path="faq" element={<FaqPage />} />
         <Route path="*" element={<Page404 />} />
       </Route>
     </Routes>
