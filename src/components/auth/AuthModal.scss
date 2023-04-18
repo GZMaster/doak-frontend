@@ -11,10 +11,6 @@
   gap: 24px;
   background: $white;
   border-radius: 10px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 1;
   width: auto;
   height: auto;
@@ -26,10 +22,10 @@
   height: 46px;
   background: $white;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
 
   > h1 {
-    font-family: "Poppins", sans-serif;
+    font-family: $Poppins;
     font-style: normal;
     font-weight: 600;
     font-size: 32px;
@@ -44,6 +40,44 @@
     outline: none;
     cursor: pointer;
     margin-right: 1rem;
+    position: absolute;
+    left: calc(85% + 6px);
+  }
+}
+.auth_continue_btn {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  background-color: $black;
+  color: $white;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+.authmodal_options {
+  display: flex;
+  gap: 70px;
+  align-items: center;
+  .authmodal_registerbtn {
+    all: unset;
+    cursor: pointer;
+    color: $black;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .authmodal_loginbtn {
+    all: unset;
+    cursor: pointer;
+    color: $black;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
   }
 }
 
@@ -51,13 +85,12 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 2rem 2.5rem;
   overflow: hidden;
 
   > form {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 2.5rem);
+    width: 100%;
 
     > button {
       width: 100%;
