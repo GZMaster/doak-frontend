@@ -19,10 +19,20 @@ const RegisterModal = () => {
           placeholder="First Name"
           required={true}
         />
-        <InputFields type="text" label="Last Name" placeholder="Last Name" />
-        <InputFields type="email" label="Email" placeholder="Email" />
+        <InputFields
+          type="text"
+          label="Last Name"
+          placeholder="Last Name"
+          required
+        />
+        <InputFields type="email" label="Email" placeholder="Email" required />
 
-        <button onClick={() => onChangeStep("step2")}>{buttonText}</button>
+        <button
+          className="auth_continue_btn"
+          onClick={() => onChangeStep("step2")}
+        >
+          {buttonText}
+        </button>
       </form>
     );
   };
@@ -38,7 +48,12 @@ const RegisterModal = () => {
           label="Password again"
         />
 
-        <button onClick={() => onChangeStep("step3")}>{buttonText}</button>
+        <button
+          className="auth_continue_btn"
+          onClick={() => onChangeStep("step3")}
+        >
+          {buttonText}
+        </button>
       </form>
     );
   };
@@ -53,7 +68,7 @@ const RegisterModal = () => {
           required={true}
         />
 
-        <button>{buttonText}</button>
+        <button className="auth_continue_btn">{buttonText}</button>
       </form>
     );
   };

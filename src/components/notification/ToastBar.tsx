@@ -4,15 +4,16 @@ import "./ToastBar.scss";
 interface ToastBarProps {
   message: string;
   type: string;
+  icon: string;
 }
 
-const ToastBar: React.FC<ToastBarProps> = ({ message, type }) => {
+const ToastBar: React.FC<ToastBarProps> = ({ message, type, icon }) => {
   return (
     <div className="toastbar">
       <div className={`toastbar__message toastbar__message--${type}`}>
-        <img src={`/assets/Images/icons/${type}-icon.svg`} alt="icon" />
+        <img src={icon} alt="icon" />
         {message}
-      </div> 
+      </div>
     </div>
   );
 };
