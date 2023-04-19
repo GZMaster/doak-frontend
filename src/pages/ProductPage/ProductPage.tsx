@@ -1,16 +1,35 @@
 import React from "react";
-import "./productPage.scss";
-import img from "../../assets/Images/others/Image.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import ProductTab from "../../components/Tabs/ProductTab";
-import { Link } from "react-router-dom";
+import ToastBar from "../../components/notification/ToastBar";
+import "./productPage.scss";
+import img from "../../assets/Images/others/Image.png";
+import successicon from "../../assets/Images/icons/success-icon.svg";
+
 interface IOption {
   label: string;
   value: string;
 }
 export default function ProductPage() {
   const [size, setSize] = useState("");
+  const [showToastBar, setShowToastBar] = useState(false);
+
+  useEffect(() => {
+    let toastTimeout: NodeJS.Timeout | undefined;
+    if (showToastBar) {
+      toastTimeout = setTimeout(() => {
+        setShowToastBar(false);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(toastTimeout);
+    };
+  }, [showToastBar]);
+
+  const handleAddCart = () => {
+    setShowToastBar(true);
+  };
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSize(event.target.value);
@@ -59,6 +78,13 @@ export default function ProductPage() {
 
   return (
     <section className="single-product">
+      {showToastBar && (
+        <ToastBar
+          type="success"
+          message="Successfully Added to Cart"
+          icon={successicon}
+        />
+      )}
       <div className="product-wrapper">
         <div className="product-image">
           <img src={img} alt="product" />
@@ -120,9 +146,9 @@ export default function ProductPage() {
                 </>
               )}
             </p>
-            <Link to="/cart" className="add-to-cart-btn" type="submit">
+            <button className="add-to-cart-btn" onClick={handleAddCart}>
               Add to Cart
-            </Link>
+            </button>
           </div>
         </div>
       </div>
