@@ -1,0 +1,58 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.textfield {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  width: 91%;
+  position: relative;
+  font-family: $Poppins;
+  font-size: 1.4rem;
+  color: $text;
+
+  &__label {
+    // margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $text;
+
+    &__required {
+      font-size: 1.4rem;
+      color: $input-required;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.6rem 0.875rem;
+    border: 1px solid $border;
+    border-radius: $border-radius;
+    font-size: 0.875rem;
+    color: $text;
+    background-color: $white;
+    transition: all 0.2s;
+    resize: none;
+
+    &:focus {
+      outline: none;
+      border-color: $border;
+    }
+
+    &--error {
+      border-color: $input-error;
+    }
+
+    &--placeholder {
+      color: $text-fade;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -1.5rem;
+    font-size: 1.2rem;
+    color: $input-error;
+  }
+}
