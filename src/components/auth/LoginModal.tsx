@@ -1,13 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputFields } from "../../lib/Main";
 import ForgotPassModal from "../forgotpass/ForgotPassModal";
 import "./AuthModal.scss";
 
-const LoginPage = () => {
+interface props {
+  isUserLoggedIn: boolean;
+}
+
+const LoginPage: React.FC<props> = ({ isUserLoggedIn }) => {
+  const navigate = useNavigate();
   const [forgotPass, setForgotPass] = useState(false);
 
   const handleModal = () => {
     setForgotPass(false);
+  };
+
+  const handleLogin = () => {
+    isUserLoggedIn = true;
+    navigate("/account");
   };
 
   return (
@@ -28,7 +39,9 @@ const LoginPage = () => {
               Forgot password?
             </button>
 
-            <button className="auth_continue_btn">Log in</button>
+            <button className="auth_continue_btn" onClick={handleLogin}>
+              Log in
+            </button>
           </form>
         </div>
       ) : (
