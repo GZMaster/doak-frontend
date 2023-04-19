@@ -82,7 +82,11 @@ const AccountPage = () => {
 
         <div className="accountpage__sidebar__section">
           {sidbaritems2.map((item, index) => (
-            <button className="accountpage__sidebar_item" key={index}>
+            <button
+              className="accountpage__sidebar_item"
+              key={index}
+              onClick={() => onMenuChange(item.text)}
+            >
               <span className="accountpage__sidebar_item__icon">
                 <img src={item.icon} alt="" />
               </span>
@@ -104,8 +108,8 @@ const AccountPage = () => {
         {activeMenu === "Notifications" && <NotificationsMenu />}
         {activeMenu === "Addresses" && <AddressesMenu />}
         {activeMenu === "Vouchers" && <VouchersMenu />}
-        {activeMenu === "Rate Us" && <RateUsMenu />}
-        {activeMenu === "Help" && <HelpMenu />}
+        {activeMenu === "Rate Doak Services" && <RateUsMenu />}
+        {activeMenu === "Help Center" && <HelpMenu />}
       </div>
     </div>
   );
