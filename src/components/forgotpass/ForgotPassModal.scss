@@ -22,7 +22,7 @@
   height: 46px;
   background: $white;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
 
   > h1 {
     font-family: "Poppins", sans-serif;
@@ -40,5 +40,21 @@
     outline: none;
     cursor: pointer;
     margin-right: 1rem;
+  }
+}
+.forgotpassmodal__body {
+  h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
   }
 }
