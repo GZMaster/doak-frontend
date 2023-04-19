@@ -5,14 +5,13 @@
 .cntctimg {
   width: 100%;
 }
-.contactimg {
-  padding-bottom: 5.125rem;
-}
 .more_info {
   display: flex;
   flex-direction: row;
-  gap: 4rem;
-  padding-bottom: 6rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  padding: 6rem;
 }
 .contact {
   display: flex;
@@ -42,4 +41,37 @@ p {
   font-size: 1rem;
   line-height: 1.5rem;
   color: #333333;
+}
+
+.feedback {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 54px;
+  gap: 24px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+
+  > form {
+    width: 100%;
+
+    > button {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 10px;
+      width: 159px;
+      height: 44px;
+      color: $white;
+      background: $black;
+      border-radius: 5px;
+      flex: none;
+      order: 4;
+      flex-grow: 0;
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { InputFields, TextFields } from "../../lib/Main";
 import "./ContactPage.scss";
 import contactpagebg from "../../assets/Images/others/contactpagebg.png";
 import fbicon from "../../assets/Images/icons/facebook.svg";
@@ -7,12 +8,35 @@ import igicon from "../../assets/Images/icons/instagram.svg";
 
 const ContactPage = () => {
   return (
-    <div>
+    <div className="contact">
       <div className="contactimg">
         <img src={contactpagebg} alt="get in touch" className="cntctimg" />
       </div>
       <div className="more_info">
-        <div className="feedback"></div>
+        <div className="feedback">
+          <form action="">
+            <InputFields
+              type="text"
+              placeholder="Enter Full Name"
+              label="What’s your full name?"
+            />
+
+            <InputFields
+              type="email"
+              placeholder="Enter Email Address"
+              label="What’s your email address"
+            />
+
+            <TextFields
+              type="text"
+              placeholder="How can we help you?"
+              label="How can we help you?"
+              rows={5}
+            />
+
+            <button className="submit">Send Message</button>
+          </form>
+        </div>
         <div className="contact">
           <div className="call">
             <h2>CALL US:</h2>
