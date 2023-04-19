@@ -6,6 +6,7 @@ import "./AuthModal.scss";
 import logo from "../../assets/Images/logo/logo.svg";
 import cancel from "../../assets/Images/icons/Cancel.svg";
 import google_icon from "../../assets/Images/icons/google.svg";
+import activebar from "../../assets/Images/icons/active-bar.svg";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -57,12 +58,14 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             onClick={() => onChangeAuthModal("register")}
           >
             Register
+            {authModal === "register" && <img src={activebar} alt="" />}
           </button>
           <button
             className="authmodal_loginbtn"
             onClick={() => onChangeAuthModal("login")}
           >
             Log in
+            {authModal === "login" && <img src={activebar} alt="" />}
           </button>
         </div>
         {authModal === "register" ? <RegisterModal /> : <LoginPage />}
