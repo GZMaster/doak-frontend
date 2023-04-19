@@ -1,16 +1,18 @@
 import React from "react";
-import "./AccountPage.scss";
+import "./NotificationsMenu.scss";
 
 const notifications = [
   {
     id: 1,
-    title: "New Message",
-    description: "You have a new message from John Doe",
+    title: "Order No. 11267880 Arriving Today!",
+    description:
+      "Samuel Enikhan (09030383868) is delivering your order today from 12pm to 3pm.",
   },
   {
     id: 2,
-    title: "New Message",
-    description: "You have a new message from John Doe",
+    title: "Updates from DOAK",
+    description:
+      "Hey Gbemisola, Doak is having a black Friday week, join us on June 14th and be one of our lucky customers this week.",
   },
 ];
 
@@ -28,11 +30,12 @@ const NotificationsMenu = () => {
             className="notificationsmenu_body_notification"
             key={notification.id}
           >
-            <div className="notificationsmenu_body_notification_title">
-              {notification.title}
+            <div className="notificationsmenu_body_notification__text">
+              <h2>{notification.title}</h2>
+              <p>{notification.description}</p>
             </div>
-            <div className="notificationsmenu_body_notification_description">
-              {notification.description}
+            <div className="notificationsmenu_body_notification__logo">
+              <img src="" alt="" />
             </div>
           </div>
         ))}

@@ -8,6 +8,7 @@ import notification from "../../assets/Images/icons/notification.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
 import user from "../../assets/Images/icons/user-square.svg";
 import AuthModal from "../auth/AuthModal";
+import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
 
 const NavBar = () => {
@@ -15,9 +16,14 @@ const NavBar = () => {
   const isPageWide = UseMediaQuery("(min-width: 769px)");
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
     setIsAuthOpen(false);
+  };
+
+  const handleNotifiClose = () => {
+    setIsNotifiOpen(false);
   };
 
   const handleReload = () => {
@@ -39,7 +45,12 @@ const NavBar = () => {
               <button>Search</button>
             </div>
             <div className="right">
-              <img src={notification} alt="notification" />
+              <img
+                src={notification}
+                alt="notification"
+                onClick={() => setIsNotifiOpen(true)}
+              />
+
               <button onClick={() => setIsAuthOpen(true)}>
                 <img src={user} alt="" />
                 Account
@@ -56,6 +67,7 @@ const NavBar = () => {
       </nav>
 
       <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
+      <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );
 };
