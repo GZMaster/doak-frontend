@@ -44,7 +44,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
       <div className="selectaddress">
         <div className="selectaddress__header">
           <h1>Select Default Address</h1>
-          <button>x</button>
+          <button onClick={onClose}>x</button>
         </div>
 
         <div className="selectaddress__body">
