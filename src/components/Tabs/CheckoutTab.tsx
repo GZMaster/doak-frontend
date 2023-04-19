@@ -4,6 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import DeliveryTab from "./DeliveryTab";
 import SummaryTab from "./SummaryTab";
+import PaymentTab from "./PaymentTab";
 export default function CheckOutTab() {
   return (
     <>
@@ -26,14 +27,7 @@ export default function CheckOutTab() {
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <p>
-              Consectetur venenatis cursus consequat turpis ornare odio
-              ultricies nisl ipsum. Arcu adipiscing erat tortor justo ac. Sed
-              nunc dui eu volutpat facilisis. Ultrices egestas libero vitae in
-              lacus volutpat arcu fusce elit. Sed augue tristique nisl ipsum. A
-              cras in tempus cursus diam ut pulvinar dolor eget. In enim
-              habitasse
-            </p>
+            <PaymentTab />
           </div>
         </TabPanel>
       </Tabs>
