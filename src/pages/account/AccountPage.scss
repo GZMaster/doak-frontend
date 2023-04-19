@@ -2,18 +2,22 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
+//sidebar
 .accountpage {
   padding-top: 7.5rem;
   padding-bottom: 28.438rem;
   display: flex;
   flex-direction: row;
   gap: 3.5rem;
+  padding-right: 7.5rem;
+  padding-left: 5rem;
 }
 .accountpage__sidebar {
-  padding-left: 7.5rem;
   display: flex;
   flex-direction: column;
   // gap: 2.563rem;
+  background-color: #ffffff;
+  width: 19rem;
 }
 .accountpage__sidebar__title {
   border: 0.063rem solid $border;
@@ -26,6 +30,7 @@
   font-size: 16px;
   line-height: 24px;
   color: #000000;
+  width: 9rem;
 }
 .accountpage__sidebar__section {
   display: flex;
@@ -69,4 +74,136 @@
   font-size: 16px;
   line-height: 24px;
   color: #000000;
+}
+
+// profile page
+.profilemenu {
+  width: 52.063rem;
+  border: 0.063rem solid $border;
+  border-style: none;
+  background-color: $white;
+  height: 35.3rem;
+}
+.profilemenu__header {
+  border-bottom: 0.063rem solid $border;
+  padding-left: 2.688rem;
+  padding-right: 43.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  & h1 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $text;
+    width: 8rem;
+  }
+}
+.profilemenu__body {
+  padding-top: 2rem;
+}
+.profilemenu__body__field {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  padding-left: 2.688rem;
+  padding-right: 2.75rem;
+  & .inputfield__input {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #9b9b9b;
+    width: 92%;
+  }
+  & .inputfield__label {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: $text;
+    padding-bottom: 0.25rem;
+  }
+}
+.profilemenu__address__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2.688rem;
+  padding-right: 2.75rem;
+  padding-bottom: 1.5rem;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: $text;
+    padding-bottom: 0.25rem;
+  }
+}
+.profilemenu__address__field__box {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  align-items: center;
+  border: 0.063rem solid $border;
+  padding-left: 1.125rem;
+  padding-right: 1.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 10px;
+}
+.profilemenu__address__field__box_address {
+  width: 41.313rem;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: $text;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $text;
+  }
+}
+.profilemenu__address__field__box_btn {
+  & button {
+    all: unset;
+    align-items: center;
+    border: none;
+    background-color: none;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $input-required;
+  }
+}
+.profilemenu__body__btn {
+  padding-left: 2.688rem;
+  padding-bottom: 6.438rem;
+  & button {
+    all: unset;
+    border: 2px solid $black;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 5px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
 }
