@@ -81,6 +81,7 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
         overlay: {
           position: "fixed",
           top: 0,
+          zIndex: 2000,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
         content: {
