@@ -104,7 +104,12 @@ const AccountPage = () => {
         </div>
 
         <div className="accountpage__sidebar__section">
-          <button className="accountpage__sidebar_logout">Log Out</button>
+          <button
+            className="accountpage__sidebar_logout"
+            onClick={handleLogout}
+          >
+            Log Out
+          </button>
         </div>
       </div>
 
