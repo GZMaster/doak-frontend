@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { InputFields } from "../../lib/Main";
 import "./ForgotPassModal.scss";
-
+import arrow from "../../assets/Images/icons/arrow-left.svg";
+import logo from "../../assets/Images/logo/logo.svg";
 interface ForgotPassModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -30,7 +31,10 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
           required={true}
         />
 
-        <button onClick={() => onChangeStep("step2", "Reset Password")}>
+        <button
+          className="auth_continue_btn"
+          onClick={() => onChangeStep("step2", "Reset Password")}
+        >
           {buttonText}
         </button>
       </form>
@@ -47,7 +51,10 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
           required={true}
         />
 
-        <button onClick={() => onChangeStep("step3", "Save New Password")}>
+        <button
+          className="auth_continue_btn"
+          onClick={() => onChangeStep("step3", "Save New Password")}
+        >
           {buttonText}
         </button>
       </form>
@@ -68,7 +75,9 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
           placeholder="Enter Password Again"
         />
 
-        <button onClick={onClose}>{buttonText}</button>
+        <button className="auth_continue_btn" onClick={onClose}>
+          {buttonText}
+        </button>
       </form>
     );
   };
@@ -98,19 +107,21 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
     >
       <div className="forgotpassmodal">
         <header className="forgotpassmodal_title">
-          <button onClick={onClose}>x</button>
-          <h1>DOAK</h1>
+          <button className="forgot_back" onClick={onClose}>
+            <img src={arrow} alt="" />
+          </button>
+          <img className="logo" src={logo} alt="Brand Name" />
         </header>
         <div className="forgotpassmodal__body">
           <h2>Reset your password</h2>
           <p>Enter your email address for password reset</p>
         </div>
 
-        <div>
+        <>
           {step === "step1" && step1()}
           {step === "step2" && step2()}
           {step === "step3" && step3()}
-        </div>
+        </>
       </div>
     </Modal>
   );
