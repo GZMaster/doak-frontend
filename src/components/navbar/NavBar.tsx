@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
@@ -10,6 +11,7 @@ import AuthModal from "../auth/AuthModal";
 import "./NavBar.scss";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -18,10 +20,14 @@ const NavBar = () => {
     setIsAuthOpen(false);
   };
 
+  const handleReload = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <nav className="nav_component">
-        <div className="nav_header">
+        <div className="nav_header" onClick={handleReload}>
           <img className="logo" src={logo} alt="Brand Name" />
         </div>
 
@@ -38,10 +44,10 @@ const NavBar = () => {
                 <img src={user} alt="" />
                 Account
               </button>
-              <div className="cart">
+              <Link to="/cart" className="cart">
                 <img src={cart} alt="" />
                 Cart
-              </div>
+              </Link>
             </div>
           </div>
         ) : (
