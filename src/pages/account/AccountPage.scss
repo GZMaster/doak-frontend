@@ -21,7 +21,8 @@
 }
 .accountpage__sidebar__title {
   border: 0.063rem solid $border;
-  padding: 1rem 3.688rem;
+  padding: 1rem 3rem;
+  align-items: center;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   font-family: $Poppins;
@@ -30,7 +31,6 @@
   font-size: 16px;
   line-height: 24px;
   color: #000000;
-  width: 9rem;
 }
 .accountpage__sidebar__section {
   display: flex;
@@ -81,8 +81,9 @@
 .profilemenu {
   width: 52.063rem;
   border: 0.063rem solid $border;
+  border-radius: 10px;
   background-color: $white;
-  height: 35.22rem;
+  height: 35.02rem;
 }
 .profilemenu__header {
   border-bottom: 0.063rem solid $border;
