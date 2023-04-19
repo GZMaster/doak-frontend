@@ -1,13 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputFields } from "../../lib/Main";
 import "./AuthModal.scss";
 
-const RegisterModal = () => {
+interface props {
+  isUserLoggedIn: boolean;
+}
+
+const RegisterModal: React.FC<props> = ({ isUserLoggedIn }) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState("step1");
   const [buttonText] = useState("Continue");
 
   const onChangeStep = (stepvalue: string) => {
     setStep(stepvalue);
+  };
+
+  const handleRegister = () => {
+    isUserLoggedIn = true;
+    navigate("/account");
   };
 
   const step1 = () => {
@@ -68,7 +79,9 @@ const RegisterModal = () => {
           required={true}
         />
 
-        <button className="auth_continue_btn">{buttonText}</button>
+        <button className="auth_continue_btn" onClick={handleRegister}>
+          {buttonText}
+        </button>
       </form>
     );
   };

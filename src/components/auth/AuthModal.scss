@@ -89,6 +89,10 @@
   align-items: center;
   .authmodal_registerbtn {
     all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: $black;
     font-family: $Poppins;
@@ -99,6 +103,10 @@
   }
   .authmodal_loginbtn {
     all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: $black;
     font-family: $Poppins;
