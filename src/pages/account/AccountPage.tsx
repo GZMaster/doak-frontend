@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import OrdersMenu from "./OrdersMenu";
 import NotificationsMenu from "./NotificationsMenu";
@@ -50,10 +51,15 @@ const sidbaritems2 = [
 ];
 
 const AccountPage = () => {
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = React.useState("Profile");
 
   const onMenuChange = (e: string) => {
     setActiveMenu(e);
+  };
+
+  const handleLogout = () => {
+    navigate("/");
   };
 
   return (
