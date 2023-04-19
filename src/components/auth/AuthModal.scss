@@ -8,12 +8,19 @@
   justify-content: center;
   align-items: center;
   padding: 32px;
-  gap: 24px;
+  gap: 16px;
   background: $white;
   border-radius: 10px;
   z-index: 1;
   width: auto;
   height: auto;
+}
+.auth__or {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .authmodal_title {
@@ -55,6 +62,23 @@
   padding: 10px 0;
   border-radius: 5px;
 }
+.authmodal__footer {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 10px 0;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid $text-fade;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  width: 100%;
+}
 .authmodal_options {
   display: flex;
   gap: 70px;
@@ -81,7 +105,8 @@
   }
 }
 
-.registermodal {
+.registermodal,
+.loginpage {
   display: flex;
   align-items: center;
   width: 100%;
@@ -96,4 +121,18 @@
       width: 100%;
     }
   }
+}
+.auth__forgot__pass {
+  all: unset;
+  width: fit-content;
+  margin-bottom: 1.5rem;
+  margin-top: -1rem;
+  color: #0094ff;
+  background-color: transparent;
+  font-family: $Poppins;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
 }
