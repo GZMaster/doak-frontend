@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { IUser } from "../../types/user";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
 import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
-import user from "../../assets/Images/icons/user-square.svg";
+import usericon from "../../assets/Images/icons/user-square.svg";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
 
-const NavBar = () => {
+interface Props {
+  context: { user: IUser | null; setUser: (user: IUser | null) => void };
+}
+
+const NavBar: React.FC<Props> = ({ context }) => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
+  const { user } = context;
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
@@ -52,7 +58,7 @@ const NavBar = () => {
               />
 
               <button onClick={() => setIsAuthOpen(true)}>
-                <img src={user} alt="" />
+                <img src={usericon} alt="" />
                 Account
               </button>
               <Link to="/cart" className="cart">
@@ -66,7 +72,11 @@ const NavBar = () => {
         )}
       </nav>
 
-      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={handleAuthClose}
+        isUserLoggedIn={!!user}
+      />
       <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );
