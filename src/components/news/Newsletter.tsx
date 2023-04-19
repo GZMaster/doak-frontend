@@ -5,7 +5,9 @@ export default function Newsletter() {
   return (
     <section className="Newsletter">
       <div className="wrapper">
-        <h1 className="title">Subscribe to our newsletter</h1>
+        <h1 className="title">
+          Subscribe to our <span style={{ color: "red" }}>newsletter</span>
+        </h1>
         <p className="text">
           Join 3,000+ people and get notifications on drinks new in stock and
           discounts messages during events or something. Expect 1-2 emails per
