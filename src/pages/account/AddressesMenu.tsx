@@ -35,27 +35,29 @@ const AddressesMenu = () => {
       )}
 
       <div className="addressesmenu_header">
-        <h3>Addresses</h3>
+        <h3>Saved Addresses</h3>
       </div>
 
       <div className="addressesmenu_body">
         {addresses.map((address) => (
           <div className="addressesmenu_address" key={address.id}>
-            <div className="addressesmenu_detials">
-              <h4>{address.title}</h4>
-              <p>{address.address}</p>
-              <p>{address.phonenumber}</p>
-            </div>
+            <div className="addressesmenu_address_container">
+              <div className="addressesmenu_detials">
+                <h4>{address.title}</h4>
+                <p>{address.address}</p>
+                <p>{address.phonenumber}</p>
+              </div>
 
-            <div className="addressesmenu_address_actions">
-              <button>Edit</button>
-              <button>Delete</button>
+              <div className="addressesmenu_address_actions">
+                <button className="edit">Edit</button>
+                <button className="delete">Delete</button>
+              </div>
             </div>
           </div>
         ))}
 
         <div className="addressesmenu_addaddress">
-          <button>Add Address</button>
+          <button>+ Add New Address</button>
         </div>
       </div>
     </div>
