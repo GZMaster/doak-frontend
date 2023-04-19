@@ -1,30 +1,31 @@
 import React from "react";
 import "./AccountPage.scss";
+import copy from "../../assets/Images/icons/copy.svg";
 
 const voucher = [
   {
     id: 1,
-    name: "Voucher 1",
-    code: "Voucher1",
-    valid: "2021-01-01",
+    name: "20% OFF all orders over N56,000",
+    code: "Code: wan365xy",
+    valid: "Valid: 10/25/2021 - 10/24/23",
   },
   {
     id: 2,
-    name: "Voucher 2",
-    code: "Voucher2",
-    valid: "2021-01-01",
+    name: "20% OFF all orders over N56,000",
+    code: "Code: wan365xy",
+    valid: "Valid: 10/25/2021 - 10/24/23",
   },
   {
     id: 3,
-    name: "Voucher 3",
-    code: "Voucher3",
-    valid: "2021-01-01",
+    name: "20% OFF all orders over N56,000",
+    code: "Code: wan365xy",
+    valid: "Valid: 10/25/2021 - 10/24/23",
   },
   {
     id: 4,
-    name: "Voucher 4",
-    code: "Voucher4",
-    valid: "2021-01-01",
+    name: "20% OFF all orders over N56,000",
+    code: "Code: wan365xy",
+    valid: "Valid: 10/25/2021 - 10/24/23",
   },
 ];
 
@@ -32,7 +33,7 @@ const VouchersMenu = () => {
   return (
     <div className="vouchersmenu">
       <div className="vouchersmenu_header">
-        <h2>Vouchers</h2>
+        <h1>Vouchers</h1>
       </div>
 
       <div className="vouchersmenu_body">
@@ -45,9 +46,8 @@ const VouchersMenu = () => {
             </div>
 
             <div className="vouchersmenu_body_voucher_actions">
-              <button>
-                <span>copylogo</span> Copy Code
-              </button>
+              <img src={copy} alt="" />
+              Copy Code
             </div>
           </div>
         ))}
