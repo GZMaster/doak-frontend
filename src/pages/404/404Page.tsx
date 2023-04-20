@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import arrowleft from "../../assets/Images/icons/arrow-left.svg";
 import "./404Page.scss";
 
 const Page404 = () => {
@@ -17,7 +18,7 @@ const Page404 = () => {
           }}
         >
           <span>
-            <img src="arrow-left.svg" alt="icons" />
+            <img src={arrowleft} alt="icons" />
           </span>
           Go back Home
         </button>
