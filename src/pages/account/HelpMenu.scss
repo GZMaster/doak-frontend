@@ -4,43 +4,23 @@
 
 
 .helpmenu {
-    box-sizing: border-box;
-    position: absolute;
-    width: 842px;
-    height: 523px;
-    left: 436px;
-    top: 120px;
-    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    height: 35.02rem;
+    width: auto;
+    background: $white;
     border-radius: 10px;
 
-//     & h2 {
-//         position: absolute;
-//     width: 109px;
-//     height: 24px;
-//     left: 32px;
-//     top: 16px;
-
-//     font-family: 'Poppins';
-//     font-style: normal;
-//     font-weight: 600;
-//     font-size: 16px;
-//     line-height: 24px;
-// /* identical to box height */
-
-
-// color: #333333;
-//     }
     
-& .helpmenu_header {
-    position: absolute;
+&_header {
+    display: flex;
     width: 842px;
-    height: 1px;
-    left: 0px;
-    top: 56px;
-
-background: #E0E0E0;
-    // border-bottom: 1px solid #c5c5c5;
-    margin: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid $border;
+ 
 }
 
  & .helpmenu_body__chat {
@@ -50,12 +30,6 @@ background: #E0E0E0;
     align-items: flex-start;
     padding: 10px 14px;
     gap: 10px;
-
-    position: absolute;
-    width: 778px;
-    height: 89px;
-    left: 32px;
-    top: 345px;
 
     background: #FFFFFF;
     border: 1px solid #C5C5C5;
@@ -69,31 +43,26 @@ background: #E0E0E0;
     padding: 10px 14px;
     gap: 10px;
 
-    position: absolute;
-    width: 132px;
-    height: 41px;
-    left: 32px;
-    top: 450px;
-
     background: #000000;
     border-radius: 5px;
 
-    & button {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 14px;
-        gap: 10px;
     
-        position: absolute;
-        width: 132px;
-        height: 41px;
-        left: 32px;
-        top: 450px;
+    & button {
+        
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: center;
+    //     align-items: center;
+    //     padding: 10px 14px;
+    //     gap: 10px;
+    
+    //     width: 132px;
+    //     height: 41px;
+    //     left: 32px;
+    //     top: 450px;
     
         background: #000000;
-        border-radius: 5px;
+    //     border-radius: 5px;
     }
 
     }
