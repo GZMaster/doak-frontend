@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { InputFields } from "../../lib/Main";
 import "./AccountPage.scss";
+import "./HelpMenu.scss"
 
 const HelpMenu = () => {
   const [messages] = useState("");
