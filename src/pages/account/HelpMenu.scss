@@ -2,17 +2,16 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-
 .helpmenu {
-    display: flex;
-    flex-direction: column;
-    height: 35.02rem;
-    width: auto;
-    background: $white;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 35.02rem;
+  width: auto;
+  background: $white;
+  border-radius: 10px;
 
-    
-&_header {
+  &_header {
     display: flex;
     width: 842px;
     flex-direction: row;
@@ -20,54 +19,56 @@
     align-items: center;
     padding: 1rem 2rem;
     border-bottom: 1px solid $border;
- 
-}
 
- & .helpmenu_body__chat {
-    box-sizing: border-box;
+    > h2 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+    }
+  }
+
+  &_body {
     display: flex;
-    flex-direction: row;
+    width: 842px;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: flex-start;
-    padding: 10px 14px;
-    gap: 10px;
+    padding: 1rem 2rem;
+    gap: 1rem;
 
-    background: #FFFFFF;
-    border: 1px solid #C5C5C5;
-    border-radius: 5px;
- }
-& .helpmenu_body__input {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 14px;
-    gap: 10px;
-
-    background: #000000;
-    border-radius: 5px;
-
-    
-    & button {
-        
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: center;
-    //     align-items: center;
-    //     padding: 10px 14px;
-    //     gap: 10px;
-    
-    //     width: 132px;
-    //     height: 41px;
-    //     left: 32px;
-    //     top: 450px;
-    
-        background: #000000;
-    //     border-radius: 5px;
+    &__cart {
     }
 
+    &__input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 14px;
+        gap: 10px;
+        color: $white;
+        background: $black;
+        border-radius: 5px;
+      }
     }
+  }
 }
-
-
-
-

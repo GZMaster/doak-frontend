@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InputFields } from "../../lib/Main";
 import "./AccountPage.scss";
-import "./HelpMenu.scss"
+import "./HelpMenu.scss";
 
 const HelpMenu = () => {
   const [messages] = useState("");
@@ -22,8 +22,8 @@ const HelpMenu = () => {
         <div className="helpmenu_body__chat">{/* MESSAGES GO HERE */}</div>
 
         <div className="helpmenu_body__input">
-          <InputFields type="string" label="What can we help you with"/>
-          
+          <InputFields type="string" placeholder="What can we help you with" />
+
           <button onSubmit={() => handleSendMessage(messages)}>
             Send Message
           </button>

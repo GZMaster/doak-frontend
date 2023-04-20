@@ -8,11 +8,11 @@ const SummaryTab = () => {
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">
-          <div className="header">
+          <div className="summary_tab_header">
             <p>Cart Items</p>
-            <p className="edit">Edit</p>
+            <p className="summary_tab_edit">Edit</p>
           </div>
-          <div className="body">
+          <div className="summary_tab_body">
             <div className="item">
               <div className="product__cart">
                 <img className="product__image" src={product} alt="" />
@@ -55,22 +55,22 @@ const SummaryTab = () => {
           </div>
         </div>
         <div className="wrapper">
-          <div className="header">
+          <div className="summary_tab_header">
             <p>Address</p>
             <p className="edit">Edit</p>
           </div>
-          <div className="body address">
+          <div className="summary_tab_body">
             <h2>Omonaluse Ohkuehne</h2>
             <p>No 14, 19th street BDPA, Ugbowo, Benin City, Oyo State</p>
             <p>+2348180281937</p>
           </div>
         </div>
         <div className="wrapper">
-          <div className="header">
+          <div className="summary_tab_header">
             <p>Delivery</p>
             <p className="edit">Edit</p>
           </div>
-          <div className="body address">
+          <div className="summary_tab_body">
             <h2>Door Delivery</h2>
             <p>To be delivered between Wenesday 22 Mar and Friday 26 Mar</p>
             <p style={{ color: "#ff3426", fontWeight: "600" }}>N2,500</p>
