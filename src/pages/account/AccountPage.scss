@@ -79,7 +79,8 @@
 
 // profile page
 .profilemenu,
-.vouchersmenu {
+.vouchersmenu,
+.addressesmenu {
   width: 52.063rem;
   // border: 0.063rem solid $border;
   border-radius: 10px;
@@ -87,20 +88,22 @@
   height: 35.02rem;
 }
 .profilemenu__header,
-.vouchersmenu_header {
+.vouchersmenu_header,
+.addressesmenu_header {
   border-bottom: 1px solid $border;
   padding-left: 2.688rem;
   padding-right: 43.75rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  & h1 {
+  & h1,
+  h3 {
     font-family: $Poppins;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     color: $text;
-    width: 8rem;
+    width: 9rem;
   }
 }
 .profilemenu__body,
@@ -261,5 +264,69 @@
   img {
     width: 24px;
     height: 24px;
+  }
+}
+
+//address menu body
+.addressesmenu_body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2.75rem;
+}
+.addressesmenu_address_container {
+  border: 0.063rem solid $border;
+  padding: 0.75rem;
+  border-radius: 10px;
+  padding-left: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.125rem;
+}
+.addressesmenu_detials {
+  & h4 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    width: 38.7rem;
+  }
+}
+.addressesmenu_addaddress {
+  & button {
+    all: unset;
+    border: 2px solid $border;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 10px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: $input-required;
+  }
+}
+.addressesmenu_address_actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1.125rem;
+  padding-right: 1.75rem;
+  & .edit {
+    border: none;
+    background-color: $white;
   }
 }
