@@ -12,15 +12,15 @@ import house from "../../assets/Images/icons/house.svg";
 const icons = [
   {
     icon: house,
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
   },
   {
     icon: crown,
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores totam itaque sed in. A, voluptatem maiores odio neque dolores dicta, et dolor modi, nostrum necessitatibus architecto amet perferendis est rem!",
+    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
   },
   {
     icon: nigeria,
-    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut optio sapiente maiores perspiciatis perferendis esse fugiat explicabo voluptate sint, eaque praesentium rem fuga pariatur non nam, voluptas reprehenderit delectus at.",
+    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
   },
 ];
 

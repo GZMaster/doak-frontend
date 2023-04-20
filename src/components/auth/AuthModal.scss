@@ -23,7 +23,8 @@
   line-height: 21px;
 }
 
-.authmodal_title {
+.authmodal_title,
+.forgotpassmodal_title {
   display: flex;
   width: 382px;
   height: 46px;
@@ -49,6 +50,9 @@
     margin-right: 1rem;
     position: absolute;
     left: calc(85% + 6px);
+  }
+  .forgot_back {
+    right: calc(85% - 6px);
   }
 }
 .auth_continue_btn {
@@ -85,6 +89,10 @@
   align-items: center;
   .authmodal_registerbtn {
     all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: $black;
     font-family: $Poppins;
@@ -95,6 +103,10 @@
   }
   .authmodal_loginbtn {
     all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     color: $black;
     font-family: $Poppins;
@@ -106,7 +118,8 @@
 }
 
 .registermodal,
-.loginpage {
+.loginpage,
+.forgotpassmodal {
   display: flex;
   align-items: center;
   width: 100%;
