@@ -328,5 +328,14 @@
   & .edit {
     border: none;
     background-color: $white;
+    color: $input-required;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  & .delete {
+    all: unset;
   }
 }
