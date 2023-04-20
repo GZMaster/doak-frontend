@@ -1,5 +1,5 @@
 import React from "react";
-import product from "../../assets/Images/others/Rectangle 62.png";
+import product from "../../assets/Images/others/itemDrink.png";
 import "./Tab.scss";
 
 const SummaryTab = () => {
@@ -8,11 +8,11 @@ const SummaryTab = () => {
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">
-          <div className="header">
+          <div className="summary_tab_header">
             <p>Cart Items</p>
-            <p className="edit">Edit</p>
+            <p className="summary_tab_edit">Edit</p>
           </div>
-          <div className="body">
+          <div className="summary_tab_body">
             <div className="item">
               <div className="product__cart">
                 <img className="product__image" src={product} alt="" />
