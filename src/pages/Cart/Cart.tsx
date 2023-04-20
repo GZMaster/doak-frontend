@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
-import product from "../../assets/Images/others/Rectangle 62.png";
+import product from "../../assets/Images/others/itemDrink.png";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
