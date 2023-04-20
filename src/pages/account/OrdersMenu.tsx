@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ViewOrderMenu from "./ViewOrderMenu";
 import "./AccountPage.scss";
 import orderimg1 from "../../assets/Images/others/orderimg1.png";
-import orderimg2 from "../../assets/Images/others/orderimg2.png";
 
 const orders = [
   {
@@ -14,6 +13,14 @@ const orders = [
       "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
     ],
     items: [{ name: "item 1" }, { name: "item 2" }, { name: "item 3" }],
+  },
+  {
+    id: 2,
+    status: "Delivered",
+    images: [
+      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    ],
+    items: [{ name: "item 1" }],
   },
 ];
 
@@ -69,7 +76,9 @@ const OrdersMenu = () => {
                     </div>
                     <div className="ordersmenu__order__content__right">
                       <div>
-                        <button onClick={handleViewDetails}>
+                        <button
+                        // onClick={handleViewDetails}
+                        >
                           View Details
                         </button>
                       </div>
