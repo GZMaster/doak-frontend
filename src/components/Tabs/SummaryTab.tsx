@@ -1,5 +1,5 @@
 import React from "react";
-import product from "../../assets/Images/others/Rectangle 62.png";
+import product from "../../assets/Images/others/itemDrink.png";
 import "./Tab.scss";
 
 const SummaryTab = () => {
