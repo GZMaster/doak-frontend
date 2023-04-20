@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./404Page.scss";
 
 const Page404 = () => {
+  const navigate = useNavigate();
   return (
     <div className="page404">
       <div className="header">
@@ -13,7 +15,7 @@ const Page404 = () => {
         
       </div>
       <div className="page404__body">
-        <button className='backbutton'>
+        <button className='backbutton' onClick={() => {navigate("/")}}>
           <img src="arrow-left.svg" alt="icons" />
           
               <p>Go back Home</p>
