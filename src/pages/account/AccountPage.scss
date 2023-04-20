@@ -1,0 +1,474 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+//sidebar
+.accountpage {
+  padding-top: 7.5rem;
+  padding-bottom: 28.438rem;
+  display: flex;
+  flex-direction: row;
+  gap: 3.5rem;
+  padding-right: 7.5rem;
+  padding-left: 5rem;
+}
+.accountpage__sidebar {
+  display: flex;
+  flex-direction: column;
+  // gap: 2.563rem;
+  background-color: $white;
+  width: 19rem;
+}
+.accountpage__sidebar__title {
+  border: 0.063rem solid $border;
+  padding: 1rem 3rem;
+  align-items: center;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}
+.accountpage__sidebar__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 0.063rem solid $border;
+  border-top: none;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.accountpage__sidebar__section:nth-child(4) {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.accountpage__sidebar_logout {
+  all: unset;
+  border: 2px solid $black;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0 1.25rem;
+}
+.accountpage__sidebar_item {
+  display: flex;
+  flex-direction: row;
+  padding-left: 1.25rem;
+  gap: 0.625rem;
+  align-items: center;
+  border: none;
+  background-color: $white;
+}
+.accountpage__sidebar_item__text {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}
+
+// profile page
+.profilemenu,
+.vouchersmenu,
+.addressesmenu,
+.ordersmenu {
+  width: 52.063rem;
+  // border: 0.063rem solid $border;
+  border-radius: 10px;
+  background-color: $white;
+  min-height: 35.02rem;
+}
+.profilemenu__header,
+.vouchersmenu_header,
+.addressesmenu_header,
+.ordersmenu__header {
+  border-bottom: 1px solid $border;
+  padding-left: 2.688rem;
+  padding-right: 43.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  & h1,
+  h3 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $text;
+    width: 9rem;
+  }
+}
+.profilemenu__body,
+.vouchersmenu_body {
+  padding-top: 2rem;
+}
+.profilemenu__body__field,
+.vouchersmenu_body_voucher {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  padding-left: 2.688rem;
+  padding-right: 2.75rem;
+  & .inputfield__input {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #9b9b9b;
+    width: 92%;
+  }
+  & .inputfield__label {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: $text;
+    padding-bottom: 0.25rem;
+  }
+}
+.profilemenu__address__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2.688rem;
+  padding-right: 2.75rem;
+  padding-bottom: 1.5rem;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: $text;
+    padding-bottom: 0.25rem;
+  }
+}
+.profilemenu__address__field__box {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  align-items: center;
+  border: 0.063rem solid $border;
+  padding-left: 1.125rem;
+  padding-right: 1.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 10px;
+}
+.profilemenu__address__field__box_address {
+  width: 41.313rem;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: $text;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $text;
+  }
+}
+.profilemenu__address__field__box_btn {
+  & button {
+    all: unset;
+    align-items: center;
+    border: none;
+    background-color: none;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $input-required;
+  }
+}
+.profilemenu__body__btn {
+  padding-left: 2.688rem;
+  padding-bottom: 6.438rem;
+  & button {
+    all: unset;
+    border: 2px solid $black;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 5px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+  }
+}
+.vouchersmenu_body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.vouchersmenu_body_voucher {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  align-items: center;
+  border: 0.063rem solid $border;
+  padding-left: 1.125rem;
+  padding-right: 1.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 10px;
+  width: 40%;
+  justify-content: space-between;
+  h4 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+}
+.vouchersmenu_body_voucher_actions {
+  font-family: $Poppins;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  color: #9b9b9b;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+//address menu body
+.addressesmenu_body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2.75rem;
+}
+.addressesmenu_address_container {
+  border: 0.063rem solid $border;
+  padding: 0.75rem;
+  border-radius: 10px;
+  padding-left: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.125rem;
+}
+.addressesmenu_detials {
+  & h4 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    width: 38.7rem;
+  }
+}
+.addressesmenu_addaddress {
+  & button {
+    all: unset;
+    border: 2px solid $border;
+    padding: 10px 14px;
+    text-align: center;
+    border-radius: 10px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: $input-required;
+  }
+}
+.addressesmenu_address_actions {
+  display: flex;
+  flex-direction: row;
+  gap: 1.125rem;
+  padding-right: 1.75rem;
+  & .edit {
+    border: none;
+    background-color: $white;
+    color: $input-required;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  & .delete {
+    all: unset;
+  }
+}
+
+//orders menu
+.ordersmenu__body {
+  padding-top: 2.313rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ordersmenu__order {
+  display: flex;
+  flex-direction: column;
+  border: 0.063rem solid $border;
+  padding: 0.75rem;
+  border-radius: 10px;
+  padding-left: 1.125rem;
+}
+.ordersmenu__order__header {
+  display: flex;
+  flex-direction: row;
+  gap: 0.688rem;
+  align-items: center;
+  padding-bottom: 0.813rem;
+  & h2 {
+    color: $text;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  & .Order_Placed {
+    border: 0.063rem solid #c3f8d2;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #21e558;
+    background-color: #c3f8d2;
+  }
+  & .Order_Confirmed,
+  .Shipped,
+  .Delivered,
+  .Failed_Payment {
+    border: 0.063rem solid #c3f8d2;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #21e558;
+    background-color: #c3f8d2;
+  }
+  & .Failed_Payment,
+  .Failed_Delivery,
+  .Invalid_Address {
+    border: 0.063rem solid #e7cbc9;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #ff3426;
+    background-color: #e7cbc9;
+  }
+  & .Cancelled_by_self {
+    border: 0.063rem solid #7f7f7f;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $white;
+    background-color: #7f7f7f;
+  }
+}
+.ordersmenu__order__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ordersmenu__order__content {
+  display: flex;
+  flex-direction: row;
+  gap: 6.5rem;
+  align-items: center;
+}
+.ordersmenu__order__content__left {
+  width: 33.938rem;
+}
+// .ordersmenu__order__body__left {
+//   width: 33.938rem;
+// }
+.ordersmenu__order__images {
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  padding-bottom: 0.5rem;
+}
+.ordersmenu__order__item {
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: $text;
+}
+.ordersmenu__order__content__right {
+  & button {
+    all: unset;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $input-required;
+  }
+}

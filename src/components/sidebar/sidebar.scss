@@ -1,0 +1,111 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.sidebar {
+  margin: 2rem;
+  border: 2px solid $text-fade;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  border-radius: $border-radius-large;
+  align-self: baseline;
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    .sidebar-filter {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      color: $text;
+    }
+    .sidebar-reset-btn {
+      padding: 4px 10px;
+      border: 1px solid $text-fade;
+      border-radius: 29px;
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: $text;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+  .filter-option {
+    border-top: 1px solid $text-fade;
+    padding: 1rem;
+    .filter-option-header {
+      display: flex;
+      justify-content: space-between;
+      h4 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        color: $text;
+      }
+      .filter-option-btn {
+        padding: 4px 10px;
+        border: 1px solid $text-fade;
+        border-radius: 29px;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: $text;
+        background-color: transparent;
+        cursor: pointer;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+    }
+    .filter-tab {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      label {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text-light;
+        input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          background-color: #fff;
+          border: 2px solid $text-fade;
+          border-radius: $border-radius;
+          position: relative;
+          &:checked {
+            background-color: $primary;
+          }
+          &:checked::before {
+            content: url("../../assets/Images/icons/check.svg");
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+}
