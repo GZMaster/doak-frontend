@@ -5,10 +5,10 @@
 .notificationsmenu {
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 35.02rem;
   width: auto;
   background: $white;
-  border: 2px $border;
+  border-radius: 10px;
 
   &_header {
     display: flex;
@@ -17,8 +17,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    border: 1px solid $border;
-    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid $border;
 
     > h1 {
       font-family: $Poppins;
@@ -53,9 +52,6 @@
     align-items: center;
     padding: 1rem 2rem;
     gap: 1rem;
-    border: 1px solid $border;
-    border-radius: 0 0 10px 10px;
-    border-top: none;
 
     &_notification {
       display: flex;

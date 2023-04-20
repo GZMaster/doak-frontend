@@ -1,0 +1,146 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.rateusmenu {
+  display: flex;
+  flex-direction: column;
+  height: 35.02rem;
+  width: auto;
+  background: $white;
+  border-radius: 10px;
+
+  &_header {
+    display: flex;
+    width: 842px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid $border;
+
+    > h2 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+    }
+  }
+
+  &_body {
+    display: flex;
+    width: 842px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 2rem;
+    gap: 1rem;
+
+    &_rate {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text;
+      }
+    }
+
+    &_review {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 14px;
+        gap: 10px;
+        background: $black;
+        border-radius: 5px;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        color: $white;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+      }
+    }
+
+    &_rate__success {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 45px;
+
+      > h1 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 30px;
+        color: $text;
+      }
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 30px;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px;
+        gap: 10px;
+        width: auto;
+        height: auto;
+        background: $black;
+        border-radius: 5px;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $white;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+      }
+    }
+  }
+}
