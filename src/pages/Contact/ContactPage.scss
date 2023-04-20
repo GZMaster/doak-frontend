@@ -1,0 +1,77 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.cntctimg {
+  width: 100%;
+}
+.more_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 64px;
+  padding: 6rem;
+}
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+}
+.wicon .igicon .fbicon {
+  padding-top: 0.125rem;
+}
+h2 {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #000000;
+}
+p {
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #333333;
+}
+
+.feedback {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 54px;
+  gap: 24px;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 10px;
+
+  > form {
+    width: 100%;
+
+    > button {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 10px;
+      width: 159px;
+      height: 44px;
+      color: $white;
+      background: $black;
+      border-radius: 5px;
+      flex: none;
+      order: 4;
+      flex-grow: 0;
+    }
+  }
+}

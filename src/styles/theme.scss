@@ -1,0 +1,49 @@
+// COLORS
+$black: black;
+$white: white;
+$red: #ff3426;
+$primary: $black;
+// $primary: #ff3426;
+$text: #333333;
+$text-light: #656565;
+$text-fade: #9b9b9b;
+$foot-bg: #fafafa;
+$input-error: #991f17;
+$input-required: #ff3426;
+$border: #c5c5c5;
+$background: #f7f7f7;
+$success: #21e558;
+$error: #ff3426;
+
+//CONSTANTS
+$border-radius: 5px;
+$border-radius-large: 10px;
+
+//DARK/LIGHT
+$themes: (
+  light: (),
+  dark: (),
+);
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
