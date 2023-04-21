@@ -13,7 +13,9 @@ const HelpMenu = () => {
   return (
     <div className="helpmenu">
       <div className="helpmenu_header">
-        <h2>Chat Support</h2>
+        <span>
+        Chat Support
+        </span>
       </div>
 
       <div className="helpmenu_body">
