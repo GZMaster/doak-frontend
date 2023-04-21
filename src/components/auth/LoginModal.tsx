@@ -17,7 +17,7 @@ const LoginPage: React.FC<props> = ({ isUserLoggedIn }) => {
   };
 
   const handleLogin = () => {
-    isUserLoggedIn = true;
+    isUserLoggedIn;
     navigate("/account");
   };
 

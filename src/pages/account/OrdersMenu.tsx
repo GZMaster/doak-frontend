@@ -57,7 +57,7 @@ const OrdersMenu = () => {
                       <div className="ordersmenu__order__body">
                         <div className="ordersmenu__order__body__left">
                           <div className="ordersmenu__order__images">
-                            {order.images.map((image) => (
+                            {order.images.map(() => (
                               <img
                                 src={orderimg1}
                                 alt="order image"
