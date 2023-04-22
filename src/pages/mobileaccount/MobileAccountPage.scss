@@ -1,3 +1,68 @@
 @import "../../styles/theme.scss";
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
+
+.mobileaccountpage__content {
+  width: 24.25rem;
+  border: 0.063rem solid $border;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  margin: auto;
+  background-color: $white;
+}
+
+.mobileaccountpage__sidebar__title {
+  border-bottom: 1px solid $border;
+  align-items: center;
+  padding-bottom: 1rem;
+  padding: 1rem 7.688rem;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $text;
+  width: 8.875rem;
+}
+.mobileaccountpage__sidebar__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border: 0.063rem solid $border;
+  border-top: none;
+  padding-bottom: 1.5rem;
+}
+.mobileaccountpage__sidebar_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.625rem;
+  padding-left: 1.25rem;
+  background-color: $white;
+  border: none;
+}
+.mobileaccountpage__sidebar_item__text {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $text;
+}
+.mobileaccountpage__sidebar_logout {
+  all: unset;
+  border: 2px solid $black;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0 1.25rem;
+}
