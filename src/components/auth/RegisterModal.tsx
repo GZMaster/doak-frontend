@@ -17,7 +17,7 @@ const RegisterModal: React.FC<props> = ({ isUserLoggedIn }) => {
   };
 
   const handleRegister = () => {
-    isUserLoggedIn = true;
+    isUserLoggedIn;
     navigate("/account");
   };
 

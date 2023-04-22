@@ -1,6 +1,7 @@
 import React from "react";
 import AddAddressModal from "../../components/address/AddAddressModal";
 import "./AccountPage.scss";
+import trash from "../../assets/Images/icons/trash.svg";
 
 const addresses = [
   {
@@ -50,14 +51,20 @@ const AddressesMenu = () => {
 
               <div className="addressesmenu_address_actions">
                 <button className="edit">Edit</button>
-                <button className="delete">Delete</button>
+                <button className="delete">
+                  <img src={trash} alt="trashbutton" />
+                </button>
               </div>
             </div>
           </div>
         ))}
 
         <div className="addressesmenu_addaddress">
-          <button onClick={() => setIsOpen(true)}>+ Add New Address</button>
+          <button
+          // onClick={() => setIsOpen(true)}
+          >
+            + Add New Address
+          </button>
         </div>
       </div>
     </div>
