@@ -1,6 +1,7 @@
 import React from "react";
 import "./Newsletter.scss";
 import notification from "../../assets/Images/icons/notification-white.svg";
+import arrow from "../../assets/Images/icons/arrow-right.svg";
 export default function Newsletter() {
   return (
     <section className="Newsletter">
@@ -16,7 +17,12 @@ export default function Newsletter() {
         <div className="subscribe">
           <input type="text" placeholder="eg. daniellaokere445@gmail.com" />
           <button>
-            Subscribe <img src={notification} alt="" />
+            <span className="mobile">
+              <img src={arrow} alt="" />
+            </span>
+            <span className="desktop">
+              Subscribe <img src={notification} alt="" />
+            </span>
           </button>
         </div>
       </div>
