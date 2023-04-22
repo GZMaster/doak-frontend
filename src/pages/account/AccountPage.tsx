@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
-import MobileAccountPage from "./MobileAccountPage";
+import MobileAccountPage from "../mobileaccount/MobileAccountPage";
 import ProfileMenu from "./ProfileMenu";
 import OrdersMenu from "./OrdersMenu";
 import NotificationsMenu from "./NotificationsMenu";
@@ -10,7 +10,6 @@ import VouchersMenu from "./VouchersMenu";
 import RateUsMenu from "./RateUsMenu";
 import HelpMenu from "./HelpMenu";
 import "./AccountPage.scss";
-import "./Mobileview.scss";
 import profileicon from "../../assets/Images/icons/profileicon.svg";
 import ordersicon from "../../assets/Images/icons/ordersicon.svg";
 import notificationicon from "../../assets/Images/icons/notificationicon.svg";
