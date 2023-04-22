@@ -16,6 +16,7 @@
     "firebase-tools": "^11.26.0",
     "hamburger-react": "^2.5.0",
     "react": "^18.2.0",
+    "react-advanced-loader": "^2.0.1",
     "react-dom": "^18.2.0",
     "react-loader-advanced": "^1.7.1",
     "react-modal": "^3.16.1",
