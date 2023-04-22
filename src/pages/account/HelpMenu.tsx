@@ -22,8 +22,10 @@ const HelpMenu = () => {
         <div className="helpmenu_body__chat">{/* MESSAGES GO HERE */}</div>
 
         <div className="helpmenu_body__input">
+          <div className="helpmenu_body__input___field"> 
           <InputFields type="string" placeholder="What can we help you with" />
-
+          </div>
+          
           <button onSubmit={() => handleSendMessage(messages)}>
             Send Message
           </button>
