@@ -5,6 +5,7 @@ import "./MobileAccountPage";
 import staricon from "../../assets/Images/icons/staricon.svg";
 import reviewicon from "../../assets/Images/icons/review-icon.svg";
 import shoppingicon from "../../assets/Images/icons/shopping-cart-white.svg";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileRateUsMenuProps {
   handleBack: () => void;
@@ -22,7 +23,9 @@ const MobileRateUsMenu: React.FC<MobileRateUsMenuProps> = ({ handleBack }) => {
   return (
     <div className="mobilerateusmenu">
       <div className="mobilerateusmenu_header">
-        <button onClick={handleBack}>BACK</button>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
         <h2>Review Our Services</h2>
       </div>
 

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ViewOrderMenu from "../account/ViewOrderMenu";
 import "./MobileAccountPage.scss";
 import orderimg1 from "../../assets/Images/others/orderimg1.png";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
+import ArrowRight from "../../assets/Images/icons/arrow-right.svg";
 
 const orders = [
   {
@@ -41,9 +43,11 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
         <ViewOrderMenu handleViewDetail={handleViewDetails} />
       ) : (
         <>
-          <div className="mobileordersmenu__header">
-            <button onClick={handleBack}>BACK</button>
-            <h1>All Orders</h1>
+          <div className="mobileprofilemenu__header">
+            <button onClick={handleBack}>
+              <img src={backbtn} alt="back" />
+            </button>
+            <h1>All orders</h1>
           </div>
 
           <div className="mobileordersmenu__body">
@@ -84,7 +88,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
                         <button
                         // onClick={handleViewDetails}
                         >
-                          View Details
+                          <img src={ArrowRight} alt="view" />
                         </button>
                       </div>
                     </div>

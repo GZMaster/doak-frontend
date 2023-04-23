@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InputFields } from "../../lib/Main";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./MobileAccountPage.scss";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileProfilemenuProps {
   handleBack: () => void;
@@ -17,7 +18,7 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
   };
 
   return (
-    <div className="profilemenu">
+    <div className="mobileprofilemenu">
       {changeAddress && (
         <SelectAddress
           handleAddressChange={handleAddressChange}
@@ -27,7 +28,9 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
       )}
 
       <div className="mobileprofilemenu__header">
-        <button onClick={handleBack}>BACK</button>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
         <h1>Profile Settings</h1>
       </div>
 
