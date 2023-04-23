@@ -28,7 +28,9 @@ a:hover {
 }
 .main-content {
   display: flex;
+  padding: 1.5rem;
   gap: 1rem;
+  flex-direction: column;
   padding-top: 8rem;
   justify-content: center;
 }
