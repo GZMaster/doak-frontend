@@ -3,17 +3,16 @@
 @import "../../styles/breakpoints";
 
 .helpmenu {
+  width: 52.625rem;
+  border-radius: 10px;
+  background-color: $white;
+  min-height: 35.02rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 38.02rem;
-  width: auto;
-  background: $white;
-  border-radius: 0.625rem;
+  gap: 16.688rem;
 
   &_header {
     display: flex;
-    width: 52.625rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -32,16 +31,12 @@
 
   &_body {
     display: flex;
-    width: 52.625rem;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     padding: 2rem 2rem;
     gap: 1rem;
     height: 13rem;
-    
-
-  
 
     &__input {
       display: flex;
@@ -50,21 +45,17 @@
       align-items: flex-start;
 
       width: 100%;
-      ;
-      
-
-       &___field {
+      &___field {
         height: 6rem;
         border: 0.063rem solid #c5c5c5;
         border-radius: 0.25rem;
-        width: 50rem;
+        width: 45rem;
         margin-bottom: 1rem;
 
         & input {
           border: 0;
         }
       }
-
 
       > h3 {
         font-family: $Poppins;
