@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { InputFields } from "../../lib/Main";
 import "./MobileAccountPage.scss";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileHelpMenuProps {
   handleBack: () => void;
@@ -16,7 +17,9 @@ const MobileHelpMenu: React.FC<MobileHelpMenuProps> = ({ handleBack }) => {
   return (
     <div className="mobilehelpmenu">
       <div className="mobilehelpmenu_header">
-        <button onClick={handleBack}>BACK</button>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
         <span>Chat Support</span>
       </div>
 
