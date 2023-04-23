@@ -1,6 +1,7 @@
 import React from "react";
 import "./MobileAccountPage.scss";
 import copy from "../../assets/Images/icons/copy.svg";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 const voucher = [
   {
@@ -39,7 +40,9 @@ const MobileVouchersMenu: React.FC<MobileVouchersMenuProps> = ({
   return (
     <div className="mobilevouchersmenu">
       <div className="mobilevouchersmenu_header">
-        <button onClick={handleBack}>Back</button>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
         <h1>Vouchers</h1>
       </div>
 

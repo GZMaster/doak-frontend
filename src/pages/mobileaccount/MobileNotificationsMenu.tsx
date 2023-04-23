@@ -1,5 +1,7 @@
 import React from "react";
 import "./MobileAccountPage.scss";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
+import options from "../../assets/Images/icons/options.svg";
 
 const notifications = [
   {
@@ -26,9 +28,13 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
   return (
     <div className="mobilenotificationsmenu">
       <div className="mobilenotificationsmenu_header">
-        <button onClick={handleBack}>BACK</button>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
         <h3>All Notifications</h3>
-        <button>Clear All</button>
+        <button>
+          <img src={options} alt="options" />
+        </button>
       </div>
 
       <div className="mobilenotificationsmenu_body">
