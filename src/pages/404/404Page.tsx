@@ -1,12 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import arrowleft from "../../assets/Images/icons/arrow-left.svg";
+import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import "./404Page.scss";
 
 const Page404 = () => {
   const navigate = useNavigate();
+  const isPageMob = UseMediaQuery("(min-width: 600px)");
   return (
     <div className="page404">
+       <img src="page404DoakCan1.svg" className="page404__img1"></img>
+       <img src="page404DoakCan2.svg" className="page404__img2"></img>
       <div className="page404__header">
         <div className="page404__header__errText">
           <h1>404</h1>
@@ -23,7 +27,13 @@ const Page404 = () => {
           Go back Home
         </button>
       </div>
-    </div>
+        <div className="page404__mobile"> 
+         
+          </div>
+     
+        </div>
+  
+    
   );
 };
 
