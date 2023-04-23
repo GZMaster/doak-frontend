@@ -5,9 +5,11 @@ import ProductImg from "../../assets/Images/others/Product-Img.png";
 import ProductIm2 from "../../assets/Images/others/Product-Img-2.png";
 import { IProducts } from "../../types/products";
 import Pagination from "../../lib/Pagination";
+import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 export default function Products() {
   const totalPages = 12;
   const [currentPage, setCurrentPage] = useState(1);
+  const isPageWide = UseMediaQuery("(min-width: 769px)");
   const products: IProducts[] = [
     {
       img: ProductIm2,
@@ -88,25 +90,27 @@ export default function Products() {
     },
   ];
   return (
-    <article className="products">
-      {products.map((product, index) => (
-        <Product
-          key={index}
-          img={product.img}
-          category={product.category}
-          name={product.name}
-          price={product.price}
-          oldPrice={product.oldPrice}
-        />
-      ))}
+    <>
+      <article className="products">
+        {products.map((product, index) => (
+          <Product
+            key={index}
+            img={product.img}
+            category={product.category}
+            name={product.name}
+            price={product.price}
+            oldPrice={product.oldPrice}
+          />
+        ))}
+      </article>
       <Pagination
         currentPage={currentPage}
-        maxLength={7}
         setCurrentPage={setCurrentPage}
         lastPage={totalPages}
         showIcon
-        showText
+        size={isPageWide ? "large" : "small"}
+        showText={isPageWide ? true : false}
       />
-    </article>
+    </>
   );
 }
