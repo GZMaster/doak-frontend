@@ -6,11 +6,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 120px;
+  padding-top: 120px;
   gap: 26px;
   padding-bottom: 60px;
   @include tablet {
     padding: 1rem;
+    padding-top: 120px;
+    background: white;
   }
   .product-wrapper {
     display: flex;
@@ -26,6 +28,11 @@
     .product-image {
       flex: 1;
       border-radius: $border-radius-large;
+      img {
+        @include tablet {
+          width: 100%;
+        }
+      }
     }
     .product-details {
       flex: 1;
@@ -34,6 +41,10 @@
       flex-direction: column;
       border: 1px solid $text-fade;
       box-shadow: 1px 4px 45px rgba(0, 0, 0, 0.08);
+      @include tablet {
+        border: none;
+        width: 100%;
+      }
     }
     .product-brand,
     .product-size,
@@ -43,6 +54,10 @@
       display: flex;
       flex-direction: column;
       border-top: 1px solid $text-fade;
+      @include tablet {
+        border-top: none;
+        padding: 12px 0;
+      }
     }
     .product-brand {
       border-top: none;
@@ -120,19 +135,37 @@
     }
 
     .product-price {
-      font-family: $Poppins;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 21px;
       color: $text;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      @include tablet {
+        flex-direction: row;
+        gap: 1rem;
+        position: fixed;
+        background: white;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        bottom: 0;
+      }
+      p {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        display: none;
+      }
       .current-price {
         font-weight: 800;
         font-size: 32px;
         line-height: 48px;
+        @include tablet {
+          font-size: 20px;
+          line-height: 30px;
+          display: flex;
+        }
         .old-price {
           margin-left: 2%;
           vertical-align: middle;
@@ -153,6 +186,9 @@
           vertical-align: middle;
           margin-left: 5px;
           padding: 3px;
+          @include tablet {
+            display: none;
+          }
         }
       }
       .add-to-cart-btn {
