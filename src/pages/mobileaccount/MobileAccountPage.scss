@@ -1,0 +1,752 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.mobileaccountpage__sidebar {
+  width: 23.125rem;
+  border: 0.063rem solid $border;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-color: $white;
+}
+
+.mobileaccountpage__sidebar__title {
+  border-bottom: 1px solid $border;
+  align-items: center;
+  padding-bottom: 1rem;
+  padding: 1rem 6.688rem;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $text;
+  width: 9.8rem;
+}
+.mobileaccountpage__sidebar__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border: 0.063rem solid $border;
+  border-top: none;
+  padding-bottom: 1.5rem;
+}
+.mobileaccountpage__sidebar_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.625rem;
+  padding-left: 1.25rem;
+  background-color: $white;
+  border: none;
+}
+.mobileaccountpage__sidebar_item__text {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $text;
+}
+.mobileaccountpage__sidebar_logout {
+  all: unset;
+  border: 2px solid $black;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+  margin: 0 1.25rem;
+}
+
+//mobileprofilemenu
+.mobileprofilemenu,
+.mobileordersmenu,
+.mobileaddressesmenu,
+.mobilevouchersmenu,
+.mobilerateusmenu,
+.mobilehelpmenu {
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.mobileprofilemenu__header,
+.mobileordersmenu__header,
+.mobileaddressesmenu_header,
+.mobilevouchersmenu_header,
+.mobilerateusmenu_header,
+.mobilehelpmenu_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.625rem;
+  background-color: $white;
+  border: none;
+  & button {
+    all: unset;
+    height: 1.5rem;
+  }
+  & h1 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.688rem;
+    color: $text;
+  }
+}
+.mobileprofilemenu__body__field {
+  display: flex;
+  flex-direction: column;
+  & inputfield {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $text;
+  }
+  & inputfield input {
+    border: 0.063rem solid $border;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 0.625rem;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $text;
+  }
+}
+.mobileprofilemenu__address__field {
+  display: flex;
+  flex-direction: column;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $text;
+  }
+}
+.mobileprofilemenu__address__field__box {
+  display: flex;
+  flex-direction: column;
+}
+.mobileprofilemenu__address__field__box_address {
+  border: 0.063rem solid $border;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 1rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  & h2 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $text;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $text;
+  }
+}
+.mobileprofilemenu__address__field__box_btn {
+  border: 0.063rem solid $border;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 1rem;
+  border-top: none;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  & button {
+    all: unset;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    color: $input-required;
+    align-items: center;
+    padding: 0 8.344rem;
+  }
+}
+
+.mobileprofilemenu__body__btn {
+  padding-top: 1.5rem;
+  & button {
+    all: unset;
+    border: 0.125rem solid $black;
+    padding: 0.625rem 0.875rem;
+    border-radius: 5px;
+    background-color: $black;
+    color: $white;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+//Mobileordersmenu
+.mobileordersmenu__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.mobileordersmenu__order {
+  display: flex;
+  flex-direction: column;
+  border: 0.063rem solid $border;
+  padding: 0.75rem;
+  border-radius: 10px;
+  padding-left: 1.125rem;
+}
+.mobileordersmenu__order__header {
+  display: flex;
+  flex-direction: row;
+  gap: 0.938rem;
+  align-items: center;
+  padding-bottom: 0.813rem;
+  & h2 {
+    color: $text;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  & .Order_Placed {
+    border: 0.063rem solid #c3f8d2;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #21e558;
+    background-color: #c3f8d2;
+  }
+  & .Order_Confirmed,
+  .Shipped,
+  .Delivered,
+  .Failed_Payment {
+    border: 0.063rem solid #c3f8d2;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #21e558;
+    background-color: #c3f8d2;
+  }
+  & .Failed_Payment,
+  .Failed_Delivery,
+  .Invalid_Address {
+    border: 0.063rem solid #e7cbc9;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #ff3426;
+    background-color: #e7cbc9;
+  }
+  & .Cancelled_by_self {
+    border: 0.063rem solid #7f7f7f;
+    border-radius: 5px;
+    padding: 1px 4px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: $white;
+    background-color: #7f7f7f;
+  }
+}
+.mobileordersmenu__order__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.mobileordersmenu__order__content {
+  display: flex;
+  flex-direction: row;
+  gap: 1.625rem;
+  align-items: center;
+}
+.mobileordersmenu__order__content__left {
+  width: 18.625rem;
+}
+.mobileordersmenu__order__images {
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  padding-bottom: 0.5rem;
+}
+.mobileordersmenu__order__item {
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  font-family: $Poppins;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: $text;
+}
+.mobileordersmenu__order__content__right {
+  & button {
+    all: unset;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: $input-required;
+  }
+}
+//notifications
+.mobilenotificationsmenu {
+  background-color: $white;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &_header {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+
+    > button {
+      all: unset;
+    }
+
+    > h3 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      /* identical to box height */
+
+      color: $text;
+      padding-right: 12.35rem;
+    }
+    S > button {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+      color: $red;
+    }
+  }
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    &_notification {
+      display: flex;
+      box-sizing: border-box;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 28px 12px 18px;
+      gap: 48px;
+      background: #ffffff;
+      border: 1px solid #c5c5c5;
+      border-radius: 10px;
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+
+        > h2 {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 21px;
+          color: $text;
+        }
+
+        > p {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: $text;
+        }
+      }
+    }
+  }
+}
+
+//addressesmenu
+.mobileaccountpage__content {
+  width: 24.25rem;
+}
+.mobileaddressesmenu_body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.mobileaddressesmenu_address_container {
+  display: flex;
+  flex-direction: column;
+}
+.mobileaddressesmenu_detials {
+  border: 0.063rem solid $border;
+  padding: 0.75rem;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  & h4 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+  & p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+}
+.mobileaddressesmenu_addaddress {
+  & button {
+    all: unset;
+    border: 2px solid $border;
+    padding: 10px 7.688rem;
+    text-align: center;
+    border-radius: 10px;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: $white;
+    background-color: $black;
+  }
+}
+.mobileaddressesmenu_address_actions {
+  display: flex;
+  flex-direction: row;
+  & .edit {
+    border: 0.063rem solid $border;
+    padding: 0.75rem;
+    padding-left: 4.375rem;
+    padding-right: 6.4rem;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: $white;
+    color: $input-required;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  & .delete {
+    all: unset;
+    border: 0.063rem solid $border;
+    padding: 0.75rem;
+    padding-left: 4.375rem;
+    padding-right: 4.8rem;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color: $input-required;
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+//vouchers
+.mobilevouchersmenu_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.mobilevouchersmenu_body_voucher {
+  display: flex;
+  flex-direction: row;
+  gap: 0.875rem;
+  align-items: center;
+  border: 0.063rem solid $border;
+  padding: 0.75rem 1.75rem 0.75rem 1.125rem;
+  border-radius: 10px;
+  justify-content: space-between;
+  h4 {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  p {
+    font-family: $Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+  }
+}
+.mobilevouchersmenu_body_voucher_actions {
+  font-family: $Poppins;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 15px;
+  color: #9b9b9b;
+  align-items: center;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+//rate us
+.mobilerateusmenu {
+  &_header {
+    > h2 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+      width: 12rem;
+    }
+  }
+
+  &_body {
+    display: flex;
+    // width: 52.625rem;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+
+    &_rate {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 7.219rem;
+      gap: 1rem;
+      // width: 100%;
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text;
+      }
+    }
+
+    &_review {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        width: auto;
+        height: auto;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 14px;
+        gap: 10px;
+        background: $black;
+        border-radius: 5px;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 21px;
+        color: $white;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+      }
+    }
+
+    &_rate__success {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 45px;
+
+      > h1 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 30px;
+        color: $text;
+      }
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 30px;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 20px;
+        gap: 10px;
+        width: auto;
+        height: auto;
+        background: $black;
+        border-radius: 5px;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $white;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+      }
+    }
+  }
+}
+
+//help menu
+.mobilehelpmenu {
+  &_header {
+    > span {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      color: $text;
+    }
+  }
+
+  &_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32.063rem;
+
+    &__input {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      width: 100%;
+      &___field {
+        height: 6rem;
+        border: 0.063rem solid #c5c5c5;
+        border-radius: 0.25rem;
+        width: 24rem;
+        margin-bottom: 1rem;
+
+        & input {
+          border: 0;
+        }
+      }
+
+      > h3 {
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: $text;
+      }
+
+      > button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.625rem 0.875rem;
+        gap: 0.625rem;
+        color: $white;
+        background: $black;
+        border-radius: 0.313rem;
+      }
+    }
+  }
+}

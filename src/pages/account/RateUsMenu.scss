@@ -3,21 +3,30 @@
 @import "../../styles/breakpoints";
 
 .rateusmenu {
-  display: flex;
-  flex-direction: column;
-  height: 35.02rem;
-  width: auto;
-  background: $white;
+  width: 52.625rem;
   border-radius: 10px;
+  background-color: $white;
+  min-height: 35.02rem;
+  // display: flex;
+  // flex-direction: column;
+  // height: 35.02rem;
+  // width: auto;
+  // background: $white;
+  // border-radius: 10px;
 
   &_header {
-    display: flex;
-    width: 842px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
     border-bottom: 1px solid $border;
+    padding-left: 2.688rem;
+    padding-right: 43.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    // display: flex;
+    // width: 842px;
+    // flex-direction: row;
+    // justify-content: space-between;
+    // align-items: center;
+    // padding: 1rem 2rem;
+    // border-bottom: 1px solid $border;
 
     > h2 {
       font-family: $Poppins;
@@ -26,12 +35,13 @@
       font-size: 16px;
       line-height: 24px;
       color: $text;
+      width: 12rem;
     }
   }
 
   &_body {
     display: flex;
-    width: 842px;
+    // width: 52.625rem;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
@@ -44,7 +54,8 @@
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      width: 100%;
+      padding: 0 19.156rem;
+      // width: 100%;
 
       > h3 {
         font-family: $Poppins;
@@ -62,7 +73,8 @@
       justify-content: center;
       align-items: flex-start;
       width: 100%;
-
+      padding-left: 1.6rem;
+      padding-right: 2rem;
       > h3 {
         font-family: $Poppins;
         font-style: normal;

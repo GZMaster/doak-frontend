@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Product from "./product/Product";
 import "./products.scss";
 import ProductImg from "../../assets/Images/others/Product-Img.png";
 import ProductIm2 from "../../assets/Images/others/Product-Img-2.png";
 import { IProducts } from "../../types/products";
+import Pagination from "../../lib/Pagination";
 export default function Products() {
+  const totalPages = 12;
+  const [currentPage, setCurrentPage] = useState(1);
   const products: IProducts[] = [
     {
       img: ProductIm2,
@@ -96,6 +99,14 @@ export default function Products() {
           oldPrice={product.oldPrice}
         />
       ))}
+      <Pagination
+        currentPage={currentPage}
+        maxLength={7}
+        setCurrentPage={setCurrentPage}
+        lastPage={totalPages}
+        showIcon
+        showText
+      />
     </article>
   );
 }
