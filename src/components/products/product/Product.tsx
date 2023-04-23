@@ -5,6 +5,7 @@ import { IProducts } from "../../../types/products";
 import { Link } from "react-router-dom";
 
 export default function Product({
+  _id,
   name,
   price,
   imageCover,
@@ -30,7 +31,7 @@ export default function Product({
   }
 
   return (
-    <Link to="/product" className="product">
+    <Link to={`/product`} className="product">
       <img src={imageCover} alt={name} className="product-img" />
       <div className="product-wrapper">
         <p className="product-category">{category}</p>
