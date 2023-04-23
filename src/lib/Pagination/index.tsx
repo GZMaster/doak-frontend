@@ -1,16 +1,15 @@
 import React from "react";
 import ArrowLeft from "./arrowLeft";
 import ArrowRight from "./arrowRight";
-import { PaginationProps, PaginationSizing } from "./pagination";
+import { PaginationProps } from "./pagination";
 import PageLink from "./PageLink";
 import "./pagination.scss";
 
 export default function Pagination({
   currentPage,
   lastPage,
-  maxLength,
   setCurrentPage,
-  size = PaginationSizing.Large,
+  size = "large",
   showText = false,
   showIcon,
   prevText = "Previous",
@@ -18,11 +17,12 @@ export default function Pagination({
   prevIcon = <ArrowLeft />,
   nextIcon = <ArrowRight />,
 }: PaginationProps) {
-  if (size === PaginationSizing.Small) {
+  let maxLength = 7;
+  if (size === "small") {
     maxLength = 3;
-  } else if (size === PaginationSizing.Medium) {
+  } else if (size === "medium") {
     maxLength = 5;
-  } else if (size === PaginationSizing.Large) {
+  } else if (size === "large") {
     maxLength = 7;
   }
   const pageNums = getPaginationItems(currentPage, lastPage, maxLength);
@@ -39,7 +39,8 @@ export default function Pagination({
           {showIcon && <span className="pagination__prop">{prevIcon}</span>}
           {showText && <span className="pagination__prop">{prevText}</span>}
         </PageLink>
-        {maxLength >= 5 &&
+        {maxLength &&
+          maxLength >= 5 &&
           pageNums.map((pageNum, idx) => (
             <PageLink
               key={idx}
