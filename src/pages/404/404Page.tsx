@@ -27,9 +27,12 @@ const Page404 = () => {
           Go back Home
         </button>
       </div>
+   
         <div className="page404__mobile"> 
          
-          </div>
+        </div>
+      
+        
      
         </div>
   
