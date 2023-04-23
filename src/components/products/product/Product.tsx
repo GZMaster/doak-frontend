@@ -7,10 +7,7 @@ import { Link } from "react-router-dom";
 export default function Product({
   name,
   price,
-  summary,
-  description,
   imageCover,
-  images,
   category,
 }: IProducts) {
   const formatPrice = FormatNaira(price);

@@ -8,19 +8,40 @@ import Pagination from "../../lib/Pagination";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 
 export default function Products() {
-  const totalPages = 12;
+  const [limit] = useState(12);
+  const [totalPages, setTotalPages] = useState(1);
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState<IProducts[]>([]);
 
   useEffect(() => {
-    getProducts(12);
-  }, []);
+    getNumberOfPages(limit);
+    getProducts(limit, currentPage);
+  }, [currentPage, limit]);
 
   const randomImage = () => {
     const images = [ProductImg, ProductIm2];
     const random = Math.floor(Math.random() * images.length);
     return images[random];
+  };
+
+  const getNumberOfPages = async (limit: number) => {
+    const res = await fetch(`http://localhost:3000/api/v1/wine/length`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const numberOfPagesData = await res.json();
+
+    const numberOfPages = Math.ceil(numberOfPagesData.data / limit);
+
+    if (numberOfPages) {
+      setTotalPages(numberOfPages);
+    }
+
+    console.log(numberOfPagesData.data);
   };
 
   const getProducts = async (
@@ -35,13 +56,13 @@ export default function Products() {
       url += `?limit=${limit}`;
     }
     if (page) {
-      url += `?page=${page}`;
+      url += `&page=${page}`;
     }
     if (sort) {
-      url += `?sort=${sort}`;
+      url += `&sort=${sort}`;
     }
     if (filter) {
-      url += `?${filter.field}=${filter.operator}${filter.value}`;
+      url += `&${filter.field}=${filter.operator}${filter.value}`;
     }
 
     const product = await fetch(url, {
