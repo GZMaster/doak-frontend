@@ -1,6 +1,6 @@
 import React from "react";
 import "./AboutPage.scss";
-import people from "../../assets/Images/others/people.png";
+import people from "../../assets/Images/others/people.svg";
 import crown from "../../assets/Images/icons/crown.svg";
 import nigeria from "../../assets/Images/icons/nigeria.svg";
 import house from "../../assets/Images/icons/house.svg";
@@ -33,21 +33,14 @@ export const AboutPage = () => {
         </p>
       </div>
 
-      {isPageWide && (
-        <div className="aboutpage__hero">
+      <div className="aboutpage_img">
         <img src={people} alt="people discussing" />
       </div>
-      )}
 
       <div className="aboutpage__body">
         <div className="aboutpage__body__left">
           <h1>Drinks of all kinds. At the palm of your hands.</h1>
 
-          {isPageSmall && (
-            <div className="mobile__hero">
-               </div>
-            
-          )}
           <p className="second_text">
             Welcome to DOAK LTD, your ultimate destination for all things
             drinks! We are a retailing and warehousing brand that was founded in
