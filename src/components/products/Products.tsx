@@ -26,12 +26,15 @@ export default function Products() {
   };
 
   const getNumberOfPages = async (limit: number) => {
-    const res = await fetch(`http://localhost:3000/api/v1/wine/length`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/wine/length`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const numberOfPagesData = await res.json();
 
@@ -85,6 +88,7 @@ export default function Products() {
         {products.map((product, index) => (
           <Product
             key={index}
+            _id={product._id}
             name={product.name}
             price={product.price}
             summary={product.summary}
