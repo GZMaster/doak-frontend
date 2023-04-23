@@ -102,11 +102,7 @@
       @include tablet {
         gap: 0.6rem;
       }
-      img {
-        @include tablet {
-          width: 20%;
-        }
-      }
+
       button {
         all: unset;
         border: 1px solid $text-fade;

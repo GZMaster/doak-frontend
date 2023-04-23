@@ -90,7 +90,7 @@ export default function Products() {
     },
   ];
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <article className="products">
         {products.map((product, index) => (
           <Product
@@ -111,6 +111,6 @@ export default function Products() {
         size={isPageWide ? "large" : "small"}
         showText={isPageWide ? true : false}
       />
-    </>
+    </div>
   );
 }
