@@ -1,7 +1,7 @@
 import React from "react";
 import "./Newsletter.scss";
 import notification from "../../assets/Images/icons/notification-white.svg";
-import arrow from "../../assets/Images/icons/arrow-right.svg";
+import arrow from "../../assets/Images/icons/arrow-right-greg.svg";
 export default function Newsletter() {
   return (
     <section className="Newsletter">
