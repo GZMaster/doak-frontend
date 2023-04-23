@@ -5,6 +5,7 @@ import Loading from "../../components/Loader/Loading";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./hero.scss";
 import shoppingcart from "../../assets/Images/icons/shopping-cart-white.svg";
+import heroBg from "../../assets/Images/others/hero-mobile.png";
 
 export default function Hero() {
   const [loading, isLoading] = useState<boolean>(false);
@@ -29,7 +30,7 @@ export default function Hero() {
       backgroundStyle={{ backgroundColor: "grey", opacity: 0.9 }}
     >
       <section className="hero">
-        {isPageWide && (
+        {isPageWide ? (
           <div className="text-container">
             <h1>We give you only the best. Top notch quality services.</h1>
             <p>
@@ -47,6 +48,28 @@ export default function Hero() {
                 <img src={shoppingcart} alt="" />
               </span>
             </Link>
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="text-container">
+              <h1>We give you only the best. Top notch quality services.</h1>
+              <p>
+                Integer quam adipiscing vestibulum nunc. Id nunc amet at sed
+                orci diam. Cras venenatis sit faucibus.
+              </p>
+              <Link
+                className="hero__button"
+                smooth={true}
+                spy={true}
+                to="product"
+              >
+                <h3>Start Shopping</h3>
+                <span>
+                  <img src={shoppingcart} alt="" />
+                </span>
+              </Link>
+            </div>
+            <img src={heroBg} alt="" />
           </div>
         )}
       </section>
