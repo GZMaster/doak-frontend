@@ -20,14 +20,22 @@
   }
   @include tablet {
     padding: 1rem 0.5rem;
-    background-color: #262626 !important;
+    background-color: $white !important;
+    justify-content: space-between;
   }
   .nav_header {
     display: flex;
     align-items: center;
     flex: 1;
+    @include tablet {
+      flex: initial;
+      order: 2;
+    }
     img {
       height: 40px;
+      @include tablet {
+        height: 30px;
+      }
     }
     @include landscape {
       margin-left: 0;
@@ -38,8 +46,10 @@
     flex: 2;
     display: flex;
     justify-content: space-between;
-    @include landscape {
+    @include tablet {
       margin-right: 0;
+      flex: initial;
+      order: 3;
     }
     .search {
       padding: 5px;
@@ -89,6 +99,10 @@
       font-size: 16px;
       line-height: 24px;
       color: $text;
+      @include tablet {
+        gap: 0.6rem;
+      }
+
       button {
         all: unset;
         border: 1px solid $text-fade;
@@ -99,6 +113,9 @@
         gap: 0.8rem;
         padding: 6px;
         cursor: pointer;
+        @include tablet {
+          border: none;
+        }
       }
       .cart {
         all: unset;

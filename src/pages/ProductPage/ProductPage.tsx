@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import ProductTab from "../../components/Tabs/ProductTab";
 import ToastBar from "../../components/notification/ToastBar";
@@ -12,8 +13,11 @@ interface IOption {
   value: string;
 }
 export default function ProductPage() {
+  const params = useParams();
   const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
+
+  console.log(params);
 
   useEffect(() => {
     let toastTimeout: NodeJS.Timeout | undefined;
