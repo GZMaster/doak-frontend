@@ -8,6 +8,7 @@ import lilian from "../../assets/Images/others/lilian.png";
 import crown from "../../assets/Images/icons/crown.svg";
 import nigeria from "../../assets/Images/icons/nigeria.svg";
 import house from "../../assets/Images/icons/house.svg";
+import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 
 const icons = [
   {
@@ -48,6 +49,8 @@ const aboutimages = [
 ];
 
 export const AboutPage = () => {
+  const isPageWide = UseMediaQuery("(min-width: 700px)")
+  const isPageSmall = UseMediaQuery("(max-width: 500px)")
   return (
     <div className="aboutpage">
       <div className="aboutpage__header">
@@ -57,18 +60,28 @@ export const AboutPage = () => {
         </p>
       </div>
 
-      <div className="aboutpage__hero">
+      {isPageWide && (
+        <div className="aboutpage__hero">
         <img src={people} alt="people discussing" />
       </div>
+      )}
 
       <div className="aboutpage__body">
         <div className="aboutpage__body__left">
           <h1>Congue senectus sit arcu viverra. Aliquam vulputate.</h1>
-          <p>
+
+          {isPageSmall && (
+            <div className="mobile__hero">
+               </div>
+            
+          )}
+          <p className="second_text">
             Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo
             pharetra feugiat. Gravida pulvinar arcu cras et egestas non euismod.
             In in tortor porta sed pellentesque.
           </p>
+
+     
           <p>
             Urna ac elit habitasse sagittis tellus tincidunt hac quis. Est
             parturient pellentesque aliquam ultrices sagittis massa. A nibh amet
