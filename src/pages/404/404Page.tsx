@@ -6,7 +6,7 @@ import "./404Page.scss";
 
 const Page404 = () => {
   const navigate = useNavigate();
-  const isPageMob = UseMediaQuery("(min-width: 600px)");
+      const isPageMob = UseMediaQuery("(max-width: 600px)");
   return (
     <div className="page404">
        <img src="page404DoakCan1.svg" className="page404__img1"></img>
@@ -27,11 +27,11 @@ const Page404 = () => {
           Go back Home
         </button>
       </div>
-   
+      { isPageMob && (
         <div className="page404__mobile"> 
          
         </div>
-      
+      )}
         
      
         </div>
