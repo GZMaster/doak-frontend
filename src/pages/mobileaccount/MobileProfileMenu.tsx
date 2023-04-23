@@ -18,7 +18,7 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
   };
 
   return (
-    <div className="profilemenu">
+    <div className="mobileprofilemenu">
       {changeAddress && (
         <SelectAddress
           handleAddressChange={handleAddressChange}

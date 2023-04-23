@@ -1,7 +1,7 @@
 import React from "react";
 import AddAddressModal from "../../components/address/AddAddressModal";
 import "./MobileAccountPage.scss";
-import trash from "../../assets/Images/icons/trash.svg";
+import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 const addresses = [
   {
@@ -42,8 +42,10 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
       )}
 
       <div className="mobileaddressesmenu_header">
-        <button onClick={handleBack}>BACK</button>
-        <h3>Saved Addresses</h3>
+        <button onClick={handleBack}>
+          <img src={backbtn} alt="back" />
+        </button>
+        <h1>Saved Addresses</h1>
       </div>
 
       <div className="mobileaddressesmenu_body">
@@ -58,9 +60,7 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
 
               <div className="mobileaddressesmenu_address_actions">
                 <button className="edit">Edit</button>
-                <button className="delete">
-                  <img src={trash} alt="trashbutton" />
-                </button>
+                <button className="delete">Delete</button>
               </div>
             </div>
           </div>
