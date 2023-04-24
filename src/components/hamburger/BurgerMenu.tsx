@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Turn as Hamburger } from "hamburger-react";
+// import { Turn as Hamburger } from "hamburger-react";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./BurgerMenu.scss";
@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
   const user = false;
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen] = useState(false);
   const isUserLogged = true;
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
@@ -30,13 +30,13 @@ const BurgerMenu = () => {
 
   return (
     <>
-      <Hamburger
+      {/* <Hamburger
         toggled={isOpen}
         toggle={setOpen}
         direction="right"
         duration={0.8}
         color="black"
-      />
+      /> */}
       <div className="content">
         <div className="right">
           {isUserLogged ? (
