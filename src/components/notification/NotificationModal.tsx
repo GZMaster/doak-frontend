@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import NotificationsMenu from "../../pages/account/NotificationsMenu";
-import "./NotificationsMenu.scss";
+import "./NotificationsModal.scss";
 
 interface props {
   isOpen: boolean;
