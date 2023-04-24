@@ -4,6 +4,10 @@
 
 .cntctimg {
   width: 100%;
+  @include tablet {
+    padding-top: 5.25rem;
+    height: 11.813rem;
+  }
 }
 .more_info {
   display: flex;
@@ -12,6 +16,11 @@
   align-items: flex-start;
   gap: 64px;
   padding: 6rem;
+  @include tablet {
+    padding: 0;
+    flex-direction: column;
+    width: 24.25rem;
+  }
 }
 .contact {
   display: flex;
