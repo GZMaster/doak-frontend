@@ -3,5 +3,7 @@ export function FormatNaira(amount: number) {
     style: "currency",
     currency: "NGN",
   }).format(amount);
-  return formattedAmount;
+  // Remove any trailing decimals and return the formatted amount
+  const formattedAmountWithoutDecimals = formattedAmount.replace(".00", "");
+  return formattedAmountWithoutDecimals;
 }

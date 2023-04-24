@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { IProducts } from "../../types/products";
 import ProductTab from "../../components/Tabs/ProductTab";
 import ToastBar from "../../components/notification/ToastBar";
 import "./productPage.scss";
@@ -14,10 +15,15 @@ interface IOption {
 }
 export default function ProductPage() {
   const params = useParams();
+  const productId = params.productId;
   const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
+  const [product, setProduct] = useState<IProducts>();
+  const [quantity, setQuantity] = useState("1");
 
-  console.log(params);
+  useEffect(() => {
+    getProduct();
+  }, [productId]);
 
   useEffect(() => {
     let toastTimeout: NodeJS.Timeout | undefined;
@@ -31,6 +37,23 @@ export default function ProductPage() {
     };
   }, [showToastBar]);
 
+  const getProduct = async () => {
+    const response = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/wine/${productId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+    setProduct(data.data.wineProduct);
+  };
+
+  console.log(product);
+
   const handleAddCart = () => {
     setShowToastBar(true);
   };
@@ -39,7 +62,6 @@ export default function ProductPage() {
     setSize(event.target.value);
   };
 
-  const [quantity, setQuantity] = useState("1");
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity || prevQuantity === "1") {
@@ -57,6 +79,7 @@ export default function ProductPage() {
       return String(parseInt(prevQuantity, 10) + 1);
     });
   };
+
   function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newQuantity = event.target.value.replace(/\D/g, ""); // remove non-digit characters
     if (Number(newQuantity) > 100) {
@@ -65,12 +88,14 @@ export default function ProductPage() {
       setQuantity(newQuantity);
     }
   }
+
   const options: IOption[] = [
     { label: "60cl", value: "60cl" },
     { label: "75cl", value: "75cl" },
     { label: "125cl", value: "125cl" },
   ];
-  const price = 200000;
+
+  const price = 250000;
   const oldPrice = 290000;
   const formatPrice = FormatNaira(price);
   let formatOldPrice = null;
@@ -95,8 +120,8 @@ export default function ProductPage() {
         </div>
         <div className="product-details">
           <div className="product-brand">
-            <p className="product-category">BRANDY</p>
-            <p>Hennessy VS Coginac ORIGINAL 70cl X6</p>
+            <p className="product-category">{product?.categories}</p>
+            <p>{product?.name}</p>
           </div>
           <div className="product-size">
             <p>BOTTLE SIZE</p>
@@ -156,7 +181,10 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
-      <ProductTab />
+      <ProductTab
+        productDetails={product?.summary}
+        description={product?.description}
+      />
     </section>
   );
 }
