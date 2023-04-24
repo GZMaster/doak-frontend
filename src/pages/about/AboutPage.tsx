@@ -1,9 +1,10 @@
 import React from "react";
 import "./AboutPage.scss";
-import people from "../../assets/Images/others/people.png";
+import people from "../../assets/Images/others/people.svg";
 import crown from "../../assets/Images/icons/crown.svg";
 import nigeria from "../../assets/Images/icons/nigeria.svg";
 import house from "../../assets/Images/icons/house.svg";
+import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 
 const icons = [
   {
@@ -21,6 +22,8 @@ const icons = [
 ];
 
 export const AboutPage = () => {
+  const isPageWide = UseMediaQuery("(min-width: 700px)")
+  const isPageSmall = UseMediaQuery("(max-width: 500px)")
   return (
     <div className="aboutpage">
       <div className="aboutpage__header">
@@ -30,19 +33,22 @@ export const AboutPage = () => {
         </p>
       </div>
 
-      <div className="aboutpage__hero">
+      <div className="aboutpage_img">
         <img src={people} alt="people discussing" />
       </div>
 
       <div className="aboutpage__body">
         <div className="aboutpage__body__left">
           <h1>Drinks of all kinds. At the palm of your hands.</h1>
-          <p>
+
+          <p className="second_text">
             Welcome to DOAK LTD, your ultimate destination for all things
             drinks! We are a retailing and warehousing brand that was founded in
             2023 with a simple yet ambitious mission: to make every kind of
             drink accessible and affordable to all.
           </p>
+
+     
           <p>
             Whether you are a connoisseur, an adventurer, or simply someone who
             loves a good beverage, we are here to provide you with a vast
