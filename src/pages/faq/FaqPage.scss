@@ -2,14 +2,12 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-
 .faqpage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    width: 100vw;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 100vw;
 }
 
 .faqpage__header {
@@ -23,22 +21,20 @@
   margin-bottom: 1.25rem;
   margin-top: 0;
   align-items: center;
-  margin-bottom: 5.125REM;
+  margin-bottom: 5.125rem;
 
+  > p {
+    font-size: 36px;
+    margin-top: 138px;
+    font-weight: 700;
+    text-align: center;
+    width: 322px;
+    line-height: 2.5rem;
 
- > p {
-  font-size: 36px;
-  margin-top: 138px;
-  font-weight: 700;
-  text-align: center;
-  width: 322px;
-  line-height: 2.5rem;
-
-  @include mobile {
-    margin-top: 60px;
+    @include mobile {
+      margin-top: 60px;
+    }
   }
-
- }
 
   @include mobile {
     display: flex;
@@ -47,11 +43,8 @@
     height: 12.5rem;
     margin-bottom: 6rem;
     margin-top: 5rem;
-
-    
   }
   & img {
- 
     padding-bottom: 5.125rem;
     overflow: hidden;
     align-self: center;
@@ -106,7 +99,7 @@
     // align-self: center;
     margin: 0;
     min-height: 4.0625rem;
-    height:auto;
+    height: auto;
     align-items: center;
   }
 }
@@ -117,7 +110,7 @@
 
   @include mobile {
     gap: 1.875rem;
- 
+
     align-items: flex-start;
   }
   & h1 {
@@ -141,20 +134,10 @@
     font-size: 1rem;
     line-height: 1.5rem;
     color: $text;
-    
   }
 }
 .faqpage__body__item__question__button {
   border: none;
-}
-
-* {
-  @include mobile {
-    // width: 100vw;
- 
-    overflow-x: hidden;
-
-  }
 }
 
 .faqpage__body__item__answer {
