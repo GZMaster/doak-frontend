@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Turn as Hamburger } from "hamburger-react";
+import AuthModal from "../auth/AuthModal";
+import NotificationsModal from "../notification/NotificationModal";
 import "./BurgerMenu.scss";
 import "../navbar/NavBar.scss";
 import notification from "../../assets/Images/icons/navbar/notification.svg";
@@ -14,7 +16,16 @@ import { Link } from "react-router-dom";
 const BurgerMenu = () => {
   const [isOpen, setOpen] = useState(false);
   const isUserLogged = true;
-  const [, setIsAuthOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isNotifiOpen, setIsNotifiOpen] = useState(false);
+
+  const handleAuthClose = () => {
+    setIsAuthOpen(false);
+  };
+
+  const handleNotifiClose = () => {
+    setIsNotifiOpen(false);
+  };
 
   return (
     <>
@@ -28,9 +39,17 @@ const BurgerMenu = () => {
       <div className="content">
         <div className="right">
           {isUserLogged ? (
-            <img src={notificationLogged} alt="notification" />
+            <img
+              src={notificationLogged}
+              alt="notification"
+              onClick={() => setIsNotifiOpen(true)}
+            />
           ) : (
-            <img src={notification} alt="notification" />
+            <img
+              src={notification}
+              alt="notification"
+              onClick={() => setIsNotifiOpen(true)}
+            />
           )}
 
           <button onClick={() => setIsAuthOpen(true)}>
@@ -55,6 +74,12 @@ const BurgerMenu = () => {
         <button>Search</button>
       </div> */}
       <div className={`panel ${isOpen ? "open" : "close"}`}></div>
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={handleAuthClose}
+        isUserLoggedIn={!!user}
+      />
+      <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );
 };
