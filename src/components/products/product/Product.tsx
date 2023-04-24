@@ -31,7 +31,9 @@ export default function Product({
   }
 
   return (
+
     <Link to={`/product/${_id}`} className="product">
+
       <img src={imageCover} alt={name} className="product-img" />
       <div className="product-wrapper">
         <p className="product-category">{categories}</p>

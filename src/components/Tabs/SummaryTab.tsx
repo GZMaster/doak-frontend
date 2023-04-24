@@ -1,8 +1,10 @@
 import React from "react";
 import product from "../../assets/Images/others/itemDrink.png";
+import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
 
 const SummaryTab = () => {
+  const isPageWide = UseMediaQuery("(min-width: 769px)");
   return (
     <section className="summary_tab">
       <p className="summary_tab_title">Order Summary</p>
@@ -20,10 +22,12 @@ const SummaryTab = () => {
                   <p className="product__name">
                     Hennessy VS Cognac ORIGINAL 70cl X6
                   </p>
-                  <p>70cl</p>
+                  {isPageWide && <p>70cl</p>}
+                  {!isPageWide && <p className="quantity">QTY:x10</p>}
                 </div>
               </div>
-              <p className="quantity">x10</p>
+              {isPageWide && <p className="quantity">x10</p>}
+
               <div className="price">N23,000</div>
             </div>
             <div className="item">
@@ -33,10 +37,12 @@ const SummaryTab = () => {
                   <p className="product__name">
                     Hennessy VS Cognac ORIGINAL 70cl X6
                   </p>
-                  <p>70cl</p>
+                  {isPageWide && <p>70cl</p>}
+                  {!isPageWide && <p className="quantity">QTY:x10</p>}
                 </div>
               </div>
-              <p className="quantity">x10</p>
+              {isPageWide && <p className="quantity">x10</p>}
+
               <div className="price">N23,000</div>
             </div>
             <div className="item">
@@ -46,10 +52,12 @@ const SummaryTab = () => {
                   <p className="product__name">
                     Hennessy VS Cognac ORIGINAL 70cl X6
                   </p>
-                  <p>70cl</p>
+                  {isPageWide && <p>70cl</p>}
+                  {!isPageWide && <p className="quantity">QTY:x10</p>}
                 </div>
               </div>
-              <p className="quantity">x10</p>
+              {isPageWide && <p className="quantity">x10</p>}
+
               <div className="price">N23,000</div>
             </div>
           </div>
