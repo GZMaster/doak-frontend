@@ -2,7 +2,6 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
-
 .aboutpage {
   margin-top: 4rem;
   height: auto;
@@ -12,17 +11,15 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items:self-start;
+    align-items: self-start;
     justify-content: flex-start;
   }
-  
 }
-
 
 .aboutpage_img {
   width: 100%;
   overflow: hidden;
-
+  margin: 2rem 0;
 
   > img {
     width: 100%;
@@ -30,13 +27,11 @@
 }
 .aboutpage__header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 10.5rem;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: auto;
   padding: 6rem;
-  background-repeat: no-repeat;
-  background-size: cover;
 
   > p {
     width: 65%;
@@ -45,21 +40,14 @@
     font-weight: 700;
     font-size: 2rem;
     line-height: 3.375rem;
-    
 
     @include mobile {
       height: auto;
+      justify-content: flex-start;
       width: 90%;
       padding: 0;
       align-self: center;
       font-size: 1.5rem;
-    
-      
-    }
-
-    @include mobile {
-      overflow: hidden;
-      justify-content: flex-start; 
     }
   }
 
@@ -78,18 +66,15 @@
   display: flex;
   flex-direction: row;
   gap: 10.25rem;
-  padding-left: 7.5rem;
-  padding-right: 15.688rem;
-  padding-bottom: 9.313rem;
+  padding: 9.313rem 7.5rem 9.313rem 7.5rem;
 
   @include mobile {
     flex-direction: column;
     width: 100%;
-    height:fit-content;
+    height: fit-content;
     padding: 0;
     gap: 4.5625rem;
     align-items: center;
-    
   }
 }
 .aboutpage__body__left {
@@ -98,22 +83,13 @@
   gap: 1.5rem;
   width: 50%;
 
-  & .mobile__hero {
-    width: 170%;
-    height: 23.125rem;
-    position: absolute;
-    margin-top: 0;
-    background-image: url("../../../public/Frame_154.svg  ");
-    background-size: cover;
-    margin-left: -15rem;
-  }
   @include mobile {
     width: 90%;
     margin-top: 3rem;
     gap: 2rem;
     align-items: center;
-
   }
+
   & h1 {
     font-family: $Poppins;
     font-style: normal;
@@ -124,12 +100,10 @@
 
     @include mobile {
       width: 80%;
- 
       font-size: 1.125rem;
-      line-height: 1.5rem;
+      line-height: 1.7rem;
       text-align: left;
-      align-self: flex-start  
-  
+      align-self: flex-start;
     }
   }
   & p {
@@ -144,7 +118,6 @@
   & p.second_text {
     @include mobile {
       margin-top: 0rem;
-
     }
   }
 }
@@ -157,10 +130,11 @@
 
   @include mobile {
     width: 90%;
-    margin:0;
+    margin: 0;
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
+    padding-top: 1.8rem;
   }
 
   > .aboutpage__icon {
@@ -172,14 +146,15 @@
     padding-bottom: 1.25rem;
     border-radius: 0.625rem;
     background-color: $white;
-    
 
     @include mobile {
-      height: 5rem;
+      height: auto;
       width: 90%;
       align-items: center;
       padding-left: 0.625rem;
+      overflow: visible;
     }
+
     & p {
       font-family: $Poppins;
       font-style: normal;
@@ -215,6 +190,5 @@
     @include mobile {
       align-self: center;
     }
-
   }
 }
