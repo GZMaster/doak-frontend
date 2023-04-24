@@ -9,6 +9,7 @@ import user from "../../assets/Images/icons/navbar/user-square(1).svg";
 import userLogged from "../../assets/Images/icons/navbar/user-square-logged.svg";
 import cartLogged from "../../assets/Images/icons/navbar/shopping-cart-logged.svg";
 import notificationLogged from "../../assets/Images/icons/navbar/Notifications-logged.svg";
+import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
   const [isOpen, setOpen] = useState(false);
@@ -39,13 +40,13 @@ const BurgerMenu = () => {
               <img src={user} alt="user" />
             )}
           </button>
-          <button className="cart">
+          <Link to="/cart" className="cart">
             {isUserLogged ? (
               <img src={cartLogged} alt="cart" />
             ) : (
               <img src={cart} alt="cart" />
             )}
-          </button>
+          </Link>
         </div>
       </div>
       {/* <div className="search">

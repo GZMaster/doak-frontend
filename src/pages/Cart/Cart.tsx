@@ -98,10 +98,11 @@ export default function Cart() {
               3 Items
               <span>N3,000,000</span>
             </p>
-            <label htmlFor="promo" className="promo-code">
+            {/* future feature */}
+            {/* <label htmlFor="promo" className="promo-code">
               PROMO CODE
             </label>
-            <input id="promo" type="text" placeholder="Enter Voucher" />
+            <input id="promo" type="text" placeholder="Enter Voucher" /> */}
             <div className="text">Delivery fees are not included</div>
             <div className="line" />
             <div className="subtotal">
