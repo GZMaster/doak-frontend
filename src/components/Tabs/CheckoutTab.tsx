@@ -8,7 +8,7 @@ import PaymentTab from "./PaymentTab";
 export default function CheckOutTab() {
   return (
     <>
-      <Tabs className="tabs">
+      <Tabs className="tabs no-border">
         <TabList className="tabs-header">
           <Tab className="tabs-title">DELIVERY</Tab>
           <Tab className="tabs-title">SUMMARY</Tab>
