@@ -29,7 +29,8 @@ const FaqPage = () => {
   return (
     <div className="faqpage">
       <div className="faqpage__header">
-        <img src={faqbg} alt="faq page background" />
+        <p> Frequently asked questions</p>
+        {/* <img src="faq_background.svg" alt="faq page background" /> */}
       </div>
       <div className="faqpage__body">
         <div className="faqpage__body__items">
