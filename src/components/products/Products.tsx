@@ -95,7 +95,7 @@ export default function Products() {
             description={product.description}
             imageCover={randomImage()}
             images={product.images}
-            category={product.category}
+            categories={product.categories}
           />
         ))}
       </article>

@@ -22,6 +22,9 @@
       font-size: 32px;
       line-height: 48px;
       color: $text;
+      @include tablet {
+        padding-left: 20px;
+      }
     }
     .cart-wrapper {
       width: 1250px;
@@ -29,6 +32,10 @@
       justify-content: space-between;
       gap: 20px;
       align-items: baseline;
+      @include tablet {
+        gap: 0;
+      }
+
       .cart-summary {
         padding: 16px;
         display: flex;
@@ -38,6 +45,22 @@
         border-radius: $border-radius-large;
         border: 1px solid $text-fade;
         background-color: $white;
+        @include tablet {
+          border-radius: 0;
+          border: 0;
+          border-bottom: 1px solid $text-fade;
+          flex-direction: row;
+          gap: 1rem;
+          position: fixed;
+          background: white;
+          left: 0;
+          right: 0;
+          padding: 1rem;
+          bottom: 0;
+          justify-content: space-between;
+          width: auto;
+          align-items: center;
+        }
         .title {
           font-family: $Poppins;
           font-style: normal;
@@ -97,8 +120,16 @@
           color: $text;
           display: flex;
           justify-content: space-between;
+          @include tablet {
+            flex-direction: column;
+          }
           span {
             font-weight: 700;
+            @include tablet {
+              font-weight: 800;
+              font-size: 22px;
+              line-height: 30px;
+            }
           }
         }
         .btn {
@@ -179,6 +210,52 @@
               }
             }
           }
+        }
+      }
+      @include tablet {
+        width: auto;
+        flex-direction: column;
+        .cart-table {
+          width: 100%;
+          border-bottom: 1px solid $text-fade;
+          border-top: 1px solid $text-fade;
+          border-radius: 0;
+        }
+        .product__cart {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          padding: 1rem;
+        }
+        .product__details {
+          display: flex;
+          align-items: center;
+        }
+        .cart__delete {
+          align-content: center;
+          display: flex;
+          align-items: center;
+          font-family: "Poppins";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 21px;
+          color: #ff8981;
+        }
+        .product__name {
+          font-family: "Poppins";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: #333333;
+        }
+        .total {
+          font-family: "Poppins";
+          font-style: normal;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 21px;
         }
       }
     }

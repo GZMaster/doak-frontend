@@ -17,7 +17,7 @@ const NavConfig = () => {
       <Route path="/" element={<App />}>
         <Route path="" element={<Main />} />
         <Route path="account" element={<AccountPage />} />
-        <Route path="product/" element={<ProductPage />} />
+        <Route path="product/:productId" element={<ProductPage />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="about" element={<AboutPage />} />

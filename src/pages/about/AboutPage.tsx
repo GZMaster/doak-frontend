@@ -4,7 +4,6 @@ import people from "../../assets/Images/others/people.svg";
 import crown from "../../assets/Images/icons/crown.svg";
 import nigeria from "../../assets/Images/icons/nigeria.svg";
 import house from "../../assets/Images/icons/house.svg";
-import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 
 const icons = [
   {
@@ -22,14 +21,13 @@ const icons = [
 ];
 
 export const AboutPage = () => {
-  const isPageWide = UseMediaQuery("(min-width: 700px)")
-  const isPageSmall = UseMediaQuery("(max-width: 500px)")
   return (
     <div className="aboutpage">
       <div className="aboutpage__header">
+        <p>Discover a world of liquid treasures with DOAK.</p>
         <p>
-          Discover a world of liquid treasures with DOAK. A retail and
-          warehousing brand dedicated to satisfy your every drink desire.
+          A retail and warehousing brand dedicated to satisfy your every drink
+          desire.
         </p>
       </div>
 
@@ -48,7 +46,6 @@ export const AboutPage = () => {
             drink accessible and affordable to all.
           </p>
 
-     
           <p>
             Whether you are a connoisseur, an adventurer, or simply someone who
             loves a good beverage, we are here to provide you with a vast
