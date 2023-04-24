@@ -2,10 +2,31 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
+
 .aboutpage {
   margin-top: 4rem;
   height: auto;
-  // background-color: $background;
+
+  @include mobile {
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items:self-start;
+    justify-content: flex-start;
+  }
+  
+}
+
+
+.aboutpage_img {
+  width: 100%;
+  overflow: hidden;
+
+
+  > img {
+    width: 100%;
+  }
 }
 .aboutpage__header {
   display: flex;
@@ -14,7 +35,6 @@
   align-items: center;
   height: 10.5rem;
   padding: 6rem;
-  background-image: url("../../assets/Images/others/aboutbg.svg");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -24,16 +44,36 @@
     font-style: normal;
     font-weight: 700;
     font-size: 2rem;
-    line-height: 54px;
-    color: $text;
+    line-height: 3.375rem;
+    
+
+    @include mobile {
+      height: auto;
+      width: 90%;
+      padding: 0;
+      align-self: center;
+      font-size: 1.5rem;
+    
+      
+    }
+
+    @include mobile {
+      overflow: hidden;
+      justify-content: flex-start; 
+    }
   }
-}
-.aboutpage__hero {
-  & img {
+
+  @include mobile {
     width: 100%;
-    padding-bottom: 4.5rem;
+    overflow: hidden;
+    padding: 0;
+    padding-left: 1.25rem;
+    height: 25rem;
+    margin-top: 1.25rem;
+    align-items: flex-start;
   }
 }
+
 .aboutpage__body {
   display: flex;
   flex-direction: row;
@@ -41,12 +81,39 @@
   padding-left: 7.5rem;
   padding-right: 15.688rem;
   padding-bottom: 9.313rem;
+
+  @include mobile {
+    flex-direction: column;
+    width: 100%;
+    height:fit-content;
+    padding: 0;
+    gap: 4.5625rem;
+    align-items: center;
+    
+  }
 }
 .aboutpage__body__left {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   width: 50%;
+
+  & .mobile__hero {
+    width: 170%;
+    height: 23.125rem;
+    position: absolute;
+    margin-top: 0;
+    background-image: url("../../../public/Frame_154.svg  ");
+    background-size: cover;
+    margin-left: -15rem;
+  }
+  @include mobile {
+    width: 90%;
+    margin-top: 3rem;
+    gap: 2rem;
+    align-items: center;
+
+  }
   & h1 {
     font-family: $Poppins;
     font-style: normal;
@@ -54,6 +121,16 @@
     font-size: 2rem;
     line-height: 3rem;
     color: $text;
+
+    @include mobile {
+      width: 80%;
+ 
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+      text-align: left;
+      align-self: flex-start  
+  
+    }
   }
   & p {
     font-family: $Poppins;
@@ -63,6 +140,13 @@
     line-height: 1.5rem;
     color: $text;
   }
+
+  & p.second_text {
+    @include mobile {
+      margin-top: 0rem;
+
+    }
+  }
 }
 .aboutpage__body__right {
   display: flex;
@@ -70,6 +154,14 @@
   flex-direction: column;
   gap: 2.813rem;
   padding-top: 0.5rem;
+
+  @include mobile {
+    width: 90%;
+    margin:0;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
 
   > .aboutpage__icon {
     position: relative;
@@ -80,7 +172,14 @@
     padding-bottom: 1.25rem;
     border-radius: 0.625rem;
     background-color: $white;
+    
 
+    @include mobile {
+      height: 5rem;
+      width: 90%;
+      align-items: center;
+      padding-left: 0.625rem;
+    }
     & p {
       font-family: $Poppins;
       font-style: normal;
@@ -97,20 +196,6 @@
     }
   }
 }
-.aboutpage__body__bottom {
-  & h1 {
-    font-family: $Poppins;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 2rem;
-    line-height: 3rem;
-    color: $text;
-    text-align: center;
-    padding-left: 28.5rem;
-    padding-right: 28.5rem;
-    padding-bottom: 3.313rem;
-  }
-}
 .aboutpage__us {
   display: flex;
   flex-direction: row;
@@ -118,4 +203,18 @@
   padding-left: 7.5rem;
   padding-right: 7.5rem;
   padding-bottom: 6rem;
+
+  @include mobile {
+    align-self: center;
+    height: 160vh;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & .aboutpage__image h2 {
+    @include mobile {
+      align-self: center;
+    }
+
+  }
 }
