@@ -40,27 +40,19 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
             label="First Name"
             placeholder="Enter First Name"
             type="string"
-            value="Users First Name"
           />
           <InputFields
             label="Last Name"
             placeholder="Enter Last Name"
             type="string"
-            value="Users Last name"
           />
         </div>
         <div className="mobileprofilemenu__body__field">
-          <InputFields
-            label="Email"
-            placeholder="Enter Email"
-            type="email"
-            value="Users Email"
-          />
+          <InputFields label="Email" placeholder="Enter Email" type="email" />
           <InputFields
             label="Phone Number"
             placeholder="Enter Phone Number"
             type="string"
-            value="Users Phone Number"
           />
         </div>
 
