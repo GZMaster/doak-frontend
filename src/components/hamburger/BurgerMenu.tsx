@@ -7,13 +7,14 @@ import "./BurgerMenu.scss";
 import "../navbar/NavBar.scss";
 import notification from "../../assets/Images/icons/navbar/notification.svg";
 import cart from "../../assets/Images/icons/navbar/shopping-cart(1).svg";
-import user from "../../assets/Images/icons/navbar/user-square(1).svg";
-import userLogged from "../../assets/Images/icons/navbar/user-square-logged.svg";
+import userIcon from "../../assets/Images/icons/navbar/user-square(1).svg";
+import userLoggedIcon from "../../assets/Images/icons/navbar/user-square-logged.svg";
 import cartLogged from "../../assets/Images/icons/navbar/shopping-cart-logged.svg";
 import notificationLogged from "../../assets/Images/icons/navbar/Notifications-logged.svg";
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
+  const user = false;
   const [isOpen, setOpen] = useState(false);
   const isUserLogged = true;
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -54,9 +55,9 @@ const BurgerMenu = () => {
 
           <button onClick={() => setIsAuthOpen(true)}>
             {isUserLogged ? (
-              <img src={userLogged} alt="user" />
+              <img src={userLoggedIcon} alt="user" />
             ) : (
-              <img src={user} alt="user" />
+              <img src={userIcon} alt="user" />
             )}
           </button>
           <Link to="/cart" className="cart">
@@ -74,12 +75,16 @@ const BurgerMenu = () => {
         <button>Search</button>
       </div> */}
       <div className={`panel ${isOpen ? "open" : "close"}`}></div>
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={handleAuthClose}
-        isUserLoggedIn={!!user}
-      />
-      <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
+      {isAuthOpen && (
+        <AuthModal
+          isOpen={isAuthOpen}
+          onClose={handleAuthClose}
+          isUserLoggedIn={!!user}
+        />
+      )}
+      {isNotifiOpen && (
+        <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
+      )}
     </>
   );
 };
