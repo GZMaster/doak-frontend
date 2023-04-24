@@ -29,9 +29,6 @@
   gap: 3rem;
   @include tablet {
     background-color: $white;
-    padding-left: 7.813rem;
-    padding-right: 7.813rem;
-    padding-bottom: 1.875rem;
   }
 }
 .icons {
@@ -98,5 +95,15 @@ p {
       order: 4;
       flex-grow: 0;
     }
+  }
+}
+.contactus_channel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  @include tablet {
+    padding-left: 7.813rem;
+    padding-right: 7.813rem;
+    padding-bottom: 1.875rem;
   }
 }

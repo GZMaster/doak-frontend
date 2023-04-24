@@ -37,7 +37,7 @@ const ContactPage = () => {
             <button className="submit">Send Message</button>
           </form>
         </div>
-        <div className="contact">
+        <div className="contactus_channel">
           <div className="call">
             <h2>CALL US:</h2>
             <p>+234 903 038 3868</p>
