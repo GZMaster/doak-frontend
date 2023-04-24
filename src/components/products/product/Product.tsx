@@ -31,7 +31,7 @@ export default function Product({
   }
 
   return (
-    <Link to={`/product`} className="product">
+    <Link to={`/product`} className="product" key={_id}>
       <img src={imageCover} alt={name} className="product-img" />
       <div className="product-wrapper">
         <p className="product-category">{category}</p>
