@@ -1,7 +1,6 @@
 import React from "react";
 import "./FaqPage.scss";
 import { useState } from "react";
-import faqbg from "../../assets/Images/others/faqbg.png";
 import openbt from "../../assets/Images/others/openbt.png";
 import closebt from "../../assets/Images/others/closebt.png";
 
