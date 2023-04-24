@@ -6,5 +6,5 @@ export interface IProducts {
   description: string;
   imageCover: string;
   images: string[];
-  category: string;
+  categories: string[];
 }
