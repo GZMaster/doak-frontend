@@ -4,35 +4,45 @@
 
 .hero {
   display: flex;
-  overflow: hidden;
   height: 100vh;
-  width: 100%;
-  margin-top: 4.5rem;
-  position: relative;
+  width: 100vw;
   background-image: url("../../assets/Images/others/hero-bg.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  @include mobile {
-    margin-top: 1rem;
-    background-size: cover;
+  overflow: hidden;
+  @include tablet {
+    background-image: none;
+    width: auto;
+    height: auto;
+    padding-top: 120px;
+    background-color: white;
+  }
+  .available {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #9b9b9b;
+    padding: 1rem;
+    text-align: center;
   }
 
   .text-container {
     display: flex;
-    width: 30%;
+    width: 40%;
     flex-direction: column;
-    position: absolute;
-    top:18rem;
-    left: 18rem;
-    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
-    @include mobile {
+    padding-left: 2rem;
+    @include tablet {
       width: auto;
-      top: 50%;
-      left: 50%;
       justify-content: center;
       align-items: center;
+      padding: 1rem;
+      gap: 1rem;
     }
 
     > h1 {
@@ -42,8 +52,9 @@
       font-size: 2.5rem;
       line-height: 60px;
       color: $text;
-      @include mobile {
-        font-size: 30px;
+      @include tablet {
+        font-size: 24px;
+        line-height: 36px;
       }
     }
 
@@ -54,21 +65,25 @@
       font-size: 1rem;
       line-height: 24px;
       color: $text;
+      @include tablet {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+      }
     }
 
     > .hero__button {
       display: flex;
       width: auto;
-      flex-direction: row;
       justify-content: center;
+      flex-direction: row-reverse;
       align-items: center;
       padding: 10px 20px;
       gap: 10px;
-      width: 200px;
-      height: 48px;
       background: $black;
       border-radius: 5px;
       cursor: pointer;
+      align-self: baseline;
 
       > h3 {
         color: $white;

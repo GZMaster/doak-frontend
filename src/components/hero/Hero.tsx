@@ -45,6 +45,11 @@ export default function Hero() {
             </Link>
           </div>
           <img src={heroBg} alt="" />
+          <p className="available">
+            Showing results for{" "}
+            <span style={{ fontWeight: "700" }}>“Available Products”</span> in
+            stock
+          </p>
         </div>
       )}
     </section>
