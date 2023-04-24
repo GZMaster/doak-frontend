@@ -46,7 +46,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
           zIndex: 1000,
         },
         content: {
-          top: "50%",
+          top: "25%",
           left: "50%",
           right: "auto",
           bottom: "auto",
