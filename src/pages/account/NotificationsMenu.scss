@@ -7,6 +7,9 @@
   border-radius: 10px;
   background-color: $white;
   min-height: 35.02rem;
+  @include tablet {
+    width: auto;
+  }
 
   &_header {
     border-bottom: 1px solid $border;
