@@ -54,11 +54,7 @@ const ProfileMenu = () => {
               <p>1, Omonaluse Street, Omonaluse, Omonaluse</p>
             </div>
             <div className="profilemenu__address__field__box_btn">
-              <button
-              // onClick={handleAddressChange}
-              >
-                Change
-              </button>
+              <button onClick={handleAddressChange}>Change</button>
             </div>
           </div>
         </div>
