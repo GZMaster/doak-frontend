@@ -12,12 +12,13 @@
   // padding-right: 7.5rem;
   padding-left: 5rem;
   width: auto;
-  @media screen and (max-width: 768px) {
+  @include tablet {
     display: flex;
     padding-left: 0;
     align-items: center;
     justify-content: center;
     background-color: $white;
+    width: auto;
   }
 }
 .accountpage__sidebar {
