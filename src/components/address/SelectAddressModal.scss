@@ -1,0 +1,96 @@
+@import "../../styles/theme.scss";
+@import "../../styles/fonts";
+@import "../../styles/breakpoints";
+
+.selectaddressModal {
+  width: 36.688rem;
+  height: 25.313rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 2rem;
+  @include tablet {
+    width: auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    > h1 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 1.25rem;
+      line-height: 1.875rem;
+      color: $text;
+    }
+
+    > button {
+      all: unset;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__field {
+      display: flex;
+      flex-direction: row;
+      justify-content: stretch;
+      align-items: flex-start;
+      gap: 1.5rem;
+
+      &__button {
+        margin-top: 0.938rem;
+      }
+
+      &__box {
+        border: solid 1px $black;
+        padding: 0.75rem 5.875rem 0.75rem 1.25rem;
+        border-radius: 0.625rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+
+        > h2 {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+        > p {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+      }
+    }
+    &__btn {
+      > button {
+        all: unset;
+        border: solid 1px $black;
+        background-color: $black;
+        color: $white;
+        padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+        border-radius: 0.313rem;
+        font-family: $Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 1.313rem;
+        margin-left: 2.25rem;
+      }
+    }
+  }
+}
