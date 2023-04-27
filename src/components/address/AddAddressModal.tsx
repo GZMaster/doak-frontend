@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "react-modal";
-import { InputFields } from "../../lib/Main";
-import "./AddressModal.scss";
+import { InputFields, TextFields } from "../../lib/Main";
+import "./AddAddressModal.scss";
+import Cancel from "../../assets/Images/icons/Cancel.svg";
 
 interface AddressModalProps {
   isOpen: boolean;
@@ -22,29 +23,41 @@ const AddAddressModal: React.FC<AddressModalProps> = ({
         overlay: {
           position: "fixed",
           top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 1000,
+        },
+        content: {
+          top: "55%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+          border: "none",
+          zIndex: 5,
+          padding: 0,
         },
       }}
     >
-      <div className="addressmodal">
-        <div className="addressmodal__header">
+      <div className="AddaddressModal">
+        <div className="AddaddressModal__header">
           <h1>Add New Address</h1>
-          <button onClick={onClose}>x</button>
+          <button onClick={onClose}>
+            <img src={Cancel} alt="cancel button" />
+          </button>
         </div>
 
-        <div className="addressmodal__body">
-          <form className="addressmodal__body__form">
+        <div className="AddaddressModal__body">
+          <form className="AddaddressModal__body__form">
             <InputFields label="Name" type="text" />
             <InputFields label="Phone Number" type="text" />
-            <InputFields label="Address" type="text" />
+            <TextFields label="Address" type="text" />
             <InputFields label="City" type="text" />
             <InputFields label="State" type="text" />
-
-            <button onClick={handleAddressSave}>Save Address</button>
           </form>
+          <div className="AddaddressModal__body__btn">
+            <button onClick={handleAddressSave}>Save Address</button>
+          </div>
         </div>
       </div>
     </Modal>
