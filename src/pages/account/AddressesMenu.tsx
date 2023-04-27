@@ -60,11 +60,7 @@ const AddressesMenu = () => {
         ))}
 
         <div className="addressesmenu_addaddress">
-          <button
-          // onClick={() => setIsOpen(true)}
-          >
-            + Add New Address
-          </button>
+          <button onClick={() => setIsOpen(true)}>+ Add New Address</button>
         </div>
       </div>
     </div>
