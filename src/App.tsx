@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import AuthProvider from "./providers/authentication/AuthProvider";
 import Loader from "react-loader-advanced";
-import { IUser } from "./types/user";
 import Loading from "./components/Loader/Loading";
 import NavBar from "./components/navbar/NavBar";
 import Footer from "./components/footer/Footer";
 
-type ContextType = { user: IUser | null };
-
 function App() {
-  const [user, setUser] = useState<IUser | null>(null);
   const [loading, isLoading] = useState<boolean>(false);
 
   const handleLoading = () => {
@@ -26,18 +23,16 @@ function App() {
   const spinner = <Loading />;
 
   return (
-    <Loader show={loading} message={spinner}>
-      <NavBar context={{ user, setUser }} />
+    <AuthProvider>
+      <Loader show={loading} message={spinner}>
+        <NavBar />
 
-      <Outlet context={{ user, setUser }} />
+        <Outlet />
 
-      <Footer />
-    </Loader>
+        <Footer />
+      </Loader>
+    </AuthProvider>
   );
-}
-
-export function useUser() {
-  return useOutletContext<ContextType>();
 }
 
 export default App;
