@@ -112,8 +112,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const forgotPassword = async (email: string) => {
     // Make API call to forgot password endpoint
     const res = await fetch(
-      // "https://doakbackend.cyclic.app/api/v1/users/forgotPassword",
-      "http://localhost:3000/api/v1/users/forgotPassword",
+      "https://doakbackend.cyclic.app/api/v1/users/forgotPassword",
+      // "http://localhost:3000/api/v1/users/forgotPassword",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -142,8 +142,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   ) => {
     // Make API call to reset password endpoint
     const res = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/users/resetPassword/${restToken}`,
-      `http://localhost:3000/api/v1/users/resetPassword/${restToken}`,
+      `https://doakbackend.cyclic.app/api/v1/users/resetPassword/${restToken}`,
+      // `http://localhost:3000/api/v1/users/resetPassword/${restToken}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
