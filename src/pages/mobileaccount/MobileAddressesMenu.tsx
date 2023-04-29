@@ -67,11 +67,7 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
         ))}
 
         <div className="mobileaddressesmenu_addaddress">
-          <button
-          // onClick={() => setIsOpen(true)}
-          >
-            + Add New Address
-          </button>
+          <button onClick={() => setIsOpen(true)}>+ Add New Address</button>
         </div>
       </div>
     </div>

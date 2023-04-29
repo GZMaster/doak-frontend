@@ -27,7 +27,7 @@ const AddAddressModal: React.FC<AddressModalProps> = ({
           zIndex: 1000,
         },
         content: {
-          top: "55%",
+          top: "50%",
           left: "50%",
           right: "auto",
           bottom: "auto",
