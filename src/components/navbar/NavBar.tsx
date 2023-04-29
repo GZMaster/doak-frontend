@@ -21,6 +21,7 @@ const NavBar = () => {
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
+    console.log("handleAuthClose");
     setIsAuthOpen(false);
   };
 
@@ -73,11 +74,7 @@ const NavBar = () => {
         )}
       </nav>
 
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={handleAuthClose}
-        isUserLoggedIn={isLoggedIn}
-      />
+      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );

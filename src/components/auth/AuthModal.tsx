@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import RegisterModal from "./RegisterModal";
 import LoginPage from "./LoginModal";
@@ -11,25 +11,14 @@ import activebar from "../../assets/Images/icons/active-bar.svg";
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  isUserLoggedIn: boolean;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({
-  isOpen,
-  onClose,
-  isUserLoggedIn,
-}) => {
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [authModal, setAuthModal] = useState("login");
 
   const onChangeAuthModal = (authPage: string) => {
     setAuthModal(authPage);
   };
-
-  useEffect(() => {
-    if (isUserLoggedIn) {
-      onClose();
-    }
-  }, [isUserLoggedIn, onClose]);
 
   return (
     <Modal
@@ -80,9 +69,9 @@ const AuthModal: React.FC<AuthModalProps> = ({
           </button>
         </div>
         {authModal === "register" ? (
-          <RegisterModal />
+          <RegisterModal onClose={onClose} />
         ) : (
-          <LoginPage isUserLoggedIn={isUserLoggedIn} />
+          <LoginPage onClose={onClose} />
         )}
         {/* <div>
           <p className="auth__or">or</p>

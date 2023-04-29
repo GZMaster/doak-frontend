@@ -74,8 +74,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string, password: string) => {
     // Make API call to login endpoint
     const res = await fetch(
-      // "https://doakbackend.cyclic.app/api/v1/users/signup",
-      "http://localhost:3000/api/v1/users/login",
+      "https://doakbackend.cyclic.app/api/v1/users/login",
+      // "http://localhost:3000/api/v1/users/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

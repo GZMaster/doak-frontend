@@ -1,10 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import ToastBar from "../notification/ToastBar";
 import "./AuthModal.scss";
 
-const RegisterModal = () => {
+interface RegisterModalProps {
+  onClose: () => void;
+}
+
+const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const authContext = useContext(AuthContext);
   const [step, setStep] = useState("step1");
   const [buttonText, setButtonText] = useState("Continue");
@@ -17,6 +21,12 @@ const RegisterModal = () => {
   const [showToastBar, setToastBar] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
+
+  useEffect(() => {
+    if (authContext.isLoggedIn) {
+      onClose();
+    }
+  }, [authContext.isLoggedIn, onClose]);
 
   const handleToast = (message: string, type: string) => {
     setToastMessage(message);
