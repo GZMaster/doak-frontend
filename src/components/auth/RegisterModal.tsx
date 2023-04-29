@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import "./AuthModal.scss";
@@ -83,13 +82,19 @@ const RegisterModal = () => {
         passwordConfirm
       );
 
+      // Get OTP
+      const userString = localStorage.getItem("user");
+      const user = userString && JSON.parse(userString);
+
+      setOtp(user.otp);
+
       onChangeStep("step3");
     };
     return (
       <form onSubmit={handleContinue}>
         <InputFields placeholder={email} disabled={true} />
         <InputFields
-          type="string"
+          type="password"
           placeholder="password"
           label="Password"
           required
@@ -97,7 +102,7 @@ const RegisterModal = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <InputFields
-          type="string"
+          type="password"
           placeholder="password"
           label="Password again"
           required
@@ -115,9 +120,17 @@ const RegisterModal = () => {
   const step3 = () => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
+      // Get OTP
+      const userString = localStorage.getItem("user");
+      const user = userString && JSON.parse(userString);
+
+      authContext.verify(user.otp).then((res) => {
+        console.log(res);
+      });
     };
     return (
-      <form action="">
+      <form onSubmit={handleContinue}>
         <InputFields
           type="string"
           label={`Enter the Verification Code sent to EMAILTEXT`}
