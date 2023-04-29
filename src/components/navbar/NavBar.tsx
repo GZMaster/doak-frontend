@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IUser } from "../../types/user";
+import { AuthContext } from "../../services/AuthContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
@@ -12,19 +12,16 @@ import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
 
-interface Props {
-  context: { user: IUser | null; setUser: (user: IUser | null) => void };
-}
-
-const NavBar: React.FC<Props> = ({ context }) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const { user } = context;
+  const { isLoggedIn } = useContext(AuthContext);
 
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
+    console.log("handleAuthClose");
     setIsAuthOpen(false);
   };
 
@@ -57,7 +54,12 @@ const NavBar: React.FC<Props> = ({ context }) => {
                 onClick={() => setIsNotifiOpen(true)}
               />
 
-              <button onClick={() => setIsAuthOpen(true)}>
+              <button
+                onClick={() => {
+                  if (isLoggedIn) navigate("/account");
+                  else setIsAuthOpen(true);
+                }}
+              >
                 <img src={usericon} alt="" />
                 Account
               </button>
@@ -72,11 +74,7 @@ const NavBar: React.FC<Props> = ({ context }) => {
         )}
       </nav>
 
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={handleAuthClose}
-        isUserLoggedIn={!!user}
-      />
+      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );

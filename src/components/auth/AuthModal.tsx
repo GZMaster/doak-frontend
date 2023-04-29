@@ -1,38 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
-import { useNavigate } from "react-router-dom";
 import RegisterModal from "./RegisterModal";
 import LoginPage from "./LoginModal";
 import "./AuthModal.scss";
 import logo from "../../assets/Images/logo/logo.svg";
 import cancel from "../../assets/Images/icons/Cancel.svg";
-import google_icon from "../../assets/Images/icons/google.svg";
+// import google_icon from "../../assets/Images/icons/google.svg";
 import activebar from "../../assets/Images/icons/active-bar.svg";
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  isUserLoggedIn: boolean;
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({
-  isOpen,
-  onClose,
-  isUserLoggedIn,
-}) => {
-  const navigate = useNavigate();
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [authModal, setAuthModal] = useState("login");
 
   const onChangeAuthModal = (authPage: string) => {
     setAuthModal(authPage);
   };
-
-  useEffect(() => {
-    if (isUserLoggedIn) {
-      onClose();
-      navigate("/account");
-    }
-  }, [isUserLoggedIn, onClose]);
 
   return (
     <Modal
@@ -83,16 +69,16 @@ const AuthModal: React.FC<AuthModalProps> = ({
           </button>
         </div>
         {authModal === "register" ? (
-          <RegisterModal isUserLoggedIn={isUserLoggedIn} />
+          <RegisterModal onClose={onClose} />
         ) : (
-          <LoginPage isUserLoggedIn={isUserLoggedIn} />
+          <LoginPage onClose={onClose} />
         )}
-        <div>
+        {/* <div>
           <p className="auth__or">or</p>
-        </div>
-        <button className="authmodal__footer">
+        </div> */}
+        {/* <button className="authmodal__footer">
           <img src={google_icon} alt="icon" /> Continue with Google
-        </button>
+        </button> */}
       </div>
     </Modal>
   );
