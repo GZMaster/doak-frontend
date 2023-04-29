@@ -34,6 +34,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Set cookie
       document.cookie = `jwt=${token}; ${cookieOptions}`;
+      localStorage.setItem("jwt", token);
 
       // Set local storage
       localStorage.setItem("user", JSON.stringify(user));
@@ -90,6 +91,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Set cookie
       document.cookie = `jwt=${token}; ${cookieOptions}`;
+      localStorage.setItem("jwt", token);
 
       // Set local storage
       localStorage.setItem("user", JSON.stringify(user));
