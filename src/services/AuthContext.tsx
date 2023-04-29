@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 interface AuthContextType {
   isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   signup: (
     name: string,
     email: string,
@@ -15,6 +16,7 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
+  setIsLoggedIn: () => false,
   signup: async () => false,
   login: async () => false,
   verify: async () => false,

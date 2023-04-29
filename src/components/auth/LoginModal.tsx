@@ -1,36 +1,55 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import ForgotPassModal from "../forgotpass/ForgotPassModal";
 import "./AuthModal.scss";
 
-interface props {
-  isUserLoggedIn: boolean;
-}
-
-const LoginPage: React.FC<props> = ({ isUserLoggedIn }) => {
-  const navigate = useNavigate();
+const LoginPage = () => {
+  const authContext = useContext(AuthContext);
   const [forgotPass, setForgotPass] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleModal = () => {
     setForgotPass(false);
   };
 
-  const handleLogin = () => {
-    isUserLoggedIn;
-    navigate("/account");
+  const handleLogin = (email: string, password: string) => {
+    authContext.login(email, password).then((res) => {
+      console.log(res);
+      // THIS WILL REDIRECT TO DASHBOARD IF ADMIN IS LOGGED IN
+      // if (res) {
+      //   navigate("/dashboard");
+      // }
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    handleLogin(email, password);
   };
 
   return (
     <>
       {!forgotPass ? (
         <div className="loginpage">
-          <form action="">
-            <InputFields type="email" label="Email" placeholder="Email" />
+          <form onSubmit={handleSubmit}>
             <InputFields
-              type="string"
+              type="email"
+              label="Email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputFields
+              type="password"
               label="Password"
               placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               className="auth__forgot__pass"
@@ -39,7 +58,7 @@ const LoginPage: React.FC<props> = ({ isUserLoggedIn }) => {
               Forgot password?
             </button>
 
-            <button className="auth_continue_btn" onClick={handleLogin}>
+            <button className="auth_continue_btn" type="submit">
               Log in
             </button>
           </form>
