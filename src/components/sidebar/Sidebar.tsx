@@ -62,8 +62,13 @@ function FilterSection({ options }: FilterSectionProps) {
   );
 }
 export default function Sidebar() {
-  const [show, setShow] = useState(false);
-  const toggleShow = () => setShow(!show);
+  const [wineShow, setWineShow] = useState(false);
+  const [drinkShow, setDrinkShow] = useState(false);
+  const [brandShow, setBrandShow] = useState(false);
+  const toggleWineShow = () => setWineShow(!wineShow);
+  const toggleDrinkShow = () => setDrinkShow(!drinkShow);
+  const toggleBrandShow = () => setBrandShow(!brandShow);
+
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -75,20 +80,20 @@ export default function Sidebar() {
       <SortOption
         title="Category"
         options={wineOptions}
-        show={show}
-        toggleShow={toggleShow}
+        show={wineShow}
+        toggleShow={toggleWineShow}
       />
       <SortOption
         title="Drink sizes"
         options={drinkOptions}
-        show={show}
-        toggleShow={toggleShow}
+        show={drinkShow}
+        toggleShow={toggleDrinkShow}
       />
       <SortOption
         title="Brand"
         options={brandOptions}
-        show={show}
-        toggleShow={toggleShow}
+        show={brandShow}
+        toggleShow={toggleBrandShow}
       />
     </aside>
   );
