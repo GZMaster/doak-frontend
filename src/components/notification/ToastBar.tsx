@@ -4,7 +4,7 @@ import "./ToastBar.scss";
 interface ToastBarProps {
   message: string;
   type: string;
-  icon: string;
+  icon?: string;
 }
 
 const ToastBar: React.FC<ToastBarProps> = ({ message, type, icon }) => {

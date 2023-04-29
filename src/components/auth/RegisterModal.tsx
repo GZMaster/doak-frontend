@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
+import ToastBar from "../notification/ToastBar";
 import "./AuthModal.scss";
 
 const RegisterModal = () => {
@@ -13,6 +14,15 @@ const RegisterModal = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [otp, setOtp] = useState("");
+  const [showToastBar, setToastBar] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
+
+  const handleToast = (message: string, type: string) => {
+    setToastMessage(message);
+    setToastType(type);
+    setToastBar(true);
+  };
 
   const onChangeStep = (stepvalue: string) => {
     setStep(stepvalue);
@@ -25,19 +35,37 @@ const RegisterModal = () => {
     passwordConfirm: string
   ) => {
     authContext.signup(name, email, password, passwordConfirm).then((res) => {
-      console.log(res);
+      if (res) {
+        handleToast("Account Created Successfully", "--success");
+        onChangeStep("step3");
+      } else {
+        handleToast("Something went wrong", "--error");
+      }
     });
   };
 
   const handleVerify = (otp: string) => {
     authContext.verify(otp).then((res) => {
-      console.log(res);
+      if (res) {
+        handleToast("Account Verified Successfully", "--success");
+
+        // set is logged in to true after 2 seconds
+        setTimeout(() => {
+          authContext.setIsLoggedIn(true);
+        }, 2000);
+      } else {
+        handleToast("Something went wrong", "--error");
+      }
     });
   };
 
   const step1 = () => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+
+      // clear local storage
+      localStorage.clear();
+
       setButtonText("Send Verificatin Code");
       onChangeStep("step2");
     };
@@ -151,6 +179,7 @@ const RegisterModal = () => {
 
   return (
     <div className="registermodal">
+      {showToastBar && <ToastBar message={toastMessage} type={toastType} />}
       {step === "step1" && step1()}
       {step === "step2" && step2()}
       {step === "step3" && step3()}
