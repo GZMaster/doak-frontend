@@ -11,6 +11,7 @@ import usericon from "../../assets/Images/icons/user-square.svg";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
+import Search from "../mobileSearch";
 
 interface Props {
   context: { user: IUser | null; setUser: (user: IUser | null) => void };
@@ -39,37 +40,43 @@ const NavBar: React.FC<Props> = ({ context }) => {
   return (
     <>
       <nav className="nav_component">
-        <div className="nav_header" onClick={handleReload}>
-          <img className="logo" src={logo} alt="Brand Name" />
-        </div>
-
-        {isPageWide ? (
-          <div className="content">
-            <div className="search">
-              <img src={search} alt="search" />
-              <input type="text" placeholder="Search drinks in any category" />
-              <button>Search</button>
-            </div>
-            <div className="right">
-              <img
-                src={notification}
-                alt="notification"
-                onClick={() => setIsNotifiOpen(true)}
-              />
-
-              <button onClick={() => setIsAuthOpen(true)}>
-                <img src={usericon} alt="" />
-                Account
-              </button>
-              <Link to="/cart" className="cart">
-                <img src={cart} alt="" />
-                Cart
-              </Link>
-            </div>
+        <div className="nav_wrapper">
+          <div className="nav_header" onClick={handleReload}>
+            <img className="logo" src={logo} alt="Brand Name" />
           </div>
-        ) : (
-          <BurgerMenu />
-        )}
+
+          {isPageWide ? (
+            <div className="content">
+              <div className="search">
+                <img src={search} alt="search" />
+                <input
+                  type="text"
+                  placeholder="Search drinks in any category"
+                />
+                <button>Search</button>
+              </div>
+              <div className="right">
+                <img
+                  src={notification}
+                  alt="notification"
+                  onClick={() => setIsNotifiOpen(true)}
+                />
+
+                <button onClick={() => setIsAuthOpen(true)}>
+                  <img src={usericon} alt="" />
+                  Account
+                </button>
+                <Link to="/cart" className="cart">
+                  <img src={cart} alt="" />
+                  Cart
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <BurgerMenu />
+          )}
+        </div>
+        {!isPageWide && <Search />}
       </nav>
 
       <AuthModal
