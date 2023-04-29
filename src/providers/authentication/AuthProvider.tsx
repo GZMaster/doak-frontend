@@ -49,18 +49,18 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const userString = localStorage.getItem("user");
     const user: IUser = userString && JSON.parse(userString);
 
-    console.log(user);
-
     // Make API call to verify endpoint
     const res = await fetch(
       `https://doakbackend.cyclic.app/api/v1/users/verifyEmail/${user._id}}`,
       // "http://localhost:3000/api/v1/users/verify",
       {
-        method: "GET",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ otp }),
       }
     );
+
+    console.log(res);
 
     const response = await res.json();
 

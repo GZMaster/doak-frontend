@@ -29,6 +29,12 @@ const RegisterModal = () => {
     });
   };
 
+  const handleVerify = (otp: string) => {
+    authContext.verify(otp).then((res) => {
+      console.log(res);
+    });
+  };
+
   const step1 = () => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -121,13 +127,9 @@ const RegisterModal = () => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      // Get OTP
-      const userString = localStorage.getItem("user");
-      const user = userString && JSON.parse(userString);
+      console.log("otp", otp);
 
-      authContext.verify(user.otp).then((res) => {
-        console.log(res);
-      });
+      handleVerify(otp);
     };
     return (
       <form onSubmit={handleContinue}>
