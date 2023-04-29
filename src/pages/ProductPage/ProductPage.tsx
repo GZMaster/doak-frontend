@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import { IProducts } from "../../types/products";
-import { IUser } from "../../types/user";
 import ProductTab from "../../components/Tabs/ProductTab";
 import ToastBar from "../../components/notification/ToastBar";
 import "./productPage.scss";
@@ -41,6 +40,7 @@ export default function ProductPage() {
   const getProduct = async () => {
     const response = await fetch(
       `https://doakbackend.cyclic.app/api/v1/wine/${productId}`,
+      // `http://localhost:3000/api/v1/wine/${productId}`,
       {
         method: "GET",
         headers: {
@@ -54,12 +54,14 @@ export default function ProductPage() {
   };
 
   const handleAddCart = async () => {
-    // Get jwt Bear token from document cookie
-    const token = document.cookie.split("=")[2];
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    console.log(token);
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/cart/${productId}`,
-      `http://localhost:3000/api/v1/cart/${productId}`,
+      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
+      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
       {
         method: "POST",
         headers: {
