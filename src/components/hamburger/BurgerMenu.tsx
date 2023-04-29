@@ -14,7 +14,6 @@ import notificationLogged from "../../assets/Images/icons/navbar/Notifications-l
 import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
-  const user = false;
   const [isOpen] = useState(false);
   const isUserLogged = true;
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -76,11 +75,7 @@ const BurgerMenu = () => {
       </div> */}
       <div className={`panel ${isOpen ? "open" : "close"}`}></div>
       {isAuthOpen && (
-        <AuthModal
-          isOpen={isAuthOpen}
-          onClose={handleAuthClose}
-          isUserLoggedIn={!!user}
-        />
+        <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       )}
       {isNotifiOpen && (
         <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
