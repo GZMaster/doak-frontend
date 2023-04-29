@@ -18,7 +18,7 @@ const address = [
   },
   {
     name: "Omonaluse Ohkuehne",
-    address: "1, Omonaluse Street, Omonaluse, Omonaluse",
+    address: "1, Omonaluse Street, Oma easy, Omonaluse",
     PhoneNo: "+2348012345678",
     id: 2,
   },
@@ -63,7 +63,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
 
         <div className="selectaddressModal__body">
           {address.map((item) => (
-            <form className="selectaddressModal__body__field" key={item.id}>
+            <div className="selectaddressModal__body__field" key={item.id}>
               <input
                 className="selectaddressModal__body__field__button"
                 type="radio"
@@ -78,7 +78,7 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
                 <p>{item.address}</p>
                 <p>{item.PhoneNo}</p>
               </label>
-            </form>
+            </div>
           ))}
 
           <div className="selectaddressModal__body__btn">
