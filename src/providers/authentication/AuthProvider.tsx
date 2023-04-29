@@ -109,10 +109,70 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email: string) => {
+    // Make API call to forgot password endpoint
+    const res = await fetch(
+      // "https://doakbackend.cyclic.app/api/v1/users/forgotPassword",
+      "http://localhost:3000/api/v1/users/forgotPassword",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      const { resetToken } = response.data;
+
+      // store reset token in local storage
+      localStorage.setItem("resetToken", resetToken);
+
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const resetPassword = async (
+    password: string,
+    passwordConfirm: string,
+    restToken: string
+  ) => {
+    // Make API call to reset password endpoint
+    const res = await fetch(
+      // `https://doakbackend.cyclic.app/api/v1/users/resetPassword/${restToken}`,
+      `http://localhost:3000/api/v1/users/resetPassword/${restToken}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password, passwordConfirm }),
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <AuthContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, signup, login, verify, logout }}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        signup,
+        login,
+        verify,
+        logout,
+        forgotPassword,
+        resetPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>
