@@ -7,6 +7,7 @@ function InputFields({
   label,
   placeholder,
   value,
+  name,
   onChange,
   errorstate,
   helperText,
@@ -31,6 +32,7 @@ function InputFields({
           className="inputfield__input"
           disabled={disabled}
           required={required}
+          name={name}
         />
         {suffix && <span className="inputfield__verify">{suffix}</span>}
       </div>

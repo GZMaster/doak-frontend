@@ -10,6 +10,11 @@
   width: 260px;
   border-radius: $border-radius-large;
   align-self: baseline;
+  @include tablet {
+    margin: 0;
+    border: none;
+    background-color: white;
+  }
   .sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -24,6 +29,11 @@
       font-size: 20px;
       line-height: 30px;
       color: $text;
+      img {
+        @include tablet {
+          display: none;
+        }
+      }
     }
     .sidebar-reset-btn {
       padding: 4px 10px;
