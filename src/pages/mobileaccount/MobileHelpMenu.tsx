@@ -11,7 +11,7 @@ const MobileHelpMenu: React.FC<MobileHelpMenuProps> = ({ handleBack }) => {
   const [messages] = useState("");
 
   const handleSendMessage = (message: string) => {
-    console.log(message);
+    return message;
   };
 
   return (
