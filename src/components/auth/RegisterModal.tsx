@@ -73,7 +73,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      // clear local storage
       localStorage.clear();
 
       setButtonText("Send Verificatin Code");

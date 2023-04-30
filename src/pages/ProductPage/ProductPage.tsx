@@ -19,7 +19,7 @@ export default function ProductPage() {
   const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
   const [product, setProduct] = useState<IProducts>();
-  const [quantity, setQuantity] = useState("1");
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     getProduct();
@@ -60,14 +60,15 @@ export default function ProductPage() {
     console.log(token);
 
     const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
-      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
+      // `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
+      `http://localhost:3000/api/v1/wine/cart/${productId}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ quantity }),
       }
     );
 
@@ -88,26 +89,26 @@ export default function ProductPage() {
 
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
-      if (!prevQuantity || prevQuantity === "1") {
-        return "1";
+      if (!prevQuantity || prevQuantity === 1) {
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) - 1);
+      return prevQuantity - 1;
     });
   };
 
   const handleQuantityIncrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity) {
-        return "1";
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) + 1);
+      return prevQuantity + 1;
     });
   };
 
   function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const newQuantity = event.target.value.replace(/\D/g, ""); // remove non-digit characters
-    if (Number(newQuantity) > 100) {
-      setQuantity("100");
+    const newQuantity = parseInt(event.target.value.replace(/\D/, ""));
+    if (newQuantity > 100) {
+      setQuantity(100);
     } else {
       setQuantity(newQuantity);
     }
@@ -174,7 +175,7 @@ export default function ProductPage() {
                 -
               </button>
               <input
-                type="text"
+                type="number"
                 name="quantity"
                 value={quantity}
                 maxLength={3}
