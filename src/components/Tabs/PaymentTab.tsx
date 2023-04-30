@@ -1,8 +1,8 @@
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import card from "../../assets/Images/icons/cards.svg";
-import transfer from "../../assets/Images/icons/money-send.svg";
-import Paypal from "../../assets/Images/icons/paypal 1.svg";
+// import transfer from "../../assets/Images/icons/money-send.svg";
+// import Paypal from "../../assets/Images/icons/paypal 1.svg";
 import { InputFields } from "../../lib/Main";
 import "./Tab.scss";
 
@@ -34,9 +34,13 @@ const PaymentTab = () => {
 
     const { data } = await response.json();
 
-    const meta = data.meta.authorization;
+    if (!data || data.status === "error") return alert("Error occured");
 
-    window.location.replace(meta.authorization.redirect);
+    if (data.status === "success") {
+      if (data.meta.authorization.mode === "redirect") {
+        window.location.replace(data.meta.authorization.redirect);
+      }
+    }
   };
 
   return (
