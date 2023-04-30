@@ -11,6 +11,7 @@ import usericon from "../../assets/Images/icons/user-square.svg";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
+import Search from "../mobileSearch";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -36,23 +37,27 @@ const NavBar = () => {
   return (
     <>
       <nav className="nav_component">
-        <div className="nav_header" onClick={handleReload}>
-          <img className="logo" src={logo} alt="Brand Name" />
-        </div>
+        <div className="nav_wrapper">
+          <div className="nav_header" onClick={handleReload}>
+            <img className="logo" src={logo} alt="Brand Name" />
+          </div>
 
-        {isPageWide ? (
-          <div className="content">
-            <div className="search">
-              <img src={search} alt="search" />
-              <input type="text" placeholder="Search drinks in any category" />
-              <button>Search</button>
-            </div>
-            <div className="right">
-              <img
-                src={notification}
-                alt="notification"
-                onClick={() => setIsNotifiOpen(true)}
-              />
+          {isPageWide ? (
+            <div className="content">
+              <div className="search">
+                <img src={search} alt="search" />
+                <input
+                  type="text"
+                  placeholder="Search drinks in any category"
+                />
+                <button>Search</button>
+              </div>
+              <div className="right">
+                <img
+                  src={notification}
+                  alt="notification"
+                  onClick={() => setIsNotifiOpen(true)}
+                />
 
               <button
                 onClick={() => {
@@ -68,10 +73,11 @@ const NavBar = () => {
                 Cart
               </Link>
             </div>
-          </div>
-        ) : (
-          <BurgerMenu />
-        )}
+          ) : (
+            <BurgerMenu />
+          )}
+        </div>
+        {!isPageWide && <Search />}
       </nav>
 
       <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
