@@ -11,8 +11,8 @@ const PaymentTab = () => {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/payment/payintent`,
-      `http://localhost:3000/api/v1/payment/payintent`,
+      `https://doakbackend.cyclic.app/api/v1/payment/payintent`,
+      // `http://localhost:3000/api/v1/payment/payintent`,
       {
         method: "POST",
         headers: {
@@ -32,9 +32,11 @@ const PaymentTab = () => {
       }
     );
 
-    const data = await response.json();
+    const { data } = await response.json();
 
-    // setCart(data.data.cart);
+    const meta = data.meta.authorization;
+
+    window.location.replace(meta.authorization.redirect);
   };
 
   return (
@@ -44,14 +46,14 @@ const PaymentTab = () => {
           <img src={card} alt="" />
           Pay with Card
         </Tab>
-        <Tab className="item">
+        {/* <Tab className="item">
           <img src={transfer} alt="" />
           Transfer/USSD
         </Tab>
         <Tab className="item">
           <img src={Paypal} alt="" />
           Paypal
-        </Tab>
+        </Tab> */}
       </TabList>
       <TabPanel>
         <p className="summary_tab_title">Card Payment</p>
@@ -76,7 +78,7 @@ const PaymentTab = () => {
           Pay N3,003,000
         </div>
       </TabPanel>
-      <TabPanel>
+      {/* <TabPanel>
         <div className="transfer">
           <p className="summary_tab_title">Transfer N3,000,300 to:</p>
           <div className="account_box">
@@ -104,7 +106,7 @@ const PaymentTab = () => {
           </div>
         </div>
       </TabPanel>
-      <TabPanel>Lorem ipsum dolor sit amet consectetur.</TabPanel>
+      <TabPanel>Lorem ipsum dolor sit amet consectetur.</TabPanel> */}
     </Tabs>
   );
 };
