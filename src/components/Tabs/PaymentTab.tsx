@@ -34,7 +34,7 @@ const PaymentTab = () => {
 
     const { data } = await response.json();
 
-    const redirectUrl = data.meta.authorization.redirect;
+    const redirectUrl = data.response.meta.authorization.redirect;
 
     window.location.replace(redirectUrl);
   };
