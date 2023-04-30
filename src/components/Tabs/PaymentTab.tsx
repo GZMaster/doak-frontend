@@ -24,7 +24,7 @@ const PaymentTab = () => {
           cvv: "202",
           expiry_month: "04",
           expiry_year: "25",
-          amount: "100",
+          amount: "200000",
           fullname: "Ohiosumua Daniel",
           email: "danigamester@gmail.com",
           phone_number: "08052026709",
