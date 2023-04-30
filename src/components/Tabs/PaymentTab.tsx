@@ -24,13 +24,10 @@ const PaymentTab = () => {
           cvv: "202",
           expiry_month: "04",
           expiry_year: "25",
-          currency: "NGN",
           amount: "100",
-          redirect_url: "https://www.google.com",
-          fullname: "Flutterwave Developers",
-          email: "developers@flutterwavego.com",
+          fullname: "Ohiosumua Daniel",
+          email: "danigamester@gmail.com",
           phone_number: "08052026709",
-          tx_ref: "353354545",
         }),
       }
     );
