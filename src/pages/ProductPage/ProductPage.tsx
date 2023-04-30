@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import { IProducts } from "../../types/products";
@@ -9,14 +8,14 @@ import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import successicon from "../../assets/Images/icons/success-icon.svg";
 
-interface IOption {
-  label: string;
-  value: string;
-}
+// interface IOption {
+//   label: string;
+//   value: string;
+// }
 export default function ProductPage() {
   const params = useParams();
   const productId = params.productId;
-  const [size, setSize] = useState("");
+  // const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
   const [product, setProduct] = useState<IProducts>();
   const [quantity, setQuantity] = useState(1);
@@ -57,8 +56,6 @@ export default function ProductPage() {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    console.log(token);
-
     const response = await fetch(
       // `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
       `http://localhost:3000/api/v1/wine/cart/${productId}`,
@@ -83,9 +80,9 @@ export default function ProductPage() {
     }
   };
 
-  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSize(event.target.value);
-  };
+  // const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSize(event.target.value);
+  // };
 
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
@@ -114,11 +111,11 @@ export default function ProductPage() {
     }
   }
 
-  const options: IOption[] = [
-    { label: "60cl", value: "60cl" },
-    { label: "75cl", value: "75cl" },
-    { label: "125cl", value: "125cl" },
-  ];
+  // const options: IOption[] = [
+  //   { label: "60cl", value: "60cl" },
+  //   { label: "75cl", value: "75cl" },
+  //   { label: "125cl", value: "125cl" },
+  // ];
 
   const price = 250000;
   const oldPrice = 290000;
@@ -148,7 +145,7 @@ export default function ProductPage() {
             <p className="product-category">{product?.categories}</p>
             <p>{product?.name}</p>
           </div>
-          <div className="product-size">
+          {/* <div className="product-size">
             <p>BOTTLE SIZE</p>
             <form>
               {options.map((option) => (
@@ -164,7 +161,7 @@ export default function ProductPage() {
                 </label>
               ))}
             </form>
-          </div>
+          </div> */}
           <div className="product-quantity">
             <p>QUANTITY</p>
             <div className="quantity-controls">
