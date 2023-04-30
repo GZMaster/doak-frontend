@@ -22,7 +22,6 @@ const NavBar = () => {
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
-    console.log("handleAuthClose");
     setIsAuthOpen(false);
   };
 
