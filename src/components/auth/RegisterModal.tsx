@@ -28,6 +28,20 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
     }
   }, [authContext.isLoggedIn, onClose]);
 
+  useEffect(() => {
+    // Get user from local storage
+    const userString = localStorage.getItem("user");
+    const user = userString && JSON.parse(userString);
+
+    // Get otp from local storage
+    const otpString = localStorage.getItem("otp");
+    const otp = otpString && JSON.parse(otpString);
+
+    console.log("user", user);
+
+    setOtp(otp);
+  }, [step]);
+
   const handleToast = (message: string, type: string) => {
     setToastMessage(message);
     setToastType(type);
@@ -124,18 +138,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
         password,
         passwordConfirm
       );
-
-      // Get user from local storage
-      const userString = await localStorage.getItem("user");
-      const user = userString && JSON.parse(userString);
-
-      // Get otp from local storage
-      const otpString = await localStorage.getItem("otp");
-      const otp = otpString && JSON.parse(otpString);
-
-      console.log("user", user);
-
-      setOtp(otp);
 
       onChangeStep("step3");
     };
