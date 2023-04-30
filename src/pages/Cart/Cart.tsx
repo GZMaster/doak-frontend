@@ -5,22 +5,114 @@ import productImg from "../../assets/Images/others/itemDrink.png";
 import { Link } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 
+interface MyObject {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+// const productDataMock = [
+//   {
+//     "03cc2a22-0407-45e7-848b-3d01661585f2": {
+//       status: "success",
+//       data: {
+//         wineProduct: {
+//           images: ["image"],
+//           categories: ["wines"],
+//           startDates: [],
+//           _id: "644d2a447597c05478f8d1ac",
+//           name: "Sweet Lips Red Wine",
+//           price: 200000,
+//           summary:
+//             "Sweet Lips Red wine is a blissful delight for the senses, with its rich, fruity aromas and luscious sweetness.",
+//           description:
+//             "Sweet Lips Red wine is a blissful delight for the senses, with its rich, fruity aromas and luscious sweetness. This wine is made from a blend of carefully selected grapes, picked at the peak of ripeness to ensure maximum flavor and sweetness. Its bright, ruby-red color is a feast for the eyes, while its aromas of ripe berries and cherries are a delight for the nose. The taste is both sweet and refreshing, with notes of strawberry and raspberry that dance on the tongue. The finish is smooth and satisfying, leaving a sweet aftertaste that lingers on the palate. Sweet Lips wine is the perfect accompaniment to any occasion, from romantic dinners to casual get-togethers with friends. It pairs well with a variety of dishes, from light salads to rich desserts. With its irresistible sweetness and lively character, Sweet Lips wine is sure to make any moment sweeter.",
+//           imageCover: "imagesloca",
+//           id: "03cc2a22-0407-45e7-848b-3d01661585f2",
+//           __v: 0,
+//         },
+//       },
+//       quantity: {
+//         id: "03cc2a22-0407-45e7-848b-3d01661585f2",
+//         quantity: 1,
+//       },
+//     },
+//     "3b3ba681-50e9-4be0-b885-ea0cfd3de063": {
+//       status: "success",
+//       data: {
+//         wineProduct: {
+//           images: ["image"],
+//           categories: ["wines"],
+//           startDates: [],
+//           _id: "644d2a447597c05478f8d1a7",
+//           name: "Carlo Rossi",
+//           price: 200000,
+//           summary:
+//             "Carlo Rossi is a smooth and easy-to-drink wine that's perfect for any occasion.",
+//           description:
+//             "Carlo Rossi is a smooth and easy-to-drink wine that's perfect for any occasion. Made from carefully selected grapes, this wine offers a balanced taste that's both refreshing and approachable. Whether you're enjoying it on its own or pairing it with your favorite meal, Carlo Rossi is a wine that everyone can appreciate.",
+//           imageCover: "imagesloca",
+//           id: "3b3ba681-50e9-4be0-b885-ea0cfd3de063",
+//           __v: 0,
+//         },
+//       },
+//       quantity: {
+//         id: "3b3ba681-50e9-4be0-b885-ea0cfd3de063",
+//         quantity: 5,
+//       },
+//     },
+//   },
+// ];
+
 export default function Cart() {
   const [cart, setCart] = useState();
   const [quantity, setQuantity] = useState(1);
   const isPageWide = UseMediaQuery("(min-width: 769px)");
+  const [productData, setProductData] = useState({});
 
   useEffect(() => {
     getCart();
   }, []);
+
+  useEffect(() => {
+    if (cart) {
+      getProductDataForCart(cart);
+    }
+  }, [cart]);
+
+  // function to handle quantity change for a product
+  // function handleQuantityChange(event, id) {
+  //   const value = event.target.value;
+  //   setCart((prevState) => ({
+  //     ...prevState,
+  //     [id]: { ...prevState[id], quantity: value },
+  //   }));
+  // }
+
+  // // function to remove a product from the cart
+  // function handleProductRemove(id) {
+  //   setCart((prevState) => {
+  //     const newState = { ...prevState };
+  //     delete newState[id];
+  //     return newState;
+  //   });
+  // }
+
+  // // function to calculate the total price of all products in the cart
+  // function calculateTotal() {
+  //   let total = 0;
+  //   Object.values(cart).forEach((product) => {
+  //     total += product.price * product.quantity;
+  //   });
+  //   return total;
+  // }
 
   const getCart = async () => {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/wine/cart/`,
-      `http://localhost:3000/api/v1/wine/cart/`,
+      `https://doakbackend.cyclic.app/api/v1/wine/cart/`,
+      // `http://localhost:3000/api/v1/wine/cart/`,
       {
         method: "GET",
         headers: {
@@ -34,6 +126,38 @@ export default function Cart() {
 
     setCart(data.data.cart);
   };
+
+  // async function that takes in a cart object
+  async function getProductDataForCart(cart: MyObject) {
+    // get all the product ids from the cart object
+    const productIds = Object.keys(cart);
+    // create an array of promises that call the api to get product data for each id
+    const productDataPromises = productIds.map((id) =>
+      fetch(
+        `https://doakbackend.cyclic.app/api/v1/wine/${id}`
+        // `http://localhost:3000/api/v1/wine/${id}`
+      ).then((response) => response.json())
+    );
+
+    // wait for all the promises to resolve with the product data
+    const productData = await Promise.all(productDataPromises);
+
+    // create a new object that maps product data to their quantities in the cart
+    const productDataWithQuantities: MyObject = {};
+    productData.forEach((data, i) => {
+      const id = productIds[i];
+      // add the product data to the new object, along with the quantity from the cart
+      productDataWithQuantities[id] = {
+        ...data,
+        quantity: cart[id],
+      };
+    });
+
+    // return the new object with product data and quantities
+    setProductData(productDataWithQuantities);
+  }
+
+  console.log(productData);
 
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
@@ -81,45 +205,51 @@ export default function Cart() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="product__cart">
-                      <img className="product__image" src={productImg} alt="" />
-                      <div className="product__details">
-                        <p className="product__name">
-                          Hennessy VS Cognac ORIGINAL 70cl X6
-                        </p>
-                        <p>70cl</p>
-                      </div>
-                    </td>
-                    <td className="price">N23,000</td>
-                    <td>
-                      <div className="product-quantity">
-                        <div className="quantity-controls">
-                          <button
-                            className="decrease-quantity"
-                            onClick={handleQuantityDecrease}
-                          >
-                            -
-                          </button>
-                          <input
-                            type="number"
-                            name="quantity"
-                            value={quantity}
-                            maxLength={3}
-                            onChange={handleQuantityChange}
-                          />
-                          <button
-                            className="increase-quantity"
-                            onClick={handleQuantityIncrease}
-                          >
-                            +
-                          </button>
+                    <>
+                      <td className="product__cart">
+                        <img
+                          className="product__image"
+                          src={productImg}
+                          alt=""
+                        />
+                        <div className="product__details">
+                          <p className="product__name">
+                            Hennessy VS Cognac ORIGINAL 70cl X6
+                          </p>
+                          <p>70cl</p>
                         </div>
-                      </div>
-                    </td>
-                    <td className="total">N230,000</td>
-                    <td>
-                      <img src={Trash} alt="delete" />
-                    </td>
+                      </td>
+                      <td className="price">N23,000</td>
+                      <td>
+                        <div className="product-quantity">
+                          <div className="quantity-controls">
+                            <button
+                              className="decrease-quantity"
+                              onClick={handleQuantityDecrease}
+                            >
+                              -
+                            </button>
+                            <input
+                              type="number"
+                              name="quantity"
+                              value={quantity}
+                              maxLength={3}
+                              onChange={handleQuantityChange}
+                            />
+                            <button
+                              className="increase-quantity"
+                              onClick={handleQuantityIncrease}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="total">N230,000</td>
+                      <td>
+                        <img src={Trash} alt="delete" />
+                      </td>
+                    </>
                   </tr>
                 </tbody>
               </table>
