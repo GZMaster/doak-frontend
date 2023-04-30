@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { IUser } from "../../types/user";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../services/AuthContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
@@ -11,20 +11,18 @@ import usericon from "../../assets/Images/icons/user-square.svg";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
+import Search from "../mobileSearch";
 
-interface Props {
-  context: { user: IUser | null; setUser: (user: IUser | null) => void };
-}
-
-const NavBar: React.FC<Props> = ({ context }) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const { user } = context;
+  const { isLoggedIn } = useContext(AuthContext);
 
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
+    console.log("handleAuthClose");
     setIsAuthOpen(false);
   };
 
@@ -39,44 +37,56 @@ const NavBar: React.FC<Props> = ({ context }) => {
   return (
     <>
       <nav className="nav_component">
-        <div className="nav_header" onClick={handleReload}>
-          <img className="logo" src={logo} alt="Brand Name" />
-        </div>
+        <div className="nav_wrapper">
+          <div className="nav_header" onClick={handleReload}>
+            <img className="logo" src={logo} alt="Brand Name" />
+          </div>
 
-        {isPageWide ? (
-          <div className="content">
-            <div className="search">
-              <img src={search} alt="search" />
-              <input type="text" placeholder="Search drinks in any category" />
-              <button>Search</button>
-            </div>
-            <div className="right">
-              <img
-                src={notification}
-                alt="notification"
-                onClick={() => setIsNotifiOpen(true)}
-              />
+          {isPageWide ? (
+            <div className="content">
+              <div className="search">
+                <img src={search} alt="search" />
+                <input
+                  type="text"
+                  placeholder="Search drinks in any category"
+                />
+                <button>Search</button>
+              </div>
+              <div className="right">
+                <img
+                  src={notification}
+                  alt="notification"
+                  onClick={() => setIsNotifiOpen(true)}
+                />
 
-              <button onClick={() => setIsAuthOpen(true)}>
+              <button
+                onClick={() => {
+                  if (isLoggedIn) navigate("/account");
+                  else setIsAuthOpen(true);
+                }}
+              >
                 <img src={usericon} alt="" />
                 Account
               </button>
-              <Link to="/cart" className="cart">
+              <button
+                className="cart"
+                onClick={() => {
+                  if (isLoggedIn) navigate("/cart");
+                  else setIsAuthOpen(true);
+                }}
+              >
                 <img src={cart} alt="" />
                 Cart
-              </Link>
+              </button>
             </div>
-          </div>
-        ) : (
-          <BurgerMenu />
-        )}
+          ) : (
+            <BurgerMenu />
+          )}
+        </div>
+        {!isPageWide && <Search />}
       </nav>
 
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={handleAuthClose}
-        isUserLoggedIn={!!user}
-      />
+      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );
