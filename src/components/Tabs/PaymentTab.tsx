@@ -7,6 +7,36 @@ import { InputFields } from "../../lib/Main";
 import "./Tab.scss";
 
 const PaymentTab = () => {
+  const paymentIntent = async () => {
+    const token = localStorage.getItem("jwt");
+
+    const response = await fetch(
+      // `https://doakbackend.cyclic.app/api/v1/payment/payintent`,
+      `http://localhost:3000/api/v1/payment/payintent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          card_number: "4242424242424242",
+          cvv: "202",
+          expiry_month: "04",
+          expiry_year: "25",
+          amount: "100",
+          fullname: "Ohiosumua Daniel",
+          email: "danigamester@gmail.com",
+          phone_number: "08052026709",
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    // setCart(data.data.cart);
+  };
+
   return (
     <Tabs className="Payment_tab">
       <TabList className="payment_tabs">
@@ -36,7 +66,13 @@ const PaymentTab = () => {
             <InputFields type="text" label="Expiry Date" placeholder="xx/xx" />
           </div>
         </div>
-        <div style={{ textAlign: "center" }} className="auth_continue_btn">
+        <div
+          style={{ textAlign: "center" }}
+          className="auth_continue_btn"
+          onClick={() => {
+            paymentIntent();
+          }}
+        >
           Pay N3,003,000
         </div>
       </TabPanel>

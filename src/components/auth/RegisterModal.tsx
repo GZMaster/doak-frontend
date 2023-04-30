@@ -73,7 +73,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      // clear local storage
       localStorage.clear();
 
       setButtonText("Send Verificatin Code");
@@ -115,7 +114,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   };
 
   const step2 = () => {
-    const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleContinue = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setButtonText("Create Account");
 
@@ -126,11 +125,17 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
         passwordConfirm
       );
 
-      // Get OTP
-      const userString = localStorage.getItem("user");
+      // Get user from local storage
+      const userString = await localStorage.getItem("user");
       const user = userString && JSON.parse(userString);
 
-      setOtp(user.otp);
+      // Get otp from local storage
+      const otpString = await localStorage.getItem("otp");
+      const otp = otpString && JSON.parse(otpString);
+
+      console.log("user", user);
+
+      setOtp(otp);
 
       onChangeStep("step3");
     };
