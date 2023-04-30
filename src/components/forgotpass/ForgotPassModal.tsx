@@ -15,6 +15,10 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
 }) => {
   const [step, setStep] = useState("step1");
   const [buttonText, setButtonText] = useState("Send Reset Code ");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const onChangeStep = (stepvalue: string, buttontext: string) => {
     setStep(stepvalue);
