@@ -58,27 +58,27 @@ const NavBar = () => {
                   alt="notification"
                   onClick={() => setIsNotifiOpen(true)}
                 />
-              </div>
 
-              <button
-                onClick={() => {
-                  if (isLoggedIn) navigate("/account");
-                  else setIsAuthOpen(true);
-                }}
-              >
-                <img src={usericon} alt="" />
-                Account
-              </button>
-              <button
-                className="cart"
-                onClick={() => {
-                  if (isLoggedIn) navigate("/cart");
-                  else setIsAuthOpen(true);
-                }}
-              >
-                <img src={cart} alt="" />
-                Cart
-              </button>
+                <button
+                  onClick={() => {
+                    if (isLoggedIn) navigate("/account");
+                    else setIsAuthOpen(true);
+                  }}
+                >
+                  <img src={usericon} alt="" />
+                  Account
+                </button>
+                <button
+                  className="cart"
+                  onClick={() => {
+                    if (isLoggedIn) navigate("/cart");
+                    else setIsAuthOpen(true);
+                  }}
+                >
+                  <img src={cart} alt="" />
+                  Cart
+                </button>
+              </div>
             </div>
           ) : (
             <BurgerMenu />
