@@ -18,8 +18,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   ) => {
     // Make API call to signup endpoint
     const res = await fetch(
-      "https://doakbackend.cyclic.app/api/v1/users/signup",
-      // "http://localhost:3000/api/v1/users/signup",
+      // "https://doakbackend.cyclic.app/api/v1/users/signup",
+      "http://localhost:3000/api/v1/users/signup",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,6 +34,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Set cookie
       document.cookie = `jwt=${token}; ${cookieOptions}`;
+      localStorage.setItem("jwt", token);
 
       // Set local storage
       localStorage.setItem("user", JSON.stringify(user));
@@ -51,8 +52,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Make API call to verify endpoint
     const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/users/verifyEmail/${user._id}`,
-      // "http://localhost:3000/api/v1/users/verify",
+      // `https://doakbackend.cyclic.app/api/v1/users/verifyEmail/${user._id}`,
+      `http://localhost:3000/api/v1/users/verifyEmail/${user._id}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -74,8 +75,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (email: string, password: string) => {
     // Make API call to login endpoint
     const res = await fetch(
-      "https://doakbackend.cyclic.app/api/v1/users/login",
-      // "http://localhost:3000/api/v1/users/login",
+      // "https://doakbackend.cyclic.app/api/v1/users/login",
+      "http://localhost:3000/api/v1/users/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -90,6 +91,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Set cookie
       document.cookie = `jwt=${token}; ${cookieOptions}`;
+      localStorage.setItem("jwt", token);
 
       // Set local storage
       localStorage.setItem("user", JSON.stringify(user));
@@ -109,10 +111,70 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email: string) => {
+    // Make API call to forgot password endpoint
+    const res = await fetch(
+      // "https://doakbackend.cyclic.app/api/v1/users/forgotPassword",
+      "http://localhost:3000/api/v1/users/forgotPassword",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      const { resetToken } = response.data;
+
+      // store reset token in local storage
+      localStorage.setItem("resetToken", resetToken);
+
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const resetPassword = async (
+    password: string,
+    passwordConfirm: string,
+    restToken: string
+  ) => {
+    // Make API call to reset password endpoint
+    const res = await fetch(
+      // `https://doakbackend.cyclic.app/api/v1/users/resetPassword/${restToken}`,
+      `http://localhost:3000/api/v1/users/resetPassword/${restToken}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password, passwordConfirm }),
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <AuthContext.Provider
-      value={{ isLoggedIn, setIsLoggedIn, signup, login, verify, logout }}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        signup,
+        login,
+        verify,
+        logout,
+        forgotPassword,
+        resetPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

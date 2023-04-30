@@ -12,6 +12,12 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   verify: (otp: string) => Promise<boolean>;
   logout: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<boolean>;
+  resetPassword: (
+    password: string,
+    passwordConfirm: string,
+    restToken: string
+  ) => Promise<boolean>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -28,4 +34,6 @@ export const AuthContext = createContext<AuthContextType>({
       return;
     }
   },
+  forgotPassword: async () => false,
+  resetPassword: async () => false,
 });
