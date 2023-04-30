@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import "./ForgotPassModal.scss";
 import arrow from "../../assets/Images/icons/arrow-left.svg";
@@ -13,6 +14,7 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const useAuthContext = React.useContext(AuthContext);
   const [step, setStep] = useState("step1");
   const [buttonText, setButtonText] = useState("Send Reset Code ");
   const [email, setEmail] = useState("");
@@ -20,25 +22,61 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  useEffect(() => {
+    // get the token from local storage
+    const token = localStorage.getItem("resetToken");
+
+    // if token is present then change the step to step2
+    if (token) {
+      setOtp(token);
+    }
+  }, [localStorage]);
+
+  const forgetPassword = (email: string) => {
+    useAuthContext.forgotPassword(email).then((res) => {
+      if (res) {
+        console.log("Email Sent");
+        onChangeStep("step2", "Reset Password");
+      }
+    });
+  };
+
+  const resetPassword = (
+    password: string,
+    passwordConfirm: string,
+    restToken: string
+  ) => {
+    useAuthContext
+      .resetPassword(password, passwordConfirm, restToken)
+      .then((res) => {
+        if (res) {
+          console.log("Password Reset");
+        }
+      });
+  };
+
   const onChangeStep = (stepvalue: string, buttontext: string) => {
     setStep(stepvalue);
     setButtonText(buttontext);
   };
 
   const step1 = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      forgetPassword(email);
+    };
     return (
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <InputFields
           type="email"
           label="Email"
           placeholder="Email"
           required={true}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button
-          className="auth_continue_btn"
-          onClick={() => onChangeStep("step2", "Reset Password")}
-        >
+        <button className="auth_continue_btn" type="submit">
           {buttonText}
         </button>
       </form>
@@ -46,19 +84,24 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   };
 
   const step2 = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      onChangeStep("step3", "Save New Password");
+    };
+
     return (
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <InputFields
           type="string"
           label={`Enter the Verification Code sent to EMAILTEXT`}
           placeholder="Verification Code"
           required={true}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
         />
 
-        <button
-          className="auth_continue_btn"
-          onClick={() => onChangeStep("step3", "Save New Password")}
-        >
+        <button className="auth_continue_btn" type="submit">
           {buttonText}
         </button>
       </form>
@@ -66,20 +109,37 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   };
 
   const step3 = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      resetPassword(password, passwordConfirm, otp);
+
+      // clear the token from local storage
+      localStorage.removeItem("resetToken");
+
+      onClose();
+    };
+
     return (
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <InputFields
-          type="string"
+          type="password"
           label="New Password"
           placeholder="Enter Password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <InputFields
-          type="string"
+          type="password"
           label="New Password Again"
           placeholder="Enter Password Again"
+          required
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
         />
 
-        <button className="auth_continue_btn" onClick={onClose}>
+        <button className="auth_continue_btn" type="submit">
           {buttonText}
         </button>
       </form>
