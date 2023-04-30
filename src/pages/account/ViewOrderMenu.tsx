@@ -1,18 +1,22 @@
 import React from "react";
 import "./AccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
+import Productimg from "../../assets/Images/others/itemDrink.png";
+import cancel from "../../assets/Images/icons/redcancel.svg";
 
 interface ViewOrderMenuProps {
   handleViewDetail: () => void;
 }
-const item = {
-  Image:
-    "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-  Name: "item 1",
-  Size: "70cl",
-  Quantity: "QTY:X10",
-  Price: "N300,000.00",
-};
+const items = [
+  {
+    id: 1,
+    Image: Productimg,
+    Name: "Hennessy VS Cognac ORIGINAL",
+    Size: "70cl",
+    Quantity: "QTY:X10",
+    Price: "N300,000.00",
+  },
+];
 const orders = [
   {
     status: "Cancelled_by_self",
@@ -49,28 +53,53 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
                 <h1>Order Details</h1>
               </div>
 
-              <div className="viewordermenu__body__body_details_items">
+              <div className="viewordermenu__body__body__details__items">
+                <div className="viewordermenu__body__body__details__items__header">
+                  <h1>Cart Items</h1>
+                </div>
+                <div className="viewordermenu__body__body__details__items__body">
+                  {items.map((item) => (
+                    <>
+                      <div
+                        className="viewordermenu__body__body__details__items__body__left"
+                        key={item.id}
+                      >
+                        <img src={item.Image} alt="item" />
+                        <div className="viewordermenu__body__body__details__items__body__left__name">
+                          <h1>{item.Name}</h1>
+                          <p>{item.Size}</p>
+                        </div>
+                      </div>
+                      <div className="viewordermenu__body__body__details__items__body__middle">
+                        <p>{item.Quantity}</p>
+                      </div>
+                      <div className="viewordermenu__body__body__details__items__body__right">
+                        <p>{item.Price}</p>
+                      </div>
+                    </>
+                  ))}
+                </div>
               </div>
 
               <div className="viewordermenu__body__body__details__subtotal">
-                <p>Subtotal:</p>
+                <h4>Subtotal:</h4>
                 <p>N690,000.00</p>
               </div>
 
               <div className="viewordermenu__body__body__details__shipping">
                 <p>Shipping:</p>
-                <div>
+                <div className="viewordermenu__body__body__details__shipping__right">
                   <p>N2,500.00</p>
-                  <p>
+                  <h4>
                     Door Delivery, to be delivered between the dates 16th of may
                     to 20th of may(usually 3 days after order is confirmed)
-                  </p>
+                  </h4>
                 </div>
               </div>
 
               <div className="viewordermenu__body__body__details__discount">
                 <p>Voucher/Discount Code:</p>
-                <p>0G5ss1baX or use “-” for no voucher</p>
+                <h4>0G5ss1baX or use “-” for no voucher</h4>
               </div>
 
               <div className="viewordermenu__body__body__details__total">
@@ -85,7 +114,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
               </div>
 
               <div className="viewordermenu__body__body__address__details">
-                <p>John Doe</p>
+                <h4>John Doe</h4>
                 <p>123, Main Street, Lagos, Nigeria</p>
                 <p>08012345678</p>
               </div>
@@ -93,8 +122,10 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
 
             <div className="viewordermenu__body__body__cancel">
               <button>
-                {" "}
-                <span>X</span> Cancel Order
+                <span>
+                  <img src={cancel} alt="cancel" />
+                </span>{" "}
+                Cancel Order
               </button>
               <p>
                 Please note: orders cannot be cancelled after order
