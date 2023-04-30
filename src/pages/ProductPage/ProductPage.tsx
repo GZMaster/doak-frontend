@@ -57,8 +57,8 @@ export default function ProductPage() {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
-      `http://localhost:3000/api/v1/wine/cart/${productId}`,
+      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
+      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
       {
         method: "POST",
         headers: {
