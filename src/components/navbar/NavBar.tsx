@@ -58,6 +58,7 @@ const NavBar = () => {
                   alt="notification"
                   onClick={() => setIsNotifiOpen(true)}
                 />
+              </div>
 
               <button
                 onClick={() => {
