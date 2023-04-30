@@ -1,38 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
-import product from "../../assets/Images/others/itemDrink.png";
+import productImg from "../../assets/Images/others/itemDrink.png";
 import { Link } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 
 export default function Cart() {
-  const [quantity, setQuantity] = useState("1");
+  const [cart, setCart] = useState();
+  const [quantity, setQuantity] = useState(1);
+  const isPageWide = UseMediaQuery("(min-width: 769px)");
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const getCart = async () => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const response = await fetch(
+      // `https://doakbackend.cyclic.app/api/v1/wine/cart/`,
+      `http://localhost:3000/api/v1/wine/cart/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    setCart(data.data.cart);
+  };
+
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
-      if (!prevQuantity || prevQuantity === "1") {
-        return "1";
+      if (!prevQuantity || prevQuantity === 1) {
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) - 1);
+      return prevQuantity - 1;
     });
   };
 
   const handleQuantityIncrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity) {
-        return "1";
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) + 1);
+      return prevQuantity + 1;
     });
   };
+
   function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const newQuantity = event.target.value.replace(/\D/g, ""); // remove non-digit characters
-    if (Number(newQuantity) > 100) {
-      setQuantity("100");
+    const newQuantity = parseInt(event.target.value.replace(/\D/, ""));
+    if (newQuantity > 100) {
+      setQuantity(100);
     } else {
       setQuantity(newQuantity);
     }
   }
-  const isPageWide = UseMediaQuery("(min-width: 769px)");
+
   return (
     <section className="Cart">
       <div className="wrapper">
@@ -53,7 +82,7 @@ export default function Cart() {
                 <tbody>
                   <tr>
                     <td className="product__cart">
-                      <img className="product__image" src={product} alt="" />
+                      <img className="product__image" src={productImg} alt="" />
                       <div className="product__details">
                         <p className="product__name">
                           Hennessy VS Cognac ORIGINAL 70cl X6
@@ -72,7 +101,7 @@ export default function Cart() {
                             -
                           </button>
                           <input
-                            type="text"
+                            type="number"
                             name="quantity"
                             value={quantity}
                             maxLength={3}
@@ -121,7 +150,7 @@ export default function Cart() {
             <div className="cart-table">
               <div className="product__cart">
                 <div style={{ display: "flex", gap: "1rem" }}>
-                  <img className="product__image" src={product} alt="" />
+                  <img className="product__image" src={productImg} alt="" />
                   <div className="product__details">
                     <div
                       style={{

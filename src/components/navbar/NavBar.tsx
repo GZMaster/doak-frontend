@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
@@ -68,10 +68,16 @@ const NavBar = () => {
                 <img src={usericon} alt="" />
                 Account
               </button>
-              <Link to="/cart" className="cart">
+              <button
+                className="cart"
+                onClick={() => {
+                  if (isLoggedIn) navigate("/cart");
+                  else setIsAuthOpen(true);
+                }}
+              >
                 <img src={cart} alt="" />
                 Cart
-              </Link>
+              </button>
             </div>
           ) : (
             <BurgerMenu />
