@@ -81,11 +81,6 @@ const BurgerMenu = () => {
           </button>
         </div>
       </div>
-      {/* <div className="search">
-        <img src={search} alt="search" />
-        <input type="text" placeholder="Search drinks in any category" />
-        <button>Search</button>
-      </div> */}
       <div className={`panel ${isOpen ? "open" : "close"}`}></div>
       {isAuthOpen && (
         <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
