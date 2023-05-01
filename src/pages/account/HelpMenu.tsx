@@ -7,7 +7,7 @@ const HelpMenu = () => {
   const [messages] = useState("");
 
   const handleSendMessage = (message: string) => {
-    console.log(message);
+    return message;
   };
 
   return (

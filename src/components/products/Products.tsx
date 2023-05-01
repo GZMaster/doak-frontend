@@ -43,8 +43,6 @@ export default function Products() {
     if (numberOfPages) {
       setTotalPages(numberOfPages);
     }
-
-    console.log(numberOfPagesData.data);
   };
 
   const getProducts = async (

@@ -61,8 +61,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     );
 
-    console.log(res);
-
     const response = await res.json();
 
     if (response.status === "success") {

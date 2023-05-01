@@ -31,7 +31,12 @@ const delivery = [
     phone: "Free within opening hours",
   },
 ];
-const DeliveryTab = () => {
+
+interface Props {
+  handleTabClick: (key: number) => void;
+}
+
+const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
   return (
     <>
       <div className="selectaddress">
@@ -84,7 +89,11 @@ const DeliveryTab = () => {
             </div>
           ))}
 
-          <div style={{ textAlign: "center" }} className="auth_continue_btn">
+          <div
+            style={{ textAlign: "center" }}
+            className="auth_continue_btn"
+            onClick={() => handleTabClick(1)}
+          >
             Proceed to Summary
           </div>
         </div>
