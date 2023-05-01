@@ -72,7 +72,7 @@ const MobileAccountPage = () => {
         {activeMenu === "menu" && (
           <div className="mobileaccountpage__sidebar">
             <div className="mobileaccountpage__sidebar__title">
-              My Doak Account
+              <h3>My Doak Account</h3>
             </div>
             <div className="mobileaccountpage__sidebar__section">
               {sidbaritems.map((item, index) => (
