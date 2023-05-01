@@ -122,8 +122,8 @@ export default function Cart() {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/wine/cart/${id}`,
-      `http://localhost:3000/api/v1/wine/cart/${id}`,
+      `https://doakbackend.cyclic.app/api/v1/wine/cart/${id}`,
+      // `http://localhost:3000/api/v1/wine/cart/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -147,8 +147,8 @@ export default function Cart() {
     // Create an array of promises for fetching product data for each product ID
     const productDataPromises = productIds.map(async (id) => {
       const response = await fetch(
-        // `https://doakbackend.cyclic.app/api/v1/wine/${id}`
-        `http://localhost:3000/api/v1/wine/${id}`
+        `https://doakbackend.cyclic.app/api/v1/wine/${id}`
+        // `http://localhost:3000/api/v1/wine/${id}`
       );
 
       const res = await response.json();
