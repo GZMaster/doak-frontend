@@ -27,6 +27,7 @@
   // gap: 2.563rem;
   background-color: $white;
   width: 19rem;
+  height: 35.02rem;
 }
 .accountpage__sidebar__title {
   border: 0.063rem solid $border;
@@ -90,7 +91,8 @@
 .profilemenu,
 .vouchersmenu,
 .addressesmenu,
-.ordersmenu {
+.ordersmenu,
+.viewordermenu {
   width: 52.625rem;
   border-radius: 10px;
   background-color: $white;
@@ -478,5 +480,392 @@
     font-size: 14px;
     line-height: 21px;
     color: $input-required;
+  }
+}
+
+//view order
+.viewordermenu {
+  display: flex;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    gap: 0.625rem;
+    border-bottom: 1px solid $border;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    > h1 {
+      font-family: $Poppins;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: $text;
+      width: auto;
+    }
+    > button {
+      all: unset;
+    }
+  }
+  &__body {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    &__body {
+      display: flex;
+      flex-direction: column;
+      &__header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.688rem;
+        padding-bottom: 1.5rem;
+        & .Order_Placed,
+        .Order_Confirmed,
+        .Shipped,
+        .Delivered,
+        .Failed_Payment {
+          width: fit-content;
+          border: 0.063rem solid #c3f8d2;
+          border-radius: 5px;
+          padding: 1px 4px;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: #21e558;
+          background-color: #c3f8d2;
+        }
+        & .Failed_Payment,
+        .Failed_Delivery,
+        .Invalid_Address {
+          width: fit-content;
+          border: 0.063rem solid #e7cbc9;
+          border-radius: 5px;
+          padding: 1px 4px;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: #ff3426;
+          background-color: #e7cbc9;
+        }
+        & .Cancelled_by_self {
+          width: fit-content;
+          border: 0.063rem solid #7f7f7f;
+          border-radius: 5px;
+          padding: 1px 4px;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 21px;
+          color: $white;
+          background-color: #7f7f7f;
+        }
+        & h2 {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+        & p {
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+      }
+      &__details {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1.25rem;
+        &__header {
+          border: 1px solid $border;
+          border-top-right-radius: 10px;
+          border-top-left-radius: 10px;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          h1 {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1.125rem;
+            line-height: 1.688rem;
+            color: $text;
+          }
+        }
+        &__items {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          border: 1px solid $border;
+          border-top: none;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          &__header {
+            > h1 {
+              font-family: $Poppins;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 1rem;
+              line-height: 1.5rem;
+              color: $text;
+            }
+          }
+          &__body {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            &__left {
+              display: flex;
+              flex-direction: row;
+              gap: 0.625rem;
+              &__name {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                > h1 {
+                  font-family: $Poppins;
+                  font-style: normal;
+                  font-weight: 400;
+                  font-size: 1rem;
+                  line-height: 1.5rem;
+                  color: $text;
+                }
+                > p {
+                  font-family: $Poppins;
+                  font-style: normal;
+                  font-weight: 700;
+                  font-size: 0.75rem;
+                  line-height: 1.25rem;
+                  color: $text;
+                }
+              }
+            }
+            &__middle {
+              > p {
+                font-family: $Poppins;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                color: $text;
+              }
+            }
+            &__right {
+              > p {
+                font-family: $Poppins;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 1rem;
+                line-height: 1.5rem;
+                color: $text;
+              }
+            }
+          }
+        }
+        &__subtotal {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid $border;
+          border-top: none;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          > h4 {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+          }
+          > p {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+          }
+        }
+        &__shipping {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 15rem;
+          border: 1px solid $border;
+          border-top: none;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          > p {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+          }
+          &__right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.563rem;
+            align-items: end;
+            > p {
+              font-family: $Poppins;
+              font-style: normal;
+              font-weight: 600;
+              font-size: 1rem;
+              line-height: 1.5rem;
+              color: $text;
+            }
+            > h4 {
+              font-family: $Poppins;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 1rem;
+              line-height: 1.5rem;
+              color: $text;
+              align-items: end;
+            }
+          }
+        }
+        &__discount {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid $border;
+          border-top: none;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          > p {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+          }
+          > h4 {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+            align-items: end;
+          }
+        }
+        &__total {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid $border;
+          border-top: none;
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          > p {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: $text;
+          }
+        }
+      }
+      &__address {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+        &__header {
+          border: 1px solid $border;
+          border-top-right-radius: 10px;
+          border-top-left-radius: 10px;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          h1 {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 1.125rem;
+            line-height: 1.688rem;
+            color: $text;
+          }
+        }
+        &__details {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          border: 1px solid $border;
+          border-top: none;
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+          padding: 1rem 1.25rem 1rem 1.25rem;
+          box-sizing: border-box;
+          > h4 {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.875rem;
+            line-height: 1.313rem;
+            color: $text;
+          }
+          > p {
+            font-family: $Poppins;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 0.875rem;
+            line-height: 1.313rem;
+            color: $text;
+          }
+        }
+      }
+      &__cancel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.625rem;
+        > button {
+          all: unset;
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+          border: 1px solid $border;
+          padding: 0.719rem 0.875rem 0.719rem 0.875rem;
+          border-radius: 5px;
+          font-family: $Poppins;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+        > p {
+          font-family: $Poppins;
+          font-style: italic;
+          font-weight: 400;
+          font-size: 0.875rem;
+          line-height: 1.313rem;
+          color: $text;
+        }
+      }
+    }
   }
 }
