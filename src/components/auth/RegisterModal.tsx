@@ -29,15 +29,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   }, [authContext.isLoggedIn, onClose]);
 
   useEffect(() => {
-    // Get user from local storage
-    const userString = localStorage.getItem("user");
-    const user = userString && JSON.parse(userString);
-
     // Get otp from local storage
     const otpString = localStorage.getItem("otp");
     const otp = otpString && JSON.parse(otpString);
-
-    console.log("user", user);
 
     setOtp(otp);
   }, [step]);
@@ -171,9 +165,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const step3 = () => {
     const handleContinue = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-
-      console.log("otp", otp);
-
       handleVerify(otp);
     };
     return (

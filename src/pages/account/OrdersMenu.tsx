@@ -76,9 +76,7 @@ const OrdersMenu = () => {
                     </div>
                     <div className="ordersmenu__order__content__right">
                       <div>
-                        <button
-                        // onClick={handleViewDetails}
-                        >
+                        <button onClick={handleViewDetails}>
                           View Details
                         </button>
                       </div>

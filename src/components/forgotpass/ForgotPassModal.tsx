@@ -35,7 +35,6 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
   const forgetPassword = (email: string) => {
     useAuthContext.forgotPassword(email).then((res) => {
       if (res) {
-        console.log("Email Sent");
         onChangeStep("step2", "Reset Password");
       }
     });
@@ -50,7 +49,7 @@ const ForgotPassModal: React.FC<ForgotPassModalProps> = ({
       .resetPassword(password, passwordConfirm, restToken)
       .then((res) => {
         if (res) {
-          console.log("Password Reset");
+          return res;
         }
       });
   };
