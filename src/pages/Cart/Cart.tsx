@@ -14,14 +14,20 @@ export default function Cart() {
   const [cart, setCart] = useState();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [productData, setProductData] = useState<MyObject>();
+  const [cartLength, setCartLength] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    getCart();
-  }, []);
+    getCart().then((cart) => {
+      setCart(cart);
+    });
+  }, [window.location.pathname]);
 
   useEffect(() => {
     if (cart) {
       getProductDataForCart(cart);
+      setCartLength(Object.keys(cart).length);
+      getTotalCartPrice();
     }
   }, [cart]);
 
@@ -43,7 +49,74 @@ export default function Cart() {
 
     const data = await response.json();
 
-    setCart(data.data.cart);
+    const cartData = data.data.cart;
+
+    return cartData;
+  };
+
+  const getTotalCartPrice = () => {
+    if (productData) {
+      const totalCartPrice = Object.values(productData).reduce(
+        (acc, product) => {
+          const { price, quantity } = product;
+          const quantityNumber = quantity.quantity;
+          const total = price * quantityNumber;
+          return acc + total;
+        },
+        0
+      );
+
+      setTotalPrice(totalCartPrice);
+    }
+  };
+
+  // const updateCart = async (quantityId: string, quantityValue: number) => {
+  //   // Get jwt Bear token from local storage
+  //   const token = localStorage.getItem("jwt");
+
+  //   const response = await fetch(
+  //     // `https://doakbackend.cyclic.app/api/v1/wine/cart/${quantityId}`,
+  //     `http://localhost:3000/api/v1/wine/cart/${quantityId}`,
+  //     {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         quantity: quantityValue,
+  //       }),
+  //     }
+  //   );
+
+  //   const data = await response.json();
+
+  //   const cartData = data.data.cart;
+
+  //   return cartData;
+  // };
+
+  const deleteItem = async (id: string) => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const response = await fetch(
+      // `https://doakbackend.cyclic.app/api/v1/wine/cart/${id}`,
+      `http://localhost:3000/api/v1/wine/cart/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    const cartData = data.data.cart;
+
+    setCart(cartData);
   };
 
   async function getProductDataForCart(cart: never) {
@@ -98,32 +171,24 @@ export default function Cart() {
                 </thead>
                 <tbody>
                   {productData &&
-                    Object.values(productData).map((product, index) => {
+                    Object.values(productData).map((product) => {
                       const { id, name, price, quantity } = product;
-
                       const quantityNumber = quantity.quantity;
-
                       const total = price * quantity.quantity;
 
-                      const onQuantityChange = (e: {
-                        target: { value: string };
-                      }) => {
-                        const newQuantity = e.target.value;
-
-                        console.log(newQuantity);
-
-                        // Update the cart object in state
-                        // setCart((prevCart) => {
-                        //   return {
-                        //     ...prevCart,
-                        //     [id]: newQuantity,
-                        //   };
-                        // });
+                      const onQuantityChange = () => {
+                        // const quantityValue = e.target.value;
+                        // const quantityId = quantity.id;
+                        // updateCart(quantityId, parseInt(quantityValue)).then(
+                        //   (cart) => {
+                        //     setCart(cart);
+                        //   }
+                        // );
                       };
 
                       return (
-                        <tr key={index}>
-                          <td className="product__cart" key={id}>
+                        <tr key={id}>
+                          <td className="product__cart">
                             <img
                               className="product__image"
                               src={productImg}
@@ -134,11 +199,9 @@ export default function Cart() {
                             </div>
                           </td>
 
-                          <td className="price" key={id}>
-                            {price}
-                          </td>
+                          <td className="price">{price}</td>
 
-                          <td className="product_quantity" key={id}>
+                          <td className="product_quantity">
                             <div className="product-quantity">
                               <div className="quantity-controls">
                                 <input
@@ -151,10 +214,11 @@ export default function Cart() {
                               </div>
                             </div>
                           </td>
-                          <td className="total" key={id}>
-                            {total}
-                          </td>
-                          <td className="product_delete" key={id}>
+                          <td className="total">{total}</td>
+                          <td
+                            className="product_delete"
+                            onClick={() => deleteItem(id)}
+                          >
                             <img src={Trash} alt="delete" />
                           </td>
                         </tr>
@@ -166,8 +230,8 @@ export default function Cart() {
             <div className="cart-summary">
               <div className="title">Cart Summary</div>
               <p className="items-total">
-                3 Items
-                <span>N3,000,000</span>
+                {cartLength} Items
+                <span>{totalPrice}</span>
               </p>
               {/* future feature */}
               {/* <label htmlFor="promo" className="promo-code">
