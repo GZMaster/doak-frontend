@@ -34,13 +34,9 @@ const PaymentTab = () => {
 
     const { data } = await response.json();
 
-    if (!data || data.status === "error") return alert("Error occured");
+    const redirectUrl = data.response.meta.authorization.redirect;
 
-    if (data.status === "success") {
-      if (data.meta.authorization.mode === "redirect") {
-        window.location.replace(data.meta.authorization.redirect);
-      }
-    }
+    window.location.replace(redirectUrl);
   };
 
   return (
