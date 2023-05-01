@@ -3,8 +3,13 @@ import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
 
-const SummaryTab = () => {
+interface Props {
+  handleTabClick: (key: number) => void;
+}
+
+const SummaryTab: React.FC<Props> = ({ handleTabClick }) => {
   const isPageWide = UseMediaQuery("(min-width: 769px)");
+
   return (
     <section className="summary_tab">
       <p className="summary_tab_title">Order Summary</p>
@@ -84,7 +89,11 @@ const SummaryTab = () => {
             <p style={{ color: "#ff3426", fontWeight: "600" }}>N2,500</p>
           </div>
         </div>
-        <div style={{ textAlign: "center" }} className="auth_continue_btn">
+        <div
+          style={{ textAlign: "center" }}
+          className="auth_continue_btn"
+          onClick={() => handleTabClick(2)}
+        >
           Proceed to Payment
         </div>
       </div>
