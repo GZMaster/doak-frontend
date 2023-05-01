@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
 import productImg from "../../assets/Images/others/itemDrink.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
+import { FormatNaira } from "../../utils/FormatCurrency";
 
 interface MyObject {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,11 +12,13 @@ interface MyObject {
 }
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [cart, setCart] = useState();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [productData, setProductData] = useState<MyObject>();
   const [cartLength, setCartLength] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [checkoutItems, setCheckoutItems] = useState<MyObject>();
 
   useEffect(() => {
     getCart().then((cart) => {
@@ -30,6 +33,24 @@ export default function Cart() {
       getTotalCartPrice();
     }
   }, [cart]);
+
+  const createCheckOut = () => {
+    if (productData) {
+      const items = Object.values(productData).map((product) => {
+        const { quantity, id, name, price } = product;
+        const quantityNumber = quantity.quantity;
+        const item = {
+          product: id,
+          quantity: quantityNumber,
+          price: price,
+          name: name,
+        };
+        return item;
+      });
+
+      setCheckoutItems(items);
+    }
+  };
 
   const getCart = async () => {
     // Get jwt Bear token from local storage
@@ -199,7 +220,7 @@ export default function Cart() {
                             </div>
                           </td>
 
-                          <td className="price">{price}</td>
+                          <td className="price">{FormatNaira(price)}</td>
 
                           <td className="product_quantity">
                             <div className="product-quantity">
@@ -231,7 +252,7 @@ export default function Cart() {
               <div className="title">Cart Summary</div>
               <p className="items-total">
                 {cartLength} Items
-                <span>{totalPrice}</span>
+                <span>{FormatNaira(totalPrice)}</span>
               </p>
               {/* future feature */}
               {/* <label htmlFor="promo" className="promo-code">
@@ -241,70 +262,95 @@ export default function Cart() {
               <div className="text">Delivery fees are not included</div>
               <div className="line" />
               <div className="subtotal">
-                Subtotal <span>N3,000,000</span>
+                Subtotal <span>{FormatNaira(totalPrice)}</span>
               </div>
-              <Link to="/checkout" className="btn">
+              <button
+                className="btn"
+                onClick={() => {
+                  navigate("/checkout", { state: { items: checkoutItems } });
+                  createCheckOut;
+                }}
+              >
                 CHECK OUT
-              </Link>
+              </button>
             </div>
           </div>
         ) : (
           <div className="cart-wrapper">
             <div className="cart-table">
               <div className="product__cart">
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <img className="product__image" src={productImg} alt="" />
-                  <div className="product__details">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "5px",
-                      }}
-                    >
-                      <p className="product__name">
-                        Hennessy VS Cognac ORIGINAL 70cl X6
-                      </p>
-                      <div className="total">N230,000</div>
-                    </div>
-                    <div className="product-quantity">
-                      {/* <div className="quantity-controls">
-                        <button
-                          className="decrease-quantity"
-                          onClick={handleQuantityDecrease}
+                {productData &&
+                  Object.values(productData).map((product) => {
+                    const { id, name, price, quantity } = product;
+                    const quantityNumber = quantity.quantity;
+
+                    const onQuantityChange = () => {
+                      // const quantityValue = e.target.value;
+                      // const quantityId = quantity.id;
+                      // updateCart(quantityId, parseInt(quantityValue)).then(
+                      //   (cart) => {
+                      //     setCart(cart);
+                      //   }
+                      // );
+                    };
+
+                    return (
+                      <div key={id}>
+                        <div style={{ display: "flex", gap: "1rem" }}>
+                          <img
+                            className="product__image"
+                            src={productImg}
+                            alt=""
+                          />
+                          <div className="product__details">
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "5px",
+                              }}
+                            >
+                              <p className="product__name">{name}</p>
+                              <div className="total">{FormatNaira(price)}</div>
+                            </div>
+                            <div className="product-quantity">
+                              <div className="quantity-controls">
+                                <input
+                                  type="text"
+                                  name="quantity"
+                                  value={quantityNumber}
+                                  maxLength={3}
+                                  onChange={onQuantityChange}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="cart__delete"
+                          onClick={() => deleteItem(id)}
                         >
-                          -
-                        </button>
-                        <input
-                          type="text"
-                          name="quantity"
-                          value={quantityNumber}
-                          maxLength={3}
-                          onChange={handleQuantityChange}
-                        />
-                        <button
-                          className="increase-quantity"
-                          onClick={handleQuantityIncrease}
-                        >
-                          +
-                        </button>
-                      </div> */}
-                    </div>
-                  </div>
-                </div>
-                <div className="cart__delete">
-                  <img src={Trash} alt="delete" />
-                  Delete
-                </div>
+                          <img src={Trash} alt="delete" />
+                          Delete
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
             <div className="cart-summary">
               <div className="subtotal">
-                Subtotal <span>N3,000,000</span>
+                Subtotal <span>{FormatNaira(totalPrice)}</span>
               </div>
-              <Link to="/checkout" className="btn">
+              <button
+                className="btn"
+                onClick={() => {
+                  navigate("/checkout", { state: { items: checkoutItems } });
+                  createCheckOut;
+                }}
+              >
                 CHECK OUT
-              </Link>
+              </button>
             </div>
           </div>
         )}
