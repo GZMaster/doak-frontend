@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import { InputFields, TextFields } from "../../lib/Main";
 import "./AddAddressModal.scss";
@@ -11,22 +10,7 @@ interface AddressModalProps {
   handleAddressSave?: () => void;
 }
 
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-}
-
-const AddAddressModal: React.FC<AddressModalProps> = ({
-  isOpen,
-  onClose,
-  handleAddressSave,
-}) => {
+const AddAddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose }) => {
   const [name, setName] = React.useState<string>("");
   const [address, setAddress] = React.useState<string>("");
   const [city, setCity] = React.useState<string>("");
@@ -40,8 +24,8 @@ const AddAddressModal: React.FC<AddressModalProps> = ({
     const token = localStorage.getItem("jwt");
 
     const res = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/addresses`,
-      `http://localhost:3000/api/v1/addresses`,
+      `https://doakbackend.cyclic.app/api/v1/addresses`,
+      // `http://localhost:3000/api/v1/addresses`,
       {
         method: "POST",
         headers: {
