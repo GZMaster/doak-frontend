@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import MobileAccountPage from "../mobileaccount/MobileAccountPage";
@@ -56,6 +56,11 @@ const AccountPage = () => {
   const navigate = useNavigate();
   const isPageWidth = UseMediaQuery("(max-width: 768px)");
   const [activeMenu, setActiveMenu] = React.useState("Profile");
+  const [userNames, setUserNames] = React.useState("");
+
+  useEffect(() => {
+    getUserNames();
+  }, []);
 
   const onMenuChange = (e: string) => {
     setActiveMenu(e);
@@ -65,6 +70,18 @@ const AccountPage = () => {
     navigate("/");
   };
 
+  const getUserNames = () => {
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+
+    if (user) {
+      const { name } = user;
+      setUserNames(name);
+    }
+
+    return;
+  };
+
   return (
     <div className="accountpage">
       {isPageWidth ? (
@@ -72,7 +89,7 @@ const AccountPage = () => {
       ) : (
         <>
           <div className="accountpage__sidebar">
-            <div className="accountpage__sidebar__title">My Doak Account</div>
+            <div className="accountpage__sidebar__title">{userNames}</div>
             <div className="accountpage__sidebar__section">
               {sidbaritems.map((item, index) => (
                 <button
