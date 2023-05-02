@@ -52,8 +52,8 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
     const token = localStorage.getItem("jwt");
 
     const res = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/addresses`,
-      `http://localhost:3000/api/v1/addresses`,
+      `https://doakbackend.cyclic.app/api/v1/addresses`,
+      // `http://localhost:3000/api/v1/addresses`,
       {
         method: "GET",
         headers: {
@@ -72,8 +72,8 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
     const token = localStorage.getItem("jwt");
 
     const res = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/addresses/default/${id}`,
-      `http://localhost:3000/api/v1/addresses/default/${id}`,
+      `https://doakbackend.cyclic.app/api/v1/addresses/default/${id}`,
+      // `http://localhost:3000/api/v1/addresses/default/${id}`,
       {
         method: "PATCH",
         headers: {
