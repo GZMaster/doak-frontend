@@ -6,7 +6,18 @@ import DeliveryTab from "./DeliveryTab";
 import SummaryTab from "./SummaryTab";
 import PaymentTab from "./PaymentTab";
 
-export default function CheckOutTab() {
+interface Props {
+  items: [
+    {
+      name: string;
+      price: number;
+      product: string;
+      quantity: number;
+    }
+  ];
+}
+
+const CheckOutTab: React.FC<Props> = ({ items }) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabClick = (key: number) => {
@@ -33,7 +44,7 @@ export default function CheckOutTab() {
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <SummaryTab handleTabClick={handleTabClick} />
+            <SummaryTab handleTabClick={handleTabClick} cartItems={items} />
           </div>
         </TabPanel>
         <TabPanel>
@@ -44,4 +55,6 @@ export default function CheckOutTab() {
       </Tabs>
     </>
   );
-}
+};
+
+export default CheckOutTab;

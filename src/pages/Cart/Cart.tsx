@@ -34,6 +34,10 @@ export default function Cart() {
     }
   }, [cart]);
 
+  useEffect(() => {
+    createCheckOut();
+  }, [productData]);
+
   const createCheckOut = () => {
     if (productData) {
       const items = Object.values(productData).map((product) => {
@@ -268,7 +272,6 @@ export default function Cart() {
                 className="btn"
                 onClick={() => {
                   navigate("/checkout", { state: { items: checkoutItems } });
-                  createCheckOut;
                 }}
               >
                 CHECK OUT
@@ -346,7 +349,6 @@ export default function Cart() {
                 className="btn"
                 onClick={() => {
                   navigate("/checkout", { state: { items: checkoutItems } });
-                  createCheckOut;
                 }}
               >
                 CHECK OUT

@@ -9,6 +9,7 @@ const TextFields = ({
   cols,
   errorstate,
   helperText,
+  onChange,
   disabled,
   required,
   prefix,
@@ -30,6 +31,7 @@ const TextFields = ({
           required={required}
           rows={rows}
           cols={cols}
+          onChange={onChange}
         />
         {suffix && <span className="textfield__verify">{suffix}</span>}
       </div>
