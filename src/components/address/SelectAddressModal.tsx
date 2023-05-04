@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./SelectAddressModal.scss";
 import Cancel from "../../assets/Images/icons/Cancel.svg";
@@ -9,26 +9,105 @@ interface SelectAddressProps {
   onClose: () => void;
 }
 
-const address = [
-  {
-    name: "Omonaluse Ohkuehne",
-    address: "1, Omonaluse Street, Omonaluse, Omonaluse",
-    PhoneNo: "+2348012345678",
-    id: 1,
-  },
-  {
-    name: "Omonaluse Ohkuehne",
-    address: "1, Omonaluse Street, Oma easy, Omonaluse",
-    PhoneNo: "+2348012345678",
-    id: 2,
-  },
-];
+interface Address {
+  userId?: string;
+  name: string;
+  address: string;
+  city: string;
+  phoneNumber: string;
+  state: string;
+  country: string;
+  zipCode?: string;
+  _id: string;
+}
 
 const SelectAddress: React.FC<SelectAddressProps> = ({
   handleAddressChange,
   isOpen,
   onClose,
 }) => {
+  const [selectAddress, setSelectedAddress] = useState<Address>();
+  const [address, setAddress] = useState<Array<Address>>();
+
+  const getDefaultAddress = async () => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/addresses/default`,
+      // `http://localhost:3000/api/v1/addresses/default`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const response = await res.json();
+    setSelectedAddress(response.data.address);
+  };
+
+  const getAddress = async () => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/addresses`,
+      // `http://localhost:3000/api/v1/addresses`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const response = await res.json();
+    setAddress(response.data.addresses);
+  };
+
+  const setDefaultAddress = async (id: string) => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/addresses/default/${id}`,
+      // `http://localhost:3000/api/v1/addresses/default/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      handleAddressChange();
+      onClose();
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const selectedAddress = document.querySelector(
+      'input[name="address"]:checked'
+    ) as HTMLInputElement;
+    setDefaultAddress(selectedAddress.id);
+
+    // console.log(selectedAddress.id);
+  };
+
+  useEffect(() => {
+    getDefaultAddress();
+    getAddress();
+  }, []);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -61,30 +140,35 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
           </button>
         </div>
 
-        <div className="selectaddressModal__body">
-          {address.map((item) => (
-            <div className="selectaddressModal__body__field" key={item.id}>
-              <input
-                className="selectaddressModal__body__field__button"
-                type="radio"
-                id={item.address}
-                name="address"
-              />
-              <label
-                className="selectaddressModal__body__field__box"
-                htmlFor={item.address}
-              >
-                <h2>{item.name}</h2>
-                <p>{item.address}</p>
-                <p>{item.PhoneNo}</p>
-              </label>
-            </div>
-          ))}
+        <form className="selectaddressModal__body" onSubmit={handleSubmit}>
+          {address &&
+            address.map((item) => (
+              <div className="selectaddressModal__body__field" key={item._id}>
+                <input
+                  className="selectaddressModal__body__field__button"
+                  type="radio"
+                  id={item._id}
+                  name="address"
+                  checked={item._id === selectAddress?._id}
+                  onChange={() => setSelectedAddress(item)}
+                />
+                <label
+                  className="selectaddressModal__body__field__box"
+                  htmlFor={item._id}
+                >
+                  <h2>{item.name}</h2>
+                  <p>
+                    {item.address}, {item.city} City, {item.state} State
+                  </p>
+                  <p>{item.phoneNumber}</p>
+                </label>
+              </div>
+            ))}
 
           <div className="selectaddressModal__body__btn">
-            <button onClick={handleAddressChange}>Save</button>
+            <button type="submit">Save</button>
           </div>
-        </div>
+        </form>
       </div>
     </Modal>
   );
