@@ -1,31 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ViewOrderMenu from "./ViewOrderMenu";
 import "./AccountPage.scss";
-import orderimg1 from "../../assets/Images/others/orderimg1.png";
 
-const orders = [
-  {
-    id: 1,
-    status: "Cancelled_by_self",
-    images: [
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    ],
-    items: [{ name: "item 1" }, { name: "item 2" }, { name: "item 3" }],
-  },
-  {
-    id: 2,
-    status: "Delivered",
-    images: [
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    ],
-    items: [{ name: "item 1" }],
-  },
-];
+interface Order {
+  userId: string;
+  orderId: string;
+  orderStatus: string;
+  items: [
+    {
+      productId: string;
+      name: string;
+      quantity: number;
+      price: number;
+    }
+  ];
+  date: Date;
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+}
 
 const OrdersMenu = () => {
+  const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
+  const [orders, setOrders] = useState<Array<Order>>();
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = async () => {
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/orders/`,
+      // `http://localhost:3000/api/v1/orders/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      setOrders(data.data);
+    }
+  };
 
   const handleViewDetails = () => {
     setViewDetails(!viewDetails);
@@ -42,33 +65,23 @@ const OrdersMenu = () => {
           </div>
 
           <div className="ordersmenu__body">
-            {orders.length !== 0 ? (
+            {orders ? (
               orders.map((order) => (
-                <div className="ordersmenu__order" key={order.id}>
+                <div className="ordersmenu__order" key={order.userId}>
                   <div className="ordersmenu__order__content">
                     <div className="ordersmenu__order__content__left">
                       <div className="ordersmenu__order__header">
-                        <h2>Order No. {order.id}</h2>
-                        <h3 className={`${order.status}`}>
-                          {order.status.split("_").join(" ")}
+                        <h2>Order No. {order.orderId}</h2>
+                        <h3 className={`${order.orderStatus}`}>
+                          {order.orderStatus}
                         </h3>
                       </div>
 
                       <div className="ordersmenu__order__body">
                         <div className="ordersmenu__order__body__left">
-                          <div className="ordersmenu__order__images">
-                            {order.images.map(() => (
-                              <img
-                                src={orderimg1}
-                                alt="order image"
-                                key={order.id}
-                              />
-                            ))}
-                          </div>
-
                           <div className="ordersmenu__order__item">
-                            {order.items.map(({ name }) => (
-                              <p key={order.id}>{name}</p>
+                            {order.items.map(({ productId, name }) => (
+                              <p key={productId}>{name}</p>
                             ))}
                           </div>
                         </div>
@@ -95,7 +108,7 @@ const OrdersMenu = () => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={() => navigate("/")}>
                   <span>
                     <img src="shopicon" alt="" />
                   </span>

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
+import Loading from "../../components/Loader/Loading";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./AccountPage.scss";
 
@@ -17,6 +19,11 @@ interface Address {
 
 const ProfileMenu = () => {
   const jwt = localStorage.getItem("jwt");
+  const userString = localStorage.getItem("user");
+  const user = userString && JSON.parse(userString);
+
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [changeAddress, setChangeAddress] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -25,15 +32,47 @@ const ProfileMenu = () => {
   const [address, setAddress] = useState<Address>();
 
   useEffect(() => {
+    setIsLoading(true);
     getUser();
     getDefaultAddress();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
-  const getUser = () => {
-    // Get user from local storage
-    const userString = localStorage.getItem("user");
-    const user = userString && JSON.parse(userString);
+  const updateUser = async () => {
+    setIsLoading(true);
 
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/users/updateMe`,
+      // `http://localhost:3000/api/v1/users/updateMe`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`,
+          phoneNumber,
+          email,
+        }),
+      }
+    );
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      alert("User updated successfully");
+    } else {
+      setIsLoading(false);
+      alert("User update failed");
+    }
+  };
+
+  const getUser = () => {
     const { name, phoneNumber, email } = user;
 
     setFirstName(name.split(" ")[0]);
@@ -64,8 +103,13 @@ const ProfileMenu = () => {
     setChangeAddress(!changeAddress);
   };
 
+  const handleUpdate = () => {
+    updateUser();
+  };
+
   return (
     <div className="profilemenu">
+      {isLoading && <Loading />}
       {changeAddress && (
         <SelectAddress
           handleAddressChange={handleAddressChange}
@@ -131,7 +175,7 @@ const ProfileMenu = () => {
         </div>
 
         <div className="profilemenu__body__btn">
-          <button>Update</button>
+          <button onClick={handleUpdate}>Update</button>
         </div>
       </div>
     </div>
