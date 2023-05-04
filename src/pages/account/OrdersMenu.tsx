@@ -7,6 +7,7 @@ interface Order {
   userId: string;
   orderId: string;
   orderStatus: string;
+  address: string;
   items: [
     {
       productId: string;
@@ -25,6 +26,7 @@ const OrdersMenu = () => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
   const [orders, setOrders] = useState<Array<Order>>();
+  const [selectedOrder, setSelectedOrder] = useState<Order>();
 
   useEffect(() => {
     getOrders();
@@ -54,10 +56,18 @@ const OrdersMenu = () => {
     setViewDetails(!viewDetails);
   };
 
+  const passOrder = (order: Order) => {
+    setSelectedOrder(order);
+    handleViewDetails();
+  };
+
   return (
     <div className="ordersmenu">
       {viewDetails ? (
-        <ViewOrderMenu handleViewDetail={handleViewDetails} />
+        <ViewOrderMenu
+          handleViewDetail={handleViewDetails}
+          order={selectedOrder}
+        />
       ) : (
         <>
           <div className="ordersmenu__header">
@@ -67,7 +77,11 @@ const OrdersMenu = () => {
           <div className="ordersmenu__body">
             {orders ? (
               orders.map((order) => (
-                <div className="ordersmenu__order" key={order.userId}>
+                <form
+                  className="ordersmenu__order"
+                  key={order.userId}
+                  onSubmit={() => passOrder(order)}
+                >
                   <div className="ordersmenu__order__content">
                     <div className="ordersmenu__order__content__left">
                       <div className="ordersmenu__order__header">
@@ -89,13 +103,11 @@ const OrdersMenu = () => {
                     </div>
                     <div className="ordersmenu__order__content__right">
                       <div>
-                        <button onClick={handleViewDetails}>
-                          View Details
-                        </button>
+                        <button type="submit">View Details</button>
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               ))
             ) : (
               <div className="ordersmenu__empty">
