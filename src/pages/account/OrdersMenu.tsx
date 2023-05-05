@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ViewOrderMenu from "./ViewOrderMenu";
 import "./AccountPage.scss";
+import NoOrder from "../../assets/Images/icons/NoOrderIcon.svg";
+import shoppingcart from "../../assets/Images/icons/shopping-cart-white.svg";
 
 interface Order {
   userId: string;
@@ -111,9 +113,9 @@ const OrdersMenu = () => {
               ))
             ) : (
               <div className="ordersmenu__empty">
-                <img src="emptylogo" alt="" />
+                <img src={NoOrder} alt="no order icon" />
 
-                <div>
+                <div className="ordersmenu__empty__content">
                   <h1>You have not placed an order with us yet</h1>
                   <p>
                     Find information and view progress on all your orders here
@@ -122,7 +124,7 @@ const OrdersMenu = () => {
 
                 <button onClick={() => navigate("/")}>
                   <span>
-                    <img src="shopicon" alt="" />
+                    <img src={shoppingcart} alt="shopping cart" />
                   </span>
                   Start Shopping
                 </button>
