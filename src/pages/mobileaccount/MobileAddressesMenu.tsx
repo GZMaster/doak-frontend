@@ -31,8 +31,8 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
 
   const getAddresses = async () => {
     const response = await fetch(
-      // "https://doakbackend.cyclic.app/api/v1/addresses",
-      "http://localhost:3000/api/v1/addresses",
+      "https://doakbackend.cyclic.app/api/v1/addresses",
+      // "http://localhost:3000/api/v1/addresses",
       {
         method: "GET",
         headers: {
@@ -48,6 +48,26 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
 
     if (data.status === "success") {
       setAddresses(addresses);
+    }
+  };
+
+  const deleteAddress = async (id: string) => {
+    const response = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/addresses/${id}`,
+      // `http://localhost:3000/api/v1/addresses/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      getAddresses();
     }
   };
 
@@ -85,7 +105,12 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
 
                 <div className="mobileaddressesmenu_address_actions">
                   {/* <button className="edit">Edit</button> */}
-                  <button className="delete">Delete</button>
+                  <button
+                    className="delete"
+                    onClick={() => deleteAddress(address._id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
