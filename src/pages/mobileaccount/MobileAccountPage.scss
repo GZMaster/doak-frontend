@@ -3,7 +3,7 @@
 @import "../../styles/breakpoints";
 
 .mobileaccountpage__sidebar {
-  width: 23.125rem;
+  width: auto;
   border: 0.063rem solid $border;
   border-radius: 10px;
   display: flex;
@@ -13,17 +13,19 @@
 }
 
 .mobileaccountpage__sidebar__title {
+  display: flex;
   border-bottom: 1px solid $border;
-  align-items: center;
   padding-bottom: 1rem;
-  padding: 1rem 6.688rem;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: $text;
-  width: 9.8rem;
+  padding: 1rem 5.688rem;
+  > h3 {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: $text;
+    align-items: center;
+  }
 }
 .mobileaccountpage__sidebar__section {
   display: flex;
@@ -215,9 +217,8 @@
   display: flex;
   flex-direction: column;
   border: 0.063rem solid $border;
-  padding: 0.7rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 10px;
-  padding-left: 0.5rem;
 }
 .mobileordersmenu__order__header {
   display: flex;
@@ -295,11 +296,9 @@
 .mobileordersmenu__order__content {
   display: flex;
   flex-direction: row;
-  gap: 1.625rem;
+  gap: 4.625rem;
   align-items: center;
-}
-.mobileordersmenu__order__content__left {
-  width: 18.625rem;
+  justify-content: space-between;
 }
 .mobileordersmenu__order__images {
   display: flex;
@@ -355,7 +354,7 @@
       /* identical to box height */
 
       color: $text;
-      padding-right: 12.35rem;
+      padding-right: 10.35rem;
     }
     S > button {
       background: none;
@@ -382,11 +381,10 @@
       display: flex;
       box-sizing: border-box;
       width: 100%;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 12px 28px 12px 18px;
-      gap: 48px;
+      padding: 10px 14px 2px 9px;
       background: #ffffff;
       border: 1px solid #c5c5c5;
       border-radius: 10px;
@@ -720,7 +718,7 @@
         height: 6rem;
         border: 0.063rem solid #c5c5c5;
         border-radius: 0.25rem;
-        width: 24rem;
+        width: 21rem;
         margin-bottom: 1rem;
 
         & input {
