@@ -25,7 +25,7 @@ const NotificationsMenu = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
@@ -43,7 +43,7 @@ const NotificationsMenu = () => {
 
       <div className="notificationsmenu_body">
         {notifications &&
-          notifications.map((notification) => (
+          Object.values(notifications).map((notification) => (
             <div
               className="notificationsmenu_body_notification"
               key={notification._id}
