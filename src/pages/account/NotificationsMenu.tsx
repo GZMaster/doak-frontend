@@ -1,22 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./NotificationsMenu.scss";
 
-const notifications = [
-  {
-    id: 1,
-    title: "Order No. 11267880 Arriving Today!",
-    description:
-      "Samuel Enikhan (09030383868) is delivering your order today from 12pm to 3pm.",
-  },
-  {
-    id: 2,
-    title: "Updates from DOAK",
-    description:
-      "Hey Gbemisola, Doak is having a black Friday week, join us on June 14th and be one of our lucky customers this week.",
-  },
-];
+interface Notifications {
+  _id: string;
+  userId: string;
+  head: string;
+  body: string;
+  date: Date;
+  read: boolean;
+}
 
 const NotificationsMenu = () => {
+  const [notifications, setNotifications] = useState<Array<Notifications>>();
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+  const getNotifications = async () => {
+    const response = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/notifications`,
+      // `http://localhost:3000/api/v1/notifications`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    setNotifications(data.data);
+  };
+
   return (
     <div className="notificationsmenu">
       <div className="notificationsmenu_header">
@@ -25,20 +42,21 @@ const NotificationsMenu = () => {
       </div>
 
       <div className="notificationsmenu_body">
-        {notifications.map((notification) => (
-          <div
-            className="notificationsmenu_body_notification"
-            key={notification.id}
-          >
-            <div className="notificationsmenu_body_notification__text">
-              <h2>{notification.title}</h2>
-              <p>{notification.description}</p>
+        {notifications &&
+          notifications.map((notification) => (
+            <div
+              className="notificationsmenu_body_notification"
+              key={notification._id}
+            >
+              <div className="notificationsmenu_body_notification__text">
+                <h2>{notification.head}</h2>
+                <p>{notification.body}</p>
+              </div>
+              <div className="notificationsmenu_body_notification__logo">
+                <img src="" alt="" />
+              </div>
             </div>
-            <div className="notificationsmenu_body_notification__logo">
-              <img src="" alt="" />
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
