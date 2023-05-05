@@ -14,14 +14,17 @@ interface Notifications {
 
 interface MobileNotificationsMenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
   handleBack,
+  setIsLoading,
 }) => {
   const [notifications, setNotifications] = useState<Array<Notifications>>();
 
   useEffect(() => {
+    setIsLoading(true);
     getNotifications();
   }, []);
 
@@ -40,6 +43,7 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
 
     const data = await response.json();
     setNotifications(data.data);
+    setIsLoading(false);
   };
 
   return (

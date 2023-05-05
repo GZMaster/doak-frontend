@@ -1,5 +1,6 @@
 import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { useLoading } from "../../services/LoadingContext";
 import card from "../../assets/Images/icons/cards.svg";
 // import transfer from "../../assets/Images/icons/money-send.svg";
 // import Paypal from "../../assets/Images/icons/paypal 1.svg";
@@ -7,7 +8,10 @@ import { InputFields } from "../../lib/Main";
 import "./Tab.scss";
 
 const PaymentTab = () => {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
+
   const paymentIntent = async () => {
+    setIsLoading(true);
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
@@ -34,6 +38,8 @@ const PaymentTab = () => {
 
     const { data } = await response.json();
 
+    setIsLoading(false);
+
     const redirectUrl = data.response.meta.authorization.redirect;
 
     window.location.replace(redirectUrl);
@@ -41,6 +47,7 @@ const PaymentTab = () => {
 
   return (
     <Tabs className="Payment_tab">
+      {isLoading && <LoadingComponent />}
       <TabList className="payment_tabs">
         <Tab className="item">
           <img src={card} alt="" />

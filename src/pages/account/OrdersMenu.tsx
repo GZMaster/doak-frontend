@@ -24,13 +24,18 @@ interface Order {
   total: number;
 }
 
-const OrdersMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
   const [orders, setOrders] = useState<Array<Order>>();
   const [selectedOrder, setSelectedOrder] = useState<Order>();
 
   useEffect(() => {
+    setIsLoading(true);
     getOrders();
   }, []);
 
@@ -52,6 +57,8 @@ const OrdersMenu = () => {
     if (data.success) {
       setOrders(data.data);
     }
+
+    setIsLoading(false);
   };
 
   const handleViewDetails = () => {

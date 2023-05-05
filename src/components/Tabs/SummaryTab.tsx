@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { useLoading } from "../../services/LoadingContext";
 import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
@@ -30,11 +31,13 @@ interface Address {
 }
 
 const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
   const [address, setAddress] = useState<Address>();
 
   useEffect(() => {
+    setIsLoading(true);
     getDefaultAddress();
   }, []);
 
@@ -50,6 +53,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
   };
 
   const createOrder = async () => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
     const total = getTotal();
@@ -80,9 +84,12 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     if (response.status === "success") {
       handleTabClick(2);
     }
+
+    setIsLoading(false);
   };
 
   const getDefaultAddress = async () => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
@@ -101,10 +108,12 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     const response = await res.json();
 
     setAddress(response.data.addressData);
+    setIsLoading(false);
   };
 
   return (
     <section className="summary_tab">
+      {isLoading && <LoadingComponent />}
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
-import Loading from "../../components/Loader/Loading";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileProfilemenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 interface Address {
@@ -24,13 +24,13 @@ interface Address {
 
 const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
   handleBack,
+  setIsLoading,
 }) => {
   const jwt = localStorage.getItem("jwt");
   const userString = localStorage.getItem("user");
   const user = userString && JSON.parse(userString);
 
   const { setIsLoggedIn } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
   const [changeAddress, setChangeAddress] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -116,7 +116,6 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
 
   return (
     <div className="mobileprofilemenu">
-      {isLoading && <Loading />}
       {changeAddress && (
         <SelectAddress
           handleAddressChange={handleAddressChange}

@@ -10,10 +10,15 @@ interface Notifications {
   read: boolean;
 }
 
-const NotificationsMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const NotificationsMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const [notifications, setNotifications] = useState<Array<Notifications>>();
 
   useEffect(() => {
+    setIsLoading(true);
     getNotifications();
   }, []);
 
@@ -32,6 +37,8 @@ const NotificationsMenu = () => {
 
     const data = await response.json();
     setNotifications(data.data);
+
+    setIsLoading(false);
   };
 
   return (

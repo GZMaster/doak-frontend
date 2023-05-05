@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import { IProducts } from "../../types/products";
 import ProductTab from "../../components/Tabs/ProductTab";
+import { useLoading } from "../../services/LoadingContext";
 import ToastBar from "../../components/notification/ToastBar";
 import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
@@ -15,12 +16,14 @@ import successicon from "../../assets/Images/icons/success-icon.svg";
 export default function ProductPage() {
   const params = useParams();
   const productId = params.productId;
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   // const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
   const [product, setProduct] = useState<IProducts>();
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
+    setIsLoading(true);
     getProduct();
   }, [productId]);
 
@@ -50,6 +53,8 @@ export default function ProductPage() {
 
     const data = await response.json();
     setProduct(data.data.wineProduct);
+
+    setIsLoading(false);
   };
 
   const handleAddCart = async () => {
@@ -76,6 +81,7 @@ export default function ProductPage() {
       const cartCount = document.cookie.split("=")[1];
       const newCartCount = parseInt(cartCount, 10) + 1;
       document.cookie = `cartCount=${newCartCount}; path=/`;
+      setIsLoading(false);
       setShowToastBar(true);
     }
   };
@@ -129,6 +135,7 @@ export default function ProductPage() {
 
   return (
     <section className="single-product">
+      {isLoading && <LoadingComponent />}
       {showToastBar && (
         <ToastBar
           type="success"

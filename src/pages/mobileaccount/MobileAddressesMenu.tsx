@@ -17,15 +17,18 @@ interface Address {
 
 interface MobileAddressesMenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
   handleBack,
+  setIsLoading,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
+    setIsLoading(true);
     getAddresses();
   }, []);
 
@@ -49,9 +52,12 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
     if (data.status === "success") {
       setAddresses(addresses);
     }
+
+    setIsLoading(false);
   };
 
   const deleteAddress = async (id: string) => {
+    setIsLoading(true);
     const response = await fetch(
       `https://doakbackend.cyclic.app/api/v1/addresses/${id}`,
       // `http://localhost:3000/api/v1/addresses/${id}`,
@@ -69,6 +75,8 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
     if (data.status === "success") {
       getAddresses();
     }
+
+    setIsLoading(false);
   };
 
   const handleAddressSave = () => {

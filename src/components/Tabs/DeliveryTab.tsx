@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLoading } from "../../services/LoadingContext";
 import AddAddressModal from "../address/AddAddressModal";
 import "../address/AddressModal.scss";
 
@@ -35,11 +36,13 @@ interface Address {
 }
 
 const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [address, setAddress] = useState<Array<Address>>();
   const [addressModal, setAddressModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState("");
 
   useEffect(() => {
+    setIsLoading(true);
     getAddress();
   }, []);
 
@@ -65,9 +68,11 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
 
     const response = await res.json();
     setAddress(response.data.addresses);
+    setIsLoading(false);
   };
 
   const setDefaultAddress = async (id: string) => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
@@ -88,10 +93,13 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
     if (response.status === "success") {
       handleTabClick(1);
     }
+
+    setIsLoading(false);
   };
 
   return (
     <>
+      {isLoading && <LoadingComponent />}
       <AddAddressModal isOpen={addressModal} onClose={closeModal} />
       <div className="selectaddress">
         <div className="selectaddress__header">
