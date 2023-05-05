@@ -33,7 +33,7 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
@@ -56,7 +56,7 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
 
       <div className="mobilenotificationsmenu_body">
         {notifications &&
-          notifications.map((notification) => (
+          Object.values(notifications).map((notification) => (
             <div
               className="mobilenotificationsmenu_body_notification"
               key={notification._id}
