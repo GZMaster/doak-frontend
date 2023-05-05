@@ -8,6 +8,7 @@ export interface IText {
   errorstate?: string;
   helperText?: string;
   disabled?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   required?: boolean;
   prefix?: ReactNode;
   suffix?: ReactNode;
