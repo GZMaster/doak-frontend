@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLoading } from "../../services/LoadingContext";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
 import productImg from "../../assets/Images/others/itemDrink.png";
@@ -13,6 +14,7 @@ interface MyObject {
 
 export default function Cart() {
   const navigate = useNavigate();
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [cart, setCart] = useState();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [productData, setProductData] = useState<MyObject>();
@@ -21,12 +23,14 @@ export default function Cart() {
   const [checkoutItems, setCheckoutItems] = useState<MyObject>();
 
   useEffect(() => {
+    setIsLoading(true);
     getCart().then((cart) => {
       setCart(cart);
     });
   }, [window.location.pathname]);
 
   useEffect(() => {
+    setIsLoading(true);
     if (cart) {
       getProductDataForCart(cart);
       setCartLength(Object.keys(cart).length);
@@ -35,6 +39,7 @@ export default function Cart() {
   }, [cart]);
 
   useEffect(() => {
+    setIsLoading(true);
     createCheckOut();
   }, [productData]);
 
@@ -75,6 +80,8 @@ export default function Cart() {
     const data = await response.json();
 
     const cartData = data.data.cart;
+
+    setIsLoading(false);
 
     return cartData;
   };
@@ -142,6 +149,8 @@ export default function Cart() {
     const cartData = data.data.cart;
 
     setCart(cartData);
+
+    setIsLoading(false);
   };
 
   async function getProductDataForCart(cart: never) {
@@ -175,10 +184,13 @@ export default function Cart() {
 
     // Return the new object with product data and quantities
     setProductData(productDataWithQuantities);
+
+    setIsLoading(false);
   }
 
   return (
     <section className="Cart">
+      {isLoading && <LoadingComponent />}
       <div className="wrapper">
         <h2 className="title">Shopping Cart</h2>
         {isPageWide ? (

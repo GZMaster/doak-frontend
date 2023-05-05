@@ -5,6 +5,7 @@ import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileHelpMenuProps {
   handleBack: () => void;
+  setIsLoading?: (value: boolean) => void;
 }
 
 const MobileHelpMenu: React.FC<MobileHelpMenuProps> = ({ handleBack }) => {

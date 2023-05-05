@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-scroll";
+import { useLoading } from "../../services/LoadingContext";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./hero.scss";
 import shoppingcart from "../../assets/Images/icons/shopping-cart-white.svg";
 import heroBg from "../../assets/Images/others/hero-mobile.png";
 
 export default function Hero() {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [setIsLoading]);
 
   return (
     <section className="hero">
+      {isLoading && <LoadingComponent />}
       {isPageWide ? (
         <div className="text-container">
           <h1>We give you only the best. Top notch quality services.</h1>

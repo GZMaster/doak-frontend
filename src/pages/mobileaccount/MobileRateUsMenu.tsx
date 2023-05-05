@@ -9,6 +9,7 @@ import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileRateUsMenuProps {
   handleBack: () => void;
+  setIsLoading?: (value: boolean) => void;
 }
 
 const MobileRateUsMenu: React.FC<MobileRateUsMenuProps> = ({ handleBack }) => {

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
-import Loading from "../../components/Loader/Loading";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./AccountPage.scss";
 
@@ -17,13 +16,16 @@ interface Address {
   _id: string;
 }
 
-const ProfileMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const ProfileMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const jwt = localStorage.getItem("jwt");
   const userString = localStorage.getItem("user");
   const user = userString && JSON.parse(userString);
 
   const { setIsLoggedIn } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(false);
   const [changeAddress, setChangeAddress] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -109,7 +111,6 @@ const ProfileMenu = () => {
 
   return (
     <div className="profilemenu">
-      {isLoading && <Loading />}
       {changeAddress && (
         <SelectAddress
           handleAddressChange={handleAddressChange}

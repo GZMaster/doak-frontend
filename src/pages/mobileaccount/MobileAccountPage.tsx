@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoading } from "../../services/LoadingContext";
+
 import MobileProfilemenu from "./MobileProfileMenu";
 import MobileOrdersMenu from "./MobileOrdersMenu";
 import MobileNotificationsMenu from "./MobileNotificationsMenu";
@@ -52,7 +54,28 @@ const sidbaritems2 = [
 
 const MobileAccountPage = () => {
   const navigate = useNavigate();
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [activeMenu, setActiveMenu] = useState("menu");
+  const [userNames, setUserNames] = useState("");
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUserNames();
+  }, []);
+
+  const getUserNames = () => {
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+
+    if (user) {
+      const { name } = user;
+      setUserNames(name);
+    }
+
+    setIsLoading(false);
+
+    return;
+  };
 
   const onMenuChange = (e: string) => {
     setActiveMenu(e);
@@ -68,11 +91,12 @@ const MobileAccountPage = () => {
 
   return (
     <>
+      {isLoading && <LoadingComponent />}
       <div className="mobileaccountpage__content">
         {activeMenu === "menu" && (
           <div className="mobileaccountpage__sidebar">
             <div className="mobileaccountpage__sidebar__title">
-              <h3>My Doak Account</h3>
+              <h3>{userNames}</h3>
             </div>
             <div className="mobileaccountpage__sidebar__section">
               {sidbaritems.map((item, index) => (
@@ -122,25 +146,43 @@ const MobileAccountPage = () => {
           </div>
         )}
         {activeMenu === "Profile" && (
-          <MobileProfilemenu handleBack={handleBack} />
+          <MobileProfilemenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Orders" && (
-          <MobileOrdersMenu handleBack={handleBack} />
+          <MobileOrdersMenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Notifications" && (
-          <MobileNotificationsMenu handleBack={handleBack} />
+          <MobileNotificationsMenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Addresses" && (
-          <MobileAddressesMenu handleBack={handleBack} />
+          <MobileAddressesMenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Vouchers" && (
-          <MobileVouchersMenu handleBack={handleBack} />
+          <MobileVouchersMenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Rate Doak Services" && (
-          <MobileRateUsMenu handleBack={handleBack} />
+          <MobileRateUsMenu
+            handleBack={handleBack}
+            setIsLoading={setIsLoading}
+          />
         )}
         {activeMenu === "Help Center" && (
-          <MobileHelpMenu handleBack={handleBack} />
+          <MobileHelpMenu handleBack={handleBack} setIsLoading={setIsLoading} />
         )}
       </div>
     </>

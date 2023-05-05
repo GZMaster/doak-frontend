@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Product from "./product/Product";
+import { useLoading } from "../../services/LoadingContext";
 import "./products.scss";
 import ProductImg from "../../assets/Images/others/Product-Img.png";
 import ProductIm2 from "../../assets/Images/others/Product-Img-2.png";
@@ -8,6 +9,7 @@ import Pagination from "../../lib/Pagination";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 
 export default function Products() {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [limit] = useState(12);
   const [totalPages, setTotalPages] = useState(1);
   const isPageWide = UseMediaQuery("(min-width: 769px)");
@@ -15,6 +17,7 @@ export default function Products() {
   const [products, setProducts] = useState<IProducts[]>([]);
 
   useEffect(() => {
+    setIsLoading(true);
     getNumberOfPages(limit);
     getProducts(limit, currentPage);
   }, [currentPage, limit]);
@@ -43,6 +46,8 @@ export default function Products() {
     if (numberOfPages) {
       setTotalPages(numberOfPages);
     }
+
+    setIsLoading(false);
   };
 
   const getProducts = async (
@@ -78,10 +83,13 @@ export default function Products() {
     if (productData) {
       setProducts(productData.data.wineProducts);
     }
+
+    setIsLoading(false);
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      {isLoading && <LoadingComponent />}
       <article className="products">
         {products.map((product, index) => (
           <Product
