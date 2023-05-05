@@ -1,28 +1,102 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { FormatNaira } from "../../utils/FormatCurrency";
 import "./AccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
-import Productimg from "../../assets/Images/others/itemDrink.png";
 import cancel from "../../assets/Images/icons/redcancel.svg";
 
 interface ViewOrderMenuProps {
   handleViewDetail: () => void;
+  order?: {
+    userId: string;
+    orderId: string;
+    orderStatus: string;
+    address: string;
+    items: [
+      {
+        productId: string;
+        name: string;
+        quantity: number;
+        price: number;
+      }
+    ];
+    date: Date;
+    subtotal: number;
+    deliveryFee: number;
+    total: number;
+  };
 }
-const items = [
-  {
-    id: 1,
-    Image: Productimg,
-    Name: "Hennessy VS Cognac ORIGINAL",
-    Size: "70cl",
-    Quantity: "QTY:X10",
-    Price: "N300,000.00",
-  },
-];
-const orders = [
-  {
-    status: "Cancelled_by_self",
-  },
-];
-const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
+
+interface Address {
+  userId?: string;
+  name: string;
+  address: string;
+  city: string;
+  phoneNumber: string;
+  state: string;
+  country: string;
+  zipCode?: string;
+  _id: string;
+}
+
+const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
+  handleViewDetail,
+  order,
+}) => {
+  const [address, setAddress] = useState<Address>();
+
+  useEffect(() => {
+    getAddress();
+  }, [address]);
+
+  const getDate = (date: Date) => {
+    const newDate = new Date(date);
+    const day = newDate.getDate();
+    const month = newDate.getMonth();
+    const year = newDate.getFullYear();
+    const dateString = `${day}/${month}/${year}`;
+    return dateString;
+  };
+
+  const getAddress = async () => {
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/addresses/${order?.address}`,
+      // `http://localhost:3000/api/v1/addresses/${order?.address}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      setAddress(data.data);
+    }
+  };
+
+  const handleCancelOrder = async () => {
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/orders/cancelOrder/{order?.orderId}`,
+      // `http://localhost:3000/api/v1/orders/cancelOrder/{order?.orderId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      handleViewDetail();
+    }
+  };
+
   return (
     <>
       <div className="viewordermenu">
@@ -35,17 +109,18 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
 
         <div className="viewordermenu__body">
           <div className="viewordermenu__body__header">
-            <h1>Order No. 1</h1>
+            <h1>Order No. {order?.orderId}</h1>
             {/* THIS SHOULD CONTAIN THE ORDER PROGRESS BAR */}
           </div>
 
           <div className="viewordermenu__body__body">
             <div className="viewordermenu__body__body__header">
-              <h3 className={`${orders[0].status}`}>
-                {orders[0].status.split("_").join(" ")}
-              </h3>
-              <h2>Order*11267880 was placed on 12th April, 2023</h2>
-              <p>5 items. Total: N3,003,000.00</p>
+              <h3 className={`${order?.orderStatus}`}>{order?.orderStatus}</h3>
+              <h2>
+                Order{order?.orderId} was placed on{" "}
+                {order && getDate(order?.date)}
+              </h2>
+              <p>Total: {order && FormatNaira(order.total)}</p>
             </div>
 
             <div className="viewordermenu__body__body__details">
@@ -58,23 +133,21 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
                   <h1>Cart Items</h1>
                 </div>
                 <div className="viewordermenu__body__body__details__items__body">
-                  {items.map((item) => (
+                  {order?.items.map((item) => (
                     <>
                       <div
                         className="viewordermenu__body__body__details__items__body__left"
-                        key={item.id}
+                        key={item.productId}
                       >
-                        <img src={item.Image} alt="item" />
                         <div className="viewordermenu__body__body__details__items__body__left__name">
-                          <h1>{item.Name}</h1>
-                          <p>{item.Size}</p>
+                          <h1>{item.name}</h1>
                         </div>
                       </div>
                       <div className="viewordermenu__body__body__details__items__body__middle">
-                        <p>{item.Quantity}</p>
+                        <p>{item.quantity}</p>
                       </div>
                       <div className="viewordermenu__body__body__details__items__body__right">
-                        <p>{item.Price}</p>
+                        <p>{item.price}</p>
                       </div>
                     </>
                   ))}
@@ -83,13 +156,13 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
 
               <div className="viewordermenu__body__body__details__subtotal">
                 <h4>Subtotal:</h4>
-                <p>N690,000.00</p>
+                <p>{order && FormatNaira(order.subtotal)}</p>
               </div>
 
               <div className="viewordermenu__body__body__details__shipping">
                 <p>Shipping:</p>
                 <div className="viewordermenu__body__body__details__shipping__right">
-                  <p>N2,500.00</p>
+                  <p>{order?.deliveryFee}</p>
                   <h4>
                     Door Delivery, to be delivered between the dates 16th of may
                     to 20th of may(usually 3 days after order is confirmed)
@@ -97,14 +170,9 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
                 </div>
               </div>
 
-              <div className="viewordermenu__body__body__details__discount">
-                <p>Voucher/Discount Code:</p>
-                <h4>0G5ss1baX or use “-” for no voucher</h4>
-              </div>
-
               <div className="viewordermenu__body__body__details__total">
                 <p>Total:</p>
-                <p>N3,003,000.00</p>
+                <p>{order?.total}</p>
               </div>
             </div>
 
@@ -114,14 +182,17 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({ handleViewDetail }) => {
               </div>
 
               <div className="viewordermenu__body__body__address__details">
-                <h4>John Doe</h4>
-                <p>123, Main Street, Lagos, Nigeria</p>
-                <p>08012345678</p>
+                <h4>{address?.name}</h4>
+                <p>
+                  {address?.address}, {address?.city}, {address?.state}{" "}
+                  {address?.country}
+                </p>
+                <p>{address?.phoneNumber}</p>
               </div>
             </div>
 
             <div className="viewordermenu__body__body__cancel">
-              <button>
+              <button onClick={handleCancelOrder}>
                 <span>
                   <img src={cancel} alt="cancel" />
                 </span>{" "}

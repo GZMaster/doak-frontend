@@ -1,46 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ViewOrderMenu from "../account/ViewOrderMenu";
 import "./MobileAccountPage.scss";
-import orderimg1 from "../../assets/Images/others/orderimg1.png";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import ArrowRight from "../../assets/Images/icons/arrow-right.svg";
 
-const orders = [
-  {
-    id: 1,
-    status: "Cancelled_by_self",
-    images: [
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    ],
-    items: [{ name: "item 1" }, { name: "item 2" }, { name: "item 3" }],
-  },
-  {
-    id: 2,
-    status: "Delivered",
-    images: [
-      "https://images.unsplash.com/photo-1610398000004-8b8b1b2b1b1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-    ],
-    items: [{ name: "item 1" }],
-  },
-];
+interface Order {
+  userId: string;
+  orderId: string;
+  orderStatus: string;
+  address: string;
+  items: [
+    {
+      productId: string;
+      name: string;
+      quantity: number;
+      price: number;
+    }
+  ];
+  date: Date;
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+}
 
 interface MobilrOrdersMenuProps {
   handleBack: () => void;
 }
 
 const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
+  const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
+  const [orders, setOrders] = useState<Array<Order>>();
+  const [selectedOrder, setSelectedOrder] = useState<Order>();
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  const getOrders = async () => {
+    const res = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/orders/`,
+      // `http://localhost:3000/api/v1/orders/`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      setOrders(data.data);
+    }
+  };
 
   const handleViewDetails = () => {
     setViewDetails(!viewDetails);
   };
 
+  const passOrder = (order: Order) => {
+    setSelectedOrder(order);
+    handleViewDetails();
+  };
+
   return (
     <div className="mobileordersmenu">
       {viewDetails ? (
-        <ViewOrderMenu handleViewDetail={handleViewDetails} />
+        <ViewOrderMenu
+          handleViewDetail={handleViewDetails}
+          order={selectedOrder}
+        />
       ) : (
         <>
           <div className="mobileprofilemenu__header">
@@ -51,33 +84,27 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
           </div>
 
           <div className="mobileordersmenu__body">
-            {orders.length !== 0 ? (
+            {orders ? (
               orders.map((order) => (
-                <div className="mobileordersmenu__order" key={order.id}>
+                <form
+                  className="mobileordersmenu__order"
+                  key={order.userId}
+                  onSubmit={() => passOrder(order)}
+                >
                   <div className="mobileordersmenu__order__content">
                     <div className="mobileordersmenu__order__content__left">
                       <div className="mobileordersmenu__order__header">
-                        <h2>Order No. {order.id}</h2>
-                        <h3 className={`${order.status}`}>
-                          {order.status.split("_").join(" ")}
+                        <h2>Order No. {order.orderId}</h2>
+                        <h3 className={`${order.orderStatus}`}>
+                          {order.orderStatus}
                         </h3>
                       </div>
 
                       <div className="mobileordersmenu__order__body">
                         <div className="mobileordersmenu__order__body__left">
-                          <div className="mobileordersmenu__order__images">
-                            {order.images.map(() => (
-                              <img
-                                src={orderimg1}
-                                alt="order image"
-                                key={order.id}
-                              />
-                            ))}
-                          </div>
-
                           <div className="mobileordersmenu__order__item">
-                            {order.items.map(({ name }) => (
-                              <p key={order.id}>{name}</p>
+                            {order.items.map(({ productId, name }) => (
+                              <p key={productId}>{name}</p>
                             ))}
                           </div>
                         </div>
@@ -85,15 +112,13 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
                     </div>
                     <div className="mobileordersmenu__order__content__right">
                       <div>
-                        <button
-                        // onClick={handleViewDetails}
-                        >
+                        <button type="submit">
                           <img src={ArrowRight} alt="view" />
                         </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               ))
             ) : (
               <div className="mobileordersmenu__empty">
@@ -106,7 +131,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
                   </p>
                 </div>
 
-                <button>
+                <button onClick={() => navigate("/")}>
                   <span>
                     <img src="shopicon" alt="" />
                   </span>
