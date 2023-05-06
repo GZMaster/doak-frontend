@@ -54,7 +54,7 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
 
     const data = await res.json();
 
-    if (data.success) {
+    if (data.status === "success") {
       setOrders(data.data);
     }
 
