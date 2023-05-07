@@ -72,7 +72,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          address: address._id,
+          addressId: address._id,
           item: cartItems,
           subtotal: total,
         }),
