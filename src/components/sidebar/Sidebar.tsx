@@ -36,11 +36,16 @@ function FilterSection({ options }: FilterSectionProps) {
         .map(([key]) => key)
         .join(",");
 
-      fetchProducts(10, 1, undefined, {
-        field: "categories",
-        operator: "",
-        value: filter,
-      });
+      if (filter.includes("all")) {
+        // "All" filter option selected, fetch products without filter
+        fetchProducts(12, 1);
+      } else if (filter.length > 0) {
+        fetchProducts(10, 1, undefined, {
+          field: "categories",
+          operator: "",
+          value: filter,
+        });
+      }
     };
 
     // Call the fetchFilteredProducts function inside the effect
