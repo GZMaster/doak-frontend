@@ -133,7 +133,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
         </div>
       </TabPanel> */}
       <TabPanel>
-        <div className="transfer">
+        <div className="payment_box">
           <p className="summary_tab_title">Paystack Payment</p>
           <div className="payment_box">
             <InputFields
