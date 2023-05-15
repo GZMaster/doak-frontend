@@ -9,12 +9,18 @@ import Pagination from "../../lib/Pagination";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 
 export default function Products() {
-  const { products, fetchProducts, getNumberOfPages, totalPages, isLoading } =
-    useProducts();
+  const {
+    products,
+    fetchProducts,
+    getNumberOfPages,
+    totalPages,
+    isLoading,
+    currentPage,
+    setCurrentPage,
+  } = useProducts();
   const { setIsLoading, LoadingComponent } = useLoading();
   const [limit] = useState(12);
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getNumberOfPages(limit);
@@ -22,7 +28,7 @@ export default function Products() {
 
   useEffect(() => {
     fetchProducts(limit, currentPage);
-  }, [limit]);
+  }, [currentPage, limit]);
 
   useEffect(() => {
     setIsLoading(isLoading);
