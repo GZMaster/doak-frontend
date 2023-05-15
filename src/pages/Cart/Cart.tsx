@@ -59,6 +59,8 @@ export default function Cart() {
 
       setCheckoutItems(items);
     }
+
+    setIsLoading(false);
   };
 
   const getCart = async () => {
@@ -210,17 +212,13 @@ export default function Cart() {
                   {productData &&
                     Object.values(productData).map((product) => {
                       const { id, name, price, quantity } = product;
-                      const quantityNumber = quantity.quantity;
+                      let quantityNumber = quantity.quantity;
                       const total = price * quantity.quantity;
 
-                      const onQuantityChange = () => {
-                        // const quantityValue = e.target.value;
-                        // const quantityId = quantity.id;
-                        // updateCart(quantityId, parseInt(quantityValue)).then(
-                        //   (cart) => {
-                        //     setCart(cart);
-                        //   }
-                        // );
+                      const onQuantityChange = (
+                        e: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        quantityNumber = e.target.value;
                       };
 
                       return (
@@ -246,7 +244,7 @@ export default function Cart() {
                                   name="quantity"
                                   value={quantityNumber}
                                   maxLength={3}
-                                  onChange={onQuantityChange}
+                                  onChange={(event) => onQuantityChange(event)}
                                 />
                               </div>
                             </div>
@@ -297,16 +295,12 @@ export default function Cart() {
                 {productData &&
                   Object.values(productData).map((product) => {
                     const { id, name, price, quantity } = product;
-                    const quantityNumber = quantity.quantity;
+                    let quantityNumber = quantity.quantity;
 
-                    const onQuantityChange = () => {
-                      // const quantityValue = e.target.value;
-                      // const quantityId = quantity.id;
-                      // updateCart(quantityId, parseInt(quantityValue)).then(
-                      //   (cart) => {
-                      //     setCart(cart);
-                      //   }
-                      // );
+                    const onQuantityChange = (
+                      e: React.ChangeEvent<HTMLInputElement>
+                    ) => {
+                      quantityNumber = e.target.value;
                     };
 
                     return (
@@ -335,7 +329,7 @@ export default function Cart() {
                                   name="quantity"
                                   value={quantityNumber}
                                   maxLength={3}
-                                  onChange={onQuantityChange}
+                                  onChange={(event) => onQuantityChange(event)}
                                 />
                               </div>
                             </div>

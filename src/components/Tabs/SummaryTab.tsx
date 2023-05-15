@@ -58,9 +58,22 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     const token = localStorage.getItem("jwt");
     const total = getTotal();
 
+    const userString = localStorage.getItem("user");
+    const user = userString && JSON.parse(userString);
+
     if (!address) {
       return;
     }
+
+    const orderAddress = {
+      name: address.name,
+      email: user.email,
+      address: address.address,
+      city: address.city,
+      phoneNumber: address.phoneNumber,
+      state: address.state,
+      country: address.country,
+    };
 
     const res = await fetch(
       `https://doakbackend.cyclic.app/api/v1/orders`,
@@ -72,8 +85,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          addressId: address._id,
           item: cartItems,
+          address: orderAddress,
           subtotal: total,
         }),
       }
@@ -165,8 +178,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
           </div>
           <div className="summary_tab_body">
             <h2>Door Delivery</h2>
-            <p>To be delivered between Wenesday 22 Mar and Friday 26 Mar</p>
-            <p style={{ color: "#ff3426", fontWeight: "600" }}>N2,500</p>
+            <p>To be delivered between 3 working days</p>
+            <p style={{ color: "#ff3426", fontWeight: "600" }}></p>
           </div>
         </div>
         <div
