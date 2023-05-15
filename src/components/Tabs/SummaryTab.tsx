@@ -16,6 +16,8 @@ interface Props {
       quantity: number;
     }
   ];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setCreatedOrder: (order: any) => void;
 }
 
 interface Address {
@@ -30,7 +32,11 @@ interface Address {
   _id: string;
 }
 
-const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
+const SummaryTab: React.FC<Props> = ({
+  handleTabClick,
+  cartItems,
+  setCreatedOrder,
+}) => {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
@@ -95,6 +101,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     const response = await res.json();
 
     if (response.status === "success") {
+      setCreatedOrder(response.data.order);
       handleTabClick(2);
     }
 
