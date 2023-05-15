@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
+import { useProducts } from "../../services/ProductsContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
@@ -17,6 +18,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const { isLoggedIn } = useContext(AuthContext);
+  const { searchTerm, setSearchTerm, searchProducts } = useProducts();
 
   const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
@@ -31,6 +33,14 @@ const NavBar = () => {
 
   const handleReload = () => {
     navigate("/");
+  };
+
+  const handleSearchTermChange = (event: { target: { value: string } }) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    searchProducts();
   };
 
   return (
@@ -48,8 +58,15 @@ const NavBar = () => {
                 <input
                   type="text"
                   placeholder="Search drinks in any category"
+                  value={searchTerm}
+                  onChange={handleSearchTermChange}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      handleSearchButtonClick();
+                    }
+                  }}
                 />
-                <button>Search</button>
+                <button onClick={handleSearchButtonClick}>Search</button>
               </div>
               <div className="right">
                 <img
