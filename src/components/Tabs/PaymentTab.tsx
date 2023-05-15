@@ -22,8 +22,8 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      // `https://doakbackend.cyclic.app/api/v1/payment/initialize-payment`,
-      `http://localhost:3000/api/v1/payment/initialize-payment`,
+      `https://doakbackend.cyclic.app/api/v1/payment/initialize-payment`,
+      // `http://localhost:3000/api/v1/payment/initialize-payment`,
       {
         method: "POST",
         headers: {
@@ -57,7 +57,6 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
 
     if (res.status) {
       setIsLoading(false);
-      console.log(res.data.authorization_url);
       const redirectUrl = res.data.authorization_url;
       window.location.replace(redirectUrl);
     }
