@@ -16,6 +16,8 @@ type ProductsContextType = {
     filter?: { field?: string; operator?: string; value?: string }
   ) => void;
   searchProducts: () => void;
+  currentPage: number;
+  setCurrentPage: (currentPage: number) => void;
 };
 
 const ProductsContext = createContext<ProductsContextType>({
@@ -32,6 +34,9 @@ const ProductsContext = createContext<ProductsContextType>({
   fetchProducts: () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   searchProducts: () => {},
+  currentPage: 1,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setCurrentPage: () => {},
 });
 
 type ProductsProviderProps = {
@@ -44,6 +49,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     getNumberOfPages(10);
@@ -171,6 +177,8 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         getNumberOfPages,
         fetchProducts,
         searchProducts,
+        currentPage,
+        setCurrentPage,
       }}
     >
       {children}
