@@ -8,7 +8,7 @@ export default function Product({
   id,
   name,
   price,
-  imageCover,
+  image,
   categories,
 }: IProducts) {
   const formatPrice = FormatNaira(price);
@@ -32,7 +32,7 @@ export default function Product({
 
   return (
     <Link to={`/product/${id}`} className="product">
-      <img src={imageCover} alt={name} className="product-img" />
+      <img src={image} alt={name} className="product-img" />
       <div className="product-wrapper">
         <p className="product-category">{categories}</p>
         <h3 className="product-name">{name}</h3>
