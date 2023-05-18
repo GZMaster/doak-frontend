@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../services/LoadingContext";
+import { AuthContext } from "../../services/AuthContext";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import MobileAccountPage from "../mobileaccount/MobileAccountPage";
 import ProfileMenu from "./ProfileMenu";
@@ -55,6 +56,7 @@ const sidbaritems2 = [
 
 const AccountPage = () => {
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWidth = UseMediaQuery("(max-width: 768px)");
   const [activeMenu, setActiveMenu] = React.useState("Profile");
@@ -70,6 +72,7 @@ const AccountPage = () => {
   };
 
   const handleLogout = () => {
+    logout();
     navigate("/");
   };
 
