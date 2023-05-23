@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { IProducts } from "../types/products";
 
@@ -15,6 +16,7 @@ type ProductsContextType = {
     sort?: string,
     filter?: { field?: string; operator?: string; value?: string }
   ) => void;
+  getProduct: (id: string) => Promise<IProducts | undefined>;
   searchProducts: () => void;
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
@@ -25,17 +27,15 @@ const ProductsContext = createContext<ProductsContextType>({
   isLoading: false,
   error: null,
   searchTerm: "",
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSearchTerm: () => {},
   totalPages: 0,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   getNumberOfPages: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   fetchProducts: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  getProduct: () => {
+    return new Promise(() => {});
+  },
   searchProducts: () => {},
   currentPage: 1,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setCurrentPage: () => {},
 });
 
@@ -129,6 +129,25 @@ function ProductsProvider({ children }: ProductsProviderProps) {
     }
   }
 
+  const getProduct = async (id: string): Promise<IProducts | undefined> => {
+    const response = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/wine/${id}`,
+      // `http://localhost:3000/api/v1/wine/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+    if (data.status === "success") {
+      setIsLoading(false);
+      return data.data.wineProduct;
+    }
+  };
+
   async function searchProducts() {
     try {
       setIsLoading(true);
@@ -176,6 +195,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         totalPages,
         getNumberOfPages,
         fetchProducts,
+        getProduct,
         searchProducts,
         currentPage,
         setCurrentPage,

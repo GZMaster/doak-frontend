@@ -104,32 +104,6 @@ export default function Cart() {
     }
   };
 
-  // const updateCart = async (quantityId: string, quantityValue: number) => {
-  //   // Get jwt Bear token from local storage
-  //   const token = localStorage.getItem("jwt");
-
-  //   const response = await fetch(
-  //     // `https://doakbackend.cyclic.app/api/v1/wine/cart/${quantityId}`,
-  //     `http://localhost:3000/api/v1/wine/cart/${quantityId}`,
-  //     {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //       body: JSON.stringify({
-  //         quantity: quantityValue,
-  //       }),
-  //     }
-  //   );
-
-  //   const data = await response.json();
-
-  //   const cartData = data.data.cart;
-
-  //   return cartData;
-  // };
-
   const deleteItem = async (id: string) => {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
