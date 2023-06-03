@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
 import "./Cart.scss";
@@ -32,15 +32,13 @@ export default function Cart() {
 
     getCart();
 
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
     if (cartItems) {
-      const length = getTotalCartPrice();
-      setTotalPrice(length);
+      const total = getTotalCartPrice();
+      setTotalPrice(total);
       setCartLength(Object.keys(cartItems).length);
     }
+
+    setIsLoading(false);
   }, [cartItems]);
 
   return (
