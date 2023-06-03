@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { IProducts } from "../types/products";
+import backendURL from "../api";
 
 type ProductsContextType = {
   products: IProducts[];
@@ -56,25 +58,33 @@ function ProductsProvider({ children }: ProductsProviderProps) {
   }, []);
 
   const getNumberOfPages = async (limit: number) => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/length`,
-      {
+    try {
+      setIsLoading(true);
+
+      // Get jwt Bear token from local storage
+      const token = localStorage.getItem("jwt");
+
+      const res = await fetch(`${backendURL}/api/v1/wine/length`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+      });
+
+      const numberOfPagesData = await res.json();
+
+      const numberOfPages = Math.ceil(numberOfPagesData.data / limit);
+
+      if (numberOfPages) {
+        setTotalPages(numberOfPages);
       }
-    );
 
-    const numberOfPagesData = await res.json();
-
-    const numberOfPages = Math.ceil(numberOfPagesData.data / limit);
-
-    if (numberOfPages) {
-      setTotalPages(numberOfPages);
+      setIsLoading(false);
+    } catch (error: any) {
+      setIsLoading(false);
+      setError(error.message);
     }
-
-    setIsLoading(false);
   };
 
   async function fetchProducts(
@@ -86,7 +96,10 @@ function ProductsProvider({ children }: ProductsProviderProps) {
     try {
       setIsLoading(true);
 
-      let url = `https://doakbackend.cyclic.app/api/v1/wine/`;
+      // Get jwt Bear token from local storage
+      const token = localStorage.getItem("jwt");
+
+      let url = `${backendURL}/api/v1/wine/`;
 
       if (limit) {
         url += `?limit=${limit}`;
@@ -105,6 +118,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -121,8 +135,6 @@ function ProductsProvider({ children }: ProductsProviderProps) {
       setProducts(responseJson.data.wineProducts);
       setIsLoading(false);
       setError(null);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setIsLoading(false);
       setError(error.message);
@@ -130,21 +142,28 @@ function ProductsProvider({ children }: ProductsProviderProps) {
   }
 
   const getProduct = async (id: string): Promise<IProducts | undefined> => {
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/${id}`,
-      // `http://localhost:3000/api/v1/wine/${id}`,
-      {
+    try {
+      setIsLoading(true);
+
+      // Get jwt Bear token from local storage
+      const token = localStorage.getItem("jwt");
+
+      const response = await fetch(`${backendURL}/api/v1/wine/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      }
-    );
+      });
 
-    const data = await response.json();
-    if (data.status === "success") {
+      const data = await response.json();
+      if (data.status === "success") {
+        setIsLoading(false);
+        return data.data.wineProduct;
+      }
+    } catch (error: any) {
       setIsLoading(false);
-      return data.data.wineProduct;
+      setError(error.message);
     }
   };
 
@@ -152,13 +171,16 @@ function ProductsProvider({ children }: ProductsProviderProps) {
     try {
       setIsLoading(true);
 
+      // Get jwt Bear token from local storage
+      const token = localStorage.getItem("jwt");
+
       const response = await fetch(
-        `https://doakbackend.cyclic.app/api/v1/wine/search?search=${searchTerm}`,
-        // `http://localhost:3000/api/v1/wine/search?query=${searchTerm}`,
+        `${backendURL}/api/v1/wine/search?search=${searchTerm}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

@@ -48,7 +48,7 @@ export default function Products() {
           products.map((product, index) => (
             <Product
               key={index}
-              id={product.id}
+              _id={product._id}
               name={product.name}
               price={product.price}
               summary={product.summary}

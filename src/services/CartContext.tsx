@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { promises } from "dns";
 import React, { createContext, useState } from "react";
+import backendURL from "../api";
 
 // Define the shape of the cart item
 interface CartItem {
@@ -15,10 +15,10 @@ interface CartItem {
 interface CartContextProps {
   cartItems: CartItem[];
   isLoading: boolean;
-  getCart: () => void;
+  getCart: () => Promise<boolean>;
   addToCart: (item: CartItem) => Promise<boolean>;
-  updateCart: (item: CartItem) => void;
-  removeFromCart: (itemId: number) => void;
+  updateCart: (item: CartItem) => Promise<boolean>;
+  removeFromCart: (itemId: number) => Promise<boolean>;
   getTotalCartPrice: () => number;
   quantityChange: (id: number, quantity: number) => void;
 }
@@ -27,12 +27,18 @@ interface CartContextProps {
 const initialCartContext: CartContextProps = {
   cartItems: [],
   isLoading: false,
-  getCart: () => {},
+  getCart: () => {
+    return new Promise(() => {});
+  },
   addToCart: () => {
     return new Promise(() => {});
   },
-  updateCart: () => {},
-  removeFromCart: () => {},
+  updateCart: () => {
+    return new Promise(() => {});
+  },
+  removeFromCart: () => {
+    return new Promise(() => {});
+  },
   getTotalCartPrice: () => 0,
   quantityChange: () => {},
 };
@@ -53,17 +59,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/`,
-      // `http://localhost:3000/api/v1/wine/cart/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/wine/cart/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
 
@@ -71,9 +73,10 @@ const CartProvider = ({ children }: CartProviderProps) => {
       const cartData = data.data.cart;
       setCartItems(cartData);
       setIsLoading(false);
+      return true;
     } else {
       setIsLoading(false);
-      return null;
+      return false;
     }
   };
 
@@ -81,17 +84,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/${id}`,
-      // `http://localhost:3000/api/v1/wine/cart/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/wine/cart/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await response.json();
 
@@ -107,7 +106,18 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const addToCart = async (item: CartItem) => {
     setIsLoading(true);
 
-    setCartItems((prevItems) => [...prevItems, item]);
+    setCartItems((prevItems) => {
+      if (prevItems.find((prevItem) => prevItem.id === item.id)) {
+        return prevItems.map((prevItem) => {
+          if (prevItem.id === item.id) {
+            return { ...prevItem, quantity: prevItem.quantity + item.quantity };
+          }
+          return prevItem;
+        });
+      }
+
+      return [...prevItems, item];
+    });
 
     const { id: productId, quantity, price } = item;
 
@@ -115,8 +125,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
-      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
+      `${backendURL}/api/v1/wine/cart/${productId}`,
       {
         method: "POST",
         headers: {
@@ -152,8 +161,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     const token = localStorage.getItem("jwt");
 
     const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
-      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
+      `${backendURL}/api/v1/wine/cart/${productId}`,
       {
         method: "PATCH",
         headers: {
@@ -172,22 +180,41 @@ const CartProvider = ({ children }: CartProviderProps) => {
     if (data.status === "success") {
       setIsLoading(false);
       return true;
+    } else {
+      setIsLoading(false);
+      return false;
     }
   };
 
-  const removeFromCart = (itemId: number) => {
-    deleteItem(itemId.toString()).then((res) => {
-      if (res) {
-        setCartItems((prevItems) =>
-          prevItems.filter((item) => item.id !== itemId)
-        );
-      }
-    });
+  const removeFromCart = async (itemId: number) => {
+    deleteItem(itemId.toString())
+      .then((res) => {
+        if (res) {
+          setCartItems((prevItems) =>
+            prevItems.filter((item) => item.id !== itemId)
+          );
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return false;
+      });
+
+    return true;
   };
 
-  const getTotalCartPrice = () => {
-    return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  };
+  function getTotalCartPrice(): number {
+    if (!Array.isArray(cartItems)) {
+      return 0;
+    }
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }
 
   const quantityChange = (id: number, quantity: number) => {
     const item = cartItems.find((item) => item.id === id);

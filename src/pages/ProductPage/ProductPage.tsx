@@ -189,7 +189,8 @@ export default function ProductPage() {
               className="add-to-cart-btn"
               onClick={() => {
                 if (product) {
-                  const id = parseInt(product.id, 10);
+                  console.log(product);
+                  const id = parseInt(product._id, 10);
                   handleAddCart({
                     id,
                     name: product.name,

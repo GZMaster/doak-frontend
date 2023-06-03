@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useContext, useState } from "react";
+import backendURL from "../api";
 
 type Product = {
   name: string;
@@ -6,6 +8,7 @@ type Product = {
 };
 
 type SearchContextType = {
+  searchProducts: (searchTerm: string) => void;
   searchTerm: string;
   setSearchTerm: (searchTerm: string) => void;
   searchResults: Product[];
@@ -14,8 +17,8 @@ type SearchContextType = {
 };
 
 const SearchContext = createContext<SearchContextType>({
+  searchProducts: () => {},
   searchTerm: "",
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSearchTerm: () => {},
   searchResults: [],
   isLoading: false,
@@ -36,7 +39,7 @@ function SearchProvider({ children }: SearchProviderProps) {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://doakbackend.cyclic.app/api/v1/wine/?name=${searchTerm}`,
+        `${backendURL}/api/v1/wine/?name=${searchTerm}`,
         {
           method: "GET",
           headers: {
@@ -68,7 +71,14 @@ function SearchProvider({ children }: SearchProviderProps) {
 
   return (
     <SearchContext.Provider
-      value={{ searchTerm, setSearchTerm, searchResults, isLoading, error }}
+      value={{
+        searchProducts,
+        searchTerm,
+        setSearchTerm,
+        searchResults,
+        isLoading,
+        error,
+      }}
     >
       {children}
     </SearchContext.Provider>
@@ -78,3 +88,5 @@ function SearchProvider({ children }: SearchProviderProps) {
 function useSearch() {
   return useContext(SearchContext);
 }
+
+export { SearchProvider, useSearch };
