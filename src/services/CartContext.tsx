@@ -232,11 +232,9 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
       if (res) {
         setCartItems((prevItems) => {
-          if (prevItems) {
-            return prevItems.filter((item) => item.id !== itemId);
-          }
+          const updatedItems = Array.isArray(prevItems) ? [...prevItems] : [];
 
-          return [];
+          return updatedItems.filter((item) => item.id !== itemId);
         });
         return true;
       } else {
@@ -250,13 +248,17 @@ const CartProvider = ({ children }: CartProviderProps) => {
   };
 
   function getTotalCartPrice(): number {
-    if (!Array.isArray(cartItems)) {
-      return 0;
+    if (cartItems) {
+      const items = Object.values(cartItems);
+
+      return items.reduce(
+        (total, currentItem) =>
+          total + currentItem.price * currentItem.quantity,
+        0
+      );
     }
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+
+    return 0;
   }
 
   const quantityChange = async (id: string, quantity: number) => {
