@@ -8,11 +8,6 @@ import { useNavigate } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import { FormatNaira } from "../../utils/FormatCurrency";
 
-interface MyObject {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
 export default function Cart() {
   const navigate = useNavigate();
   const { cartItems, removeFromCart, getTotalCartPrice, quantityChange } =
@@ -58,9 +53,16 @@ export default function Cart() {
                       const { id, name, price, quantity } = items;
                       const totalPrice = price * quantity;
 
-                      const onQuantityChange = (event: MyObject) => {
-                        const { value } = event.target;
-                        quantityChange(id, value);
+                      const decreaseQuantity = () => {
+                        if (quantity > 1) {
+                          quantityChange(id, quantity - 1);
+                        }
+                      };
+
+                      const increaseQuantity = () => {
+                        if (quantity < 100) {
+                          quantityChange(id, quantity + 1);
+                        }
                       };
 
                       return (
@@ -81,13 +83,25 @@ export default function Cart() {
                           <td className="product_quantity">
                             <div className="product-quantity">
                               <div className="quantity-controls">
+                                <button
+                                  className="btn"
+                                  onClick={decreaseQuantity}
+                                >
+                                  -
+                                </button>
                                 <input
                                   type="number"
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
-                                  onChange={(event) => onQuantityChange(event)}
                                 />
+
+                                <button
+                                  className="btn"
+                                  onClick={increaseQuantity}
+                                >
+                                  +
+                                </button>
                               </div>
                             </div>
                           </td>
@@ -138,9 +152,16 @@ export default function Cart() {
                   Object.values(cartItems).map((items) => {
                     const { id, name, price, quantity } = items;
 
-                    const onQuantityChange = (event: MyObject) => {
-                      const { value } = event.target;
-                      quantityChange(id, value);
+                    const decreaseQuantity = () => {
+                      if (quantity > 1) {
+                        quantityChange(id, quantity - 1);
+                      }
+                    };
+
+                    const increaseQuantity = () => {
+                      if (quantity < 100) {
+                        quantityChange(id, quantity + 1);
+                      }
                     };
 
                     return (
@@ -164,13 +185,24 @@ export default function Cart() {
                             </div>
                             <div className="product-quantity">
                               <div className="quantity-controls">
+                                <button
+                                  className="btn"
+                                  onClick={decreaseQuantity}
+                                >
+                                  -
+                                </button>
                                 <input
                                   type="text"
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
-                                  onChange={(event) => onQuantityChange(event)}
                                 />
+                                <button
+                                  className="btn"
+                                  onClick={increaseQuantity}
+                                >
+                                  +
+                                </button>
                               </div>
                             </div>
                           </div>
