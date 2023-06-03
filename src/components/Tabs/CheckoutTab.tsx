@@ -6,18 +6,7 @@ import DeliveryTab from "./DeliveryTab";
 import SummaryTab from "./SummaryTab";
 import PaymentTab from "./PaymentTab";
 
-interface Props {
-  items: [
-    {
-      name: string;
-      price: number;
-      product: string;
-      quantity: number;
-    }
-  ];
-}
-
-const CheckOutTab: React.FC<Props> = ({ items }) => {
+const CheckOutTab = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [createdOrder, setCreatedOrder] = useState();
 
@@ -47,7 +36,6 @@ const CheckOutTab: React.FC<Props> = ({ items }) => {
           <div className="tabs-content">
             <SummaryTab
               handleTabClick={handleTabClick}
-              cartItems={items}
               setCreatedOrder={setCreatedOrder}
             />
           </div>

@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FormatNaira } from "../../utils/FormatCurrency";
 import { useLoading } from "../../services/LoadingContext";
+import { useCart } from "../../services/CartContext";
+import backendURL from "../../api";
+import { FormatNaira } from "../../utils/FormatCurrency";
 import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
 
 interface Props {
   handleTabClick: (key: number) => void;
-  cartItems: [
-    {
-      name: string;
-      price: number;
-      product: string;
-      quantity: number;
-    }
-  ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setCreatedOrder: (order: any) => void;
 }
@@ -32,11 +26,8 @@ interface Address {
   _id: string;
 }
 
-const SummaryTab: React.FC<Props> = ({
-  handleTabClick,
-  cartItems,
-  setCreatedOrder,
-}) => {
+const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
+  const { cartItems, getTotalCartPrice } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
@@ -47,25 +38,25 @@ const SummaryTab: React.FC<Props> = ({
     getDefaultAddress();
   }, []);
 
-  const getTotal = () => {
-    let total = 0;
-    if (cartItems) {
-      Object.values(cartItems).forEach((item) => {
-        total += item.price * item.quantity;
-      });
-    }
-
-    return total;
-  };
-
   const createOrder = async () => {
     setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
-    const total = getTotal();
+    const total = getTotalCartPrice();
 
     const userString = localStorage.getItem("user");
     const user = userString && JSON.parse(userString);
+
+    const items =
+      cartItems &&
+      Object.values(cartItems).map((item) => {
+        return {
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price,
+          name: item.name,
+        };
+      });
 
     if (!address) {
       return;
@@ -81,22 +72,18 @@ const SummaryTab: React.FC<Props> = ({
       country: address.country,
     };
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders`,
-      // `http://localhost:3000/api/v1/orders`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          items: cartItems,
-          address: orderAddress,
-          subtotal: total,
-        }),
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        items: items,
+        address: orderAddress,
+        subtotal: total,
+      }),
+    });
 
     const response = await res.json();
 
@@ -113,17 +100,13 @@ const SummaryTab: React.FC<Props> = ({
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/default`,
-      // `http://localhost:3000/api/v1/addresses/default`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses/default`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const response = await res.json();
 
@@ -145,22 +128,24 @@ const SummaryTab: React.FC<Props> = ({
           </div>
           <div className="summary_tab_body">
             {cartItems &&
-              cartItems.map((item) => (
-                <div className="item" key={item.product}>
-                  <div className="product__cart">
-                    <img className="product__image" src={product} alt="" />
-                    <div className="product__details">
-                      <p className="product__name">{item.name}</p>
-                      {!isPageWide && (
-                        <p className="quantity">QTY:x{item.quantity}</p>
-                      )}
+              Object.values(cartItems).map((item) => {
+                return (
+                  <div className="item" key={item.id}>
+                    <div className="product__cart">
+                      <img className="product__image" src={product} alt="" />
+                      <div className="product__details">
+                        <p className="product__name">{item.name}</p>
+                        {!isPageWide && (
+                          <p className="quantity">QTY:x{item.quantity}</p>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  {isPageWide && <p className="quantity">x{item.quantity}</p>}
+                    {isPageWide && <p className="quantity">x{item.quantity}</p>}
 
-                  <div className="price">{FormatNaira(item.price)}</div>
-                </div>
-              ))}
+                    <div className="price">{FormatNaira(item.price)}</div>
+                  </div>
+                );
+              })}
           </div>
         </div>
         <div className="wrapper">
