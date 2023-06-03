@@ -12,7 +12,7 @@ import img from "../../assets/Images/others/Image.png";
 import successicon from "../../assets/Images/icons/success-icon.svg";
 
 interface CartItem {
-  id: number;
+  id: string;
   name: string;
   quantity: number;
   price: number;
@@ -189,8 +189,7 @@ export default function ProductPage() {
               className="add-to-cart-btn"
               onClick={() => {
                 if (product) {
-                  console.log(product);
-                  const id = parseInt(product._id, 10);
+                  const id = product._id;
                   handleAddCart({
                     id,
                     name: product.name,

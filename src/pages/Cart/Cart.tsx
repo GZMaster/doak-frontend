@@ -43,8 +43,6 @@ export default function Cart() {
     }
   }, [cartItems]);
 
-  console.log(cartItems);
-
   return (
     <section className="Cart">
       {isLoading && <LoadingComponent />}
