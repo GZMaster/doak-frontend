@@ -1,49 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useCart } from "../../services/CartContext";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import { useLoading } from "../../services/LoadingContext";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import CheckOutTab from "../../components/Tabs/CheckoutTab";
 import "./Cart.scss";
 
-interface Props {
-  items: [
-    {
-      name: string;
-      price: number;
-      product: string;
-      quantity: number;
-    }
-  ];
-}
-
 export default function Checkout() {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
+  const { cartItems, getTotalCartPrice } = useCart();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const location = useLocation();
   const [quantityNumber, setQuantityNumber] = useState(0);
   const [total, setTotal] = useState(0);
-  const items = location.state.items;
+
+  const items = cartItems;
 
   useEffect(() => {
     setIsLoading(true);
-    calculateTotal(items);
-  }, [items]);
-
-  const calculateTotal = (items: Props) => {
-    let quantity = 0;
-    let total = 0;
     if (items) {
-      Object.values(items).forEach((item) => {
-        quantity += item.quantity;
-        total += item.price * item.quantity;
-      });
+      const total = getTotalCartPrice();
+      setTotal(total);
+      setQuantityNumber(items.length);
     }
-
-    setQuantityNumber(quantity);
-    setTotal(total);
-    setIsLoading(false);
-  };
+  }, [items]);
 
   return (
     <section className="Cart">
@@ -52,7 +31,7 @@ export default function Checkout() {
         <h2 className="title">Checkout</h2>
         <div className="cart-wrapper">
           <div>
-            <CheckOutTab items={items} />
+            <CheckOutTab />
           </div>
           {isPageWide && (
             <div className="cart-summary">
