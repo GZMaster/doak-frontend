@@ -14,14 +14,17 @@ interface Notifications {
 
 interface MobileNotificationsMenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
   handleBack,
+  setIsLoading,
 }) => {
   const [notifications, setNotifications] = useState<Array<Notifications>>();
 
   useEffect(() => {
+    setIsLoading(true);
     getNotifications();
   }, []);
 
@@ -33,13 +36,14 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
 
     const data = await response.json();
     setNotifications(data.data);
+    setIsLoading(false);
   };
 
   return (
@@ -56,7 +60,7 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
 
       <div className="mobilenotificationsmenu_body">
         {notifications &&
-          notifications.map((notification) => (
+          Object.values(notifications).map((notification) => (
             <div
               className="mobilenotificationsmenu_body_notification"
               key={notification._id}

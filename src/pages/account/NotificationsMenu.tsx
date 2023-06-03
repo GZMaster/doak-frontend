@@ -10,10 +10,15 @@ interface Notifications {
   read: boolean;
 }
 
-const NotificationsMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const NotificationsMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const [notifications, setNotifications] = useState<Array<Notifications>>();
 
   useEffect(() => {
+    setIsLoading(true);
     getNotifications();
   }, []);
 
@@ -25,13 +30,15 @@ const NotificationsMenu = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
 
     const data = await response.json();
     setNotifications(data.data);
+
+    setIsLoading(false);
   };
 
   return (
@@ -43,7 +50,7 @@ const NotificationsMenu = () => {
 
       <div className="notificationsmenu_body">
         {notifications &&
-          notifications.map((notification) => (
+          Object.values(notifications).map((notification) => (
             <div
               className="notificationsmenu_body_notification"
               key={notification._id}

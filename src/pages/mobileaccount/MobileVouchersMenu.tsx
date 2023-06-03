@@ -32,6 +32,7 @@ const voucher = [
 
 interface MobileVouchersMenuProps {
   handleBack: () => void;
+  setIsLoading?: (value: boolean) => void;
 }
 
 const MobileVouchersMenu: React.FC<MobileVouchersMenuProps> = ({

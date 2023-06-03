@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useLoading } from "../../services/LoadingContext";
 import AddAddressModal from "../address/AddAddressModal";
 import "../address/AddressModal.scss";
 
 const delivery = [
   {
-    name: "Door Delivery",
-    address: "To be delivered between Wenesday 22 Mar and Friday 26 Mar",
+    type: "Door Delivery",
+    text: "To be delivered between 3 working days",
     id: 1,
-    phone: "N2,500",
+    price: "",
   },
   {
-    name: "Pick Up",
-    address:
-      "Available for pick up between Wensday 22 Mar and Friday 26 Mar from 10:00am to 4pm.",
+    type: "Pick Up",
+    text: "Available for pick up between 5 working days",
     id: 2,
     phone: "Free within opening hours",
   },
@@ -35,11 +35,13 @@ interface Address {
 }
 
 const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [address, setAddress] = useState<Array<Address>>();
   const [addressModal, setAddressModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState("");
 
   useEffect(() => {
+    setIsLoading(true);
     getAddress();
   }, []);
 
@@ -65,9 +67,11 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
 
     const response = await res.json();
     setAddress(response.data.addresses);
+    setIsLoading(false);
   };
 
   const setDefaultAddress = async (id: string) => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
@@ -88,10 +92,13 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
     if (response.status === "success") {
       handleTabClick(1);
     }
+
+    setIsLoading(false);
   };
 
   return (
     <>
+      {isLoading && <LoadingComponent />}
       <AddAddressModal isOpen={addressModal} onClose={closeModal} />
       <div className="selectaddress">
         <div className="selectaddress__header">
@@ -138,16 +145,16 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
         <div className="selectaddress__body">
           {delivery.map((item) => (
             <div className="selectaddress__body__field" key={item.id}>
-              <input type="radio" id={item.address} name="address" />
+              <input type="radio" id={item.type} name="delivery" />
               <form>
                 <label
                   className="selectaddress__body__field__box"
-                  htmlFor={item.address}
+                  htmlFor={item.type}
                 >
-                  <h2>{item.name}</h2>
-                  <p>{item.address}</p>
+                  <h2>{item.type}</h2>
+                  <p>{item.text}</p>
                   <p style={{ color: "#ff3426", fontWeight: "600" }}>
-                    {item.phone}
+                    {item.price}
                   </p>
                 </label>
               </form>

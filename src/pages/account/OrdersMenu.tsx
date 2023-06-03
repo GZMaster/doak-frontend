@@ -24,13 +24,18 @@ interface Order {
   total: number;
 }
 
-const OrdersMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
   const [orders, setOrders] = useState<Array<Order>>();
   const [selectedOrder, setSelectedOrder] = useState<Order>();
 
   useEffect(() => {
+    setIsLoading(true);
     getOrders();
   }, []);
 
@@ -42,16 +47,18 @@ const OrdersMenu = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
 
     const data = await res.json();
 
-    if (data.success) {
+    if (data.status === "success") {
       setOrders(data.data);
     }
+
+    setIsLoading(false);
   };
 
   const handleViewDetails = () => {

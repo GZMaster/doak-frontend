@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { useLoading } from "../../services/LoadingContext";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import CheckOutTab from "../../components/Tabs/CheckoutTab";
 import "./Cart.scss";
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function Checkout() {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const location = useLocation();
   const [quantityNumber, setQuantityNumber] = useState(0);
@@ -24,6 +26,7 @@ export default function Checkout() {
   const items = location.state.items;
 
   useEffect(() => {
+    setIsLoading(true);
     calculateTotal(items);
   }, [items]);
 
@@ -39,10 +42,12 @@ export default function Checkout() {
 
     setQuantityNumber(quantity);
     setTotal(total);
+    setIsLoading(false);
   };
 
   return (
     <section className="Cart">
+      {isLoading && <LoadingComponent />}
       <div className="wrapper">
         <h2 className="title">Checkout</h2>
         <div className="cart-wrapper">

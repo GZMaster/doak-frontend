@@ -19,6 +19,7 @@ interface Props {
 
 const CheckOutTab: React.FC<Props> = ({ items }) => {
   const [tabIndex, setTabIndex] = useState(0);
+  const [createdOrder, setCreatedOrder] = useState();
 
   const handleTabClick = (key: number) => {
     setTabIndex(key);
@@ -44,12 +45,16 @@ const CheckOutTab: React.FC<Props> = ({ items }) => {
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <SummaryTab handleTabClick={handleTabClick} cartItems={items} />
+            <SummaryTab
+              handleTabClick={handleTabClick}
+              cartItems={items}
+              setCreatedOrder={setCreatedOrder}
+            />
           </div>
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <PaymentTab />
+            <PaymentTab createdOrder={createdOrder} />
           </div>
         </TabPanel>
       </Tabs>

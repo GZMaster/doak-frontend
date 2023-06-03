@@ -210,17 +210,14 @@
   }
 }
 .Payment_tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   .payment_box {
     padding: 40px;
     margin: 1rem 0;
     border-radius: 10px;
     border: 1px solid #c5c5c5;
-    .cvc {
-      display: flex;
-      flex-wrap: nowrap;
-      gap: 3rem;
-      width: 91%;
-    }
   }
 }
 .transfer {

@@ -26,15 +26,20 @@ interface Order {
 
 interface MobilrOrdersMenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
-const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
+const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
+  handleBack,
+  setIsLoading,
+}) => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
   const [orders, setOrders] = useState<Array<Order>>();
   const [selectedOrder, setSelectedOrder] = useState<Order>();
 
   useEffect(() => {
+    setIsLoading(true);
     getOrders();
   }, []);
 
@@ -46,7 +51,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
         },
       }
     );
@@ -56,6 +61,8 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({ handleBack }) => {
     if (data.success) {
       setOrders(data.data);
     }
+
+    setIsLoading(false);
   };
 
   const handleViewDetails = () => {

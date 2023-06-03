@@ -2,26 +2,46 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import { IProducts } from "../../types/products";
+import { useProducts } from "../../services/ProductsContext";
+import { useCart } from "../../services/CartContext";
 import ProductTab from "../../components/Tabs/ProductTab";
+import { useLoading } from "../../services/LoadingContext";
 import ToastBar from "../../components/notification/ToastBar";
 import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import successicon from "../../assets/Images/icons/success-icon.svg";
 
-// interface IOption {
-//   label: string;
-//   value: string;
-// }
+interface CartItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  image?: string;
+}
+
 export default function ProductPage() {
   const params = useParams();
   const productId = params.productId;
+  const { getProduct } = useProducts();
+  const { addToCart } = useCart();
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   // const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
   const [product, setProduct] = useState<IProducts>();
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    getProduct();
+    setIsLoading(true);
+    if (productId) {
+      const product = getProduct(productId);
+      product.then((product) => {
+        if (product) {
+          setProduct(product);
+        }
+      });
+    }
+
+    setIsLoading(false);
   }, [productId]);
 
   useEffect(() => {
@@ -36,53 +56,20 @@ export default function ProductPage() {
     };
   }, [showToastBar]);
 
-  const getProduct = async () => {
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/${productId}`,
-      // `http://localhost:3000/api/v1/wine/${productId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const handleAddCart = async ({ id, name, price, quantity }: CartItem) => {
+    setIsLoading(true);
 
-    const data = await response.json();
-    setProduct(data.data.wineProduct);
+    await addToCart({ id, name, price, quantity })
+      .then((success) => {
+        if (success) {
+          setShowToastBar(true);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
-
-  const handleAddCart = async () => {
-    // Get jwt Bear token from local storage
-    const token = localStorage.getItem("jwt");
-
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/wine/cart/${productId}`,
-      // `http://localhost:3000/api/v1/wine/cart/${productId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ quantity }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (data.status === "success") {
-      // Get cart count from document cookie
-      const cartCount = document.cookie.split("=")[1];
-      const newCartCount = parseInt(cartCount, 10) + 1;
-      document.cookie = `cartCount=${newCartCount}; path=/`;
-      setShowToastBar(true);
-    }
-  };
-
-  // const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSize(event.target.value);
-  // };
 
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
@@ -129,6 +116,7 @@ export default function ProductPage() {
 
   return (
     <section className="single-product">
+      {isLoading && <LoadingComponent />}
       {showToastBar && (
         <ToastBar
           type="success"
@@ -197,7 +185,20 @@ export default function ProductPage() {
                 </>
               )}
             </p>
-            <button className="add-to-cart-btn" onClick={handleAddCart}>
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                if (product) {
+                  const id = product._id;
+                  handleAddCart({
+                    id,
+                    name: product.name,
+                    price: product.price,
+                    quantity,
+                  });
+                }
+              }}
+            >
               Add to Cart
             </button>
           </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { useLoading } from "../../services/LoadingContext";
 import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
@@ -15,6 +16,8 @@ interface Props {
       quantity: number;
     }
   ];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setCreatedOrder: (order: any) => void;
 }
 
 interface Address {
@@ -29,12 +32,18 @@ interface Address {
   _id: string;
 }
 
-const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
+const SummaryTab: React.FC<Props> = ({
+  handleTabClick,
+  cartItems,
+  setCreatedOrder,
+}) => {
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
   const [address, setAddress] = useState<Address>();
 
   useEffect(() => {
+    setIsLoading(true);
     getDefaultAddress();
   }, []);
 
@@ -50,13 +59,27 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
   };
 
   const createOrder = async () => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
     const total = getTotal();
 
+    const userString = localStorage.getItem("user");
+    const user = userString && JSON.parse(userString);
+
     if (!address) {
       return;
     }
+
+    const orderAddress = {
+      name: address.name,
+      email: user.email,
+      address: address.address,
+      city: address.city,
+      phoneNumber: address.phoneNumber,
+      state: address.state,
+      country: address.country,
+    };
 
     const res = await fetch(
       `https://doakbackend.cyclic.app/api/v1/orders`,
@@ -68,8 +91,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          address: address._id,
-          item: cartItems,
+          items: cartItems,
+          address: orderAddress,
           subtotal: total,
         }),
       }
@@ -78,11 +101,15 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     const response = await res.json();
 
     if (response.status === "success") {
+      setCreatedOrder(response.data.order);
       handleTabClick(2);
     }
+
+    setIsLoading(false);
   };
 
   const getDefaultAddress = async () => {
+    setIsLoading(true);
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
@@ -101,10 +128,12 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
     const response = await res.json();
 
     setAddress(response.data.addressData);
+    setIsLoading(false);
   };
 
   return (
     <section className="summary_tab">
+      {isLoading && <LoadingComponent />}
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">
@@ -156,8 +185,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, cartItems }) => {
           </div>
           <div className="summary_tab_body">
             <h2>Door Delivery</h2>
-            <p>To be delivered between Wenesday 22 Mar and Friday 26 Mar</p>
-            <p style={{ color: "#ff3426", fontWeight: "600" }}>N2,500</p>
+            <p>To be delivered between 3 working days</p>
+            <p style={{ color: "#ff3426", fontWeight: "600" }}></p>
           </div>
         </div>
         <div

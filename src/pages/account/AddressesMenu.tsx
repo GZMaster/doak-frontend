@@ -15,11 +15,16 @@ interface Address {
   _id: string;
 }
 
-const AddressesMenu = () => {
+interface MenuProps {
+  setIsLoading: (value: boolean) => void;
+}
+
+const AddressesMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [addresses, setAddresses] = useState<Array<Address>>();
 
   useEffect(() => {
+    setIsLoading(true);
     getAddresses();
   }, []);
 
@@ -43,9 +48,12 @@ const AddressesMenu = () => {
     if (data.status === "success") {
       setAddresses(addresses);
     }
+
+    setIsLoading(false);
   };
 
   const deleteAddress = async (id: string) => {
+    setIsLoading(true);
     const response = await fetch(
       `https://doakbackend.cyclic.app/api/v1/addresses/${id}`,
       // `http://localhost:3000/api/v1/addresses/${id}`,
@@ -63,6 +71,8 @@ const AddressesMenu = () => {
     if (data.status === "success") {
       getAddresses();
     }
+
+    setIsLoading(false);
   };
 
   const handleAddressSave = () => {

@@ -1,10 +1,10 @@
 export interface IProducts {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   summary: string;
   description: string;
-  imageCover: string;
-  images: string[];
+  image: string;
   categories: string[];
+  quantity: number;
 }
