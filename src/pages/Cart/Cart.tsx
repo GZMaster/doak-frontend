@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
 import "./Cart.scss";
@@ -15,22 +15,15 @@ interface MyObject {
 
 export default function Cart() {
   const navigate = useNavigate();
-  const {
-    cartItems,
-    getCart,
-    removeFromCart,
-    getTotalCartPrice,
-    quantityChange,
-  } = useCart();
+  const { cartItems, removeFromCart, getTotalCartPrice, quantityChange } =
+    useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [cartLength, setCartLength] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
-
-    getCart();
 
     if (cartItems) {
       const total = getTotalCartPrice();
