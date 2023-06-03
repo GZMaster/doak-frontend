@@ -2,23 +2,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, useEffect, useState } from "react";
 import backendURL from "../api";
-
-// Define the shape of the cart item
-interface CartItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  image?: string;
-}
+import { ICartItem } from "../types/cartitem";
 
 // Define the shape of the context
 interface CartContextProps {
-  cartItems: CartItem[] | null;
+  cartItems: ICartItem[] | null;
   isLoading: boolean;
   getCart: () => Promise<boolean>;
-  addToCart: (item: CartItem) => Promise<boolean>;
-  updateCart: (item: CartItem) => Promise<boolean>;
+  addToCart: (item: ICartItem) => Promise<boolean>;
+  updateCart: (item: ICartItem) => Promise<boolean>;
   removeFromCart: (itemId: string) => Promise<boolean>;
   getTotalCartPrice: () => number;
   quantityChange: (id: string, quantity: number) => void;
@@ -27,7 +19,7 @@ interface CartContextProps {
 
 // Create the initial context
 const initialCartContext: CartContextProps = {
-  cartItems: [] as CartItem[] | null,
+  cartItems: [] as ICartItem[] | null,
   isLoading: false,
   getCart: () => {
     return new Promise(() => {});
@@ -55,7 +47,7 @@ type CartProviderProps = {
 
 // Create the provider component
 const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[] | null>(null);
+  const [cartItems, setCartItems] = useState<ICartItem[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -95,7 +87,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const addToCart = async (item: CartItem) => {
+  const addToCart = async (item: ICartItem) => {
     try {
       setIsLoading(true);
 
@@ -151,7 +143,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const updateCart = async (item: CartItem) => {
+  const updateCart = async (item: ICartItem) => {
     try {
       setIsLoading(true);
 
