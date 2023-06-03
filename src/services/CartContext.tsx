@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import backendURL from "../api";
 
 // Define the shape of the cart item
@@ -58,6 +58,11 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<CartItem[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Get the cart items
+  useEffect(() => {
+    getCart();
+  }, []);
 
   const getCart = async () => {
     try {
