@@ -5,22 +5,36 @@ import { IProducts } from "../../../types/products";
 import { Link } from "react-router-dom";
 
 export default function Product({
-  img,
-  category,
+  _id,
   name,
   price,
-  oldPrice,
+  image,
+  categories,
 }: IProducts) {
   const formatPrice = FormatNaira(price);
   let formatOldPrice = null;
+
+  const getDiscount = () => {
+    const discount = Math.floor(Math.random() * 100);
+
+    if (discount < 20) {
+      return discount;
+    } else {
+      return 20;
+    }
+  };
+
+  const oldPrice = price + (price * getDiscount()) / 100;
+
   if (oldPrice) {
     formatOldPrice = FormatNaira(oldPrice);
   }
+
   return (
-    <Link to="/product" className="product">
-      <img src={img} alt={name} className="product-img" />
+    <Link to={`/product/${_id}`} className="product">
+      <img src={image} alt={name} className="product-img" />
       <div className="product-wrapper">
-        <p className="product-category">{category}</p>
+        <p className="product-category">{categories}</p>
         <h3 className="product-name">{name}</h3>
         <p className="product-price">
           {formatPrice}

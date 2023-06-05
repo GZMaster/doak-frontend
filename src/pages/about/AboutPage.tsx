@@ -1,10 +1,6 @@
 import React from "react";
 import "./AboutPage.scss";
-import people from "../../assets/Images/others/people.png";
-import samuel from "../../assets/Images/others/samuel.png";
-import chidiebere from "../../assets/Images/others/chidiebere.png";
-import faith from "../../assets/Images/others/faith.png";
-import lilian from "../../assets/Images/others/lilian.png";
+import people from "../../assets/Images/others/people.svg";
 import crown from "../../assets/Images/icons/crown.svg";
 import nigeria from "../../assets/Images/icons/nigeria.svg";
 import house from "../../assets/Images/icons/house.svg";
@@ -12,38 +8,15 @@ import house from "../../assets/Images/icons/house.svg";
 const icons = [
   {
     icon: house,
-    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
+    text: "Doorstep deliveries at the speed of light",
   },
   {
     icon: crown,
-    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
+    text: "Premium quality drinks at the most affordable prices",
   },
   {
     icon: nigeria,
-    text: "Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo",
-  },
-];
-
-const aboutimages = [
-  {
-    image: samuel,
-    name: "Samuel Sangotayo",
-    position: "Managing Director",
-  },
-  {
-    image: lilian,
-    name: "Lilian Obere",
-    position: "Financial Manager",
-  },
-  {
-    image: chidiebere,
-    name: "Chidiebere Nwanuku",
-    position: "Account ManagerAccount Manager",
-  },
-  {
-    image: faith,
-    name: "Faith Eneghalu",
-    position: "Product Manager",
+    text: "One of the top beverage establishments in Nigeria",
   },
 ];
 
@@ -51,33 +24,41 @@ export const AboutPage = () => {
   return (
     <div className="aboutpage">
       <div className="aboutpage__header">
+        <p>Discover a world of liquid treasures with DOAK.</p>
         <p>
-          We are a retailing and warehousing brand established to satsify
-          thirsty costumers
+          A retail and warehousing brand dedicated to satisfy your every drink
+          desire.
         </p>
       </div>
 
-      <div className="aboutpage__hero">
+      <div className="aboutpage_img">
         <img src={people} alt="people discussing" />
       </div>
 
       <div className="aboutpage__body">
         <div className="aboutpage__body__left">
-          <h1>Congue senectus sit arcu viverra. Aliquam vulputate.</h1>
+          <h1>Drinks of all kinds. At the palm of your hands.</h1>
+
+          <p className="second_text">
+            Welcome to DOAK LTD, your ultimate destination for all things
+            drinks! We are a retailing and warehousing brand that was founded in
+            2023 with a simple yet ambitious mission: to make every kind of
+            drink accessible and affordable to all.
+          </p>
+
           <p>
-            Cursus aliquam sit cras et. Tellus dapibus massa ullamcorper justo
-            pharetra feugiat. Gravida pulvinar arcu cras et egestas non euismod.
-            In in tortor porta sed pellentesque.
+            Whether you are a connoisseur, an adventurer, or simply someone who
+            loves a good beverage, we are here to provide you with a vast
+            selection of drinks at unbeatable prices. Come discover a world of
+            taste and refreshment with DOAK LTD.
           </p>
           <p>
-            Urna ac elit habitasse sagittis tellus tincidunt hac quis. Est
-            parturient pellentesque aliquam ultrices sagittis massa. A nibh amet
-            consectetur scelerisque justo. Vivamus mauris tellus amet odio felis
-            aliquam.
-          </p>
-          <p>
-            Urna ac elit habitasse sagittis tellus tincidunt hac quis. Est
-            parturient pellentesque aliquam ultrices sagittis massa.
+            Visit our exclusive VIP lounge, located in the bustling Samonda area
+            of Ibadan. Our VIP lounge is the perfect place to indulge in the
+            ultimate drinks and relaxation experience. Whether you are looking
+            to unwind after a long day, or you want to celebrate a special
+            occasion with friends, our VIP lounge provides an ambiance and
+            experience that is unmatched.
           </p>
         </div>
         <div className="aboutpage__body__right">
@@ -86,20 +67,6 @@ export const AboutPage = () => {
               <div className="aboutpage__icon" key={data.icon}>
                 <img src={data.icon} alt="" />
                 <p>{data.text}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="aboutpage__body__bottom">
-        <h1>Meet the the team/ Board of Directors</h1>
-        <div className="aboutpage__us">
-          {aboutimages.map((data) => {
-            return (
-              <div className="aboutpage__image" key={data.image}>
-                <img src={data.image} alt="" />
-                <h2>{data.name}</h2>
-                <p>{data.position}</p>
               </div>
             );
           })}

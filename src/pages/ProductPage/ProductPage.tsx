@@ -1,19 +1,48 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { IProducts } from "../../types/products";
+import { useProducts } from "../../services/ProductsContext";
+import { useCart } from "../../services/CartContext";
 import ProductTab from "../../components/Tabs/ProductTab";
+import { useLoading } from "../../services/LoadingContext";
 import ToastBar from "../../components/notification/ToastBar";
 import "./productPage.scss";
 import img from "../../assets/Images/others/Image.png";
 import successicon from "../../assets/Images/icons/success-icon.svg";
 
-interface IOption {
-  label: string;
-  value: string;
+interface CartItem {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  image?: string;
 }
+
 export default function ProductPage() {
-  const [size, setSize] = useState("");
+  const params = useParams();
+  const productId = params.productId;
+  const { getProduct } = useProducts();
+  const { addToCart } = useCart();
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
+  // const [size, setSize] = useState("");
   const [showToastBar, setShowToastBar] = useState(false);
+  const [product, setProduct] = useState<IProducts>();
+  const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    setIsLoading(true);
+    if (productId) {
+      const product = getProduct(productId);
+      product.then((product) => {
+        if (product) {
+          setProduct(product);
+        }
+      });
+    }
+
+    setIsLoading(false);
+  }, [productId]);
 
   useEffect(() => {
     let toastTimeout: NodeJS.Timeout | undefined;
@@ -27,46 +56,55 @@ export default function ProductPage() {
     };
   }, [showToastBar]);
 
-  const handleAddCart = () => {
-    setShowToastBar(true);
+  const handleAddCart = async ({ id, name, price, quantity }: CartItem) => {
+    setIsLoading(true);
+
+    await addToCart({ id, name, price, quantity })
+      .then((success) => {
+        if (success) {
+          setShowToastBar(true);
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
-  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSize(event.target.value);
-  };
-
-  const [quantity, setQuantity] = useState("1");
   const handleQuantityDecrease = () => {
     setQuantity((prevQuantity) => {
-      if (!prevQuantity || prevQuantity === "1") {
-        return "1";
+      if (!prevQuantity || prevQuantity === 1) {
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) - 1);
+      return prevQuantity - 1;
     });
   };
 
   const handleQuantityIncrease = () => {
     setQuantity((prevQuantity) => {
       if (!prevQuantity) {
-        return "1";
+        return 1;
       }
-      return String(parseInt(prevQuantity, 10) + 1);
+      return prevQuantity + 1;
     });
   };
+
   function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const newQuantity = event.target.value.replace(/\D/g, ""); // remove non-digit characters
-    if (Number(newQuantity) > 100) {
-      setQuantity("100");
+    const newQuantity = parseInt(event.target.value.replace(/\D/, ""));
+    if (newQuantity > 100) {
+      setQuantity(100);
     } else {
       setQuantity(newQuantity);
     }
   }
-  const options: IOption[] = [
-    { label: "60cl", value: "60cl" },
-    { label: "75cl", value: "75cl" },
-    { label: "125cl", value: "125cl" },
-  ];
-  const price = 200000;
+
+  // const options: IOption[] = [
+  //   { label: "60cl", value: "60cl" },
+  //   { label: "75cl", value: "75cl" },
+  //   { label: "125cl", value: "125cl" },
+  // ];
+
+  const price = 250000;
   const oldPrice = 290000;
   const formatPrice = FormatNaira(price);
   let formatOldPrice = null;
@@ -78,6 +116,7 @@ export default function ProductPage() {
 
   return (
     <section className="single-product">
+      {isLoading && <LoadingComponent />}
       {showToastBar && (
         <ToastBar
           type="success"
@@ -91,10 +130,10 @@ export default function ProductPage() {
         </div>
         <div className="product-details">
           <div className="product-brand">
-            <p className="product-category">BRANDY</p>
-            <p>Hennessy VS Coginac ORIGINAL 70cl X6</p>
+            <p className="product-category">{product?.categories}</p>
+            <p>{product?.name}</p>
           </div>
-          <div className="product-size">
+          {/* <div className="product-size">
             <p>BOTTLE SIZE</p>
             <form>
               {options.map((option) => (
@@ -110,7 +149,7 @@ export default function ProductPage() {
                 </label>
               ))}
             </form>
-          </div>
+          </div> */}
           <div className="product-quantity">
             <p>QUANTITY</p>
             <div className="quantity-controls">
@@ -121,7 +160,7 @@ export default function ProductPage() {
                 -
               </button>
               <input
-                type="text"
+                type="number"
                 name="quantity"
                 value={quantity}
                 maxLength={3}
@@ -146,13 +185,29 @@ export default function ProductPage() {
                 </>
               )}
             </p>
-            <button className="add-to-cart-btn" onClick={handleAddCart}>
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                if (product) {
+                  const id = product._id;
+                  handleAddCart({
+                    id,
+                    name: product.name,
+                    price: product.price,
+                    quantity,
+                  });
+                }
+              }}
+            >
               Add to Cart
             </button>
           </div>
         </div>
       </div>
-      <ProductTab />
+      <ProductTab
+        productDetails={product?.summary}
+        description={product?.description}
+      />
     </section>
   );
 }

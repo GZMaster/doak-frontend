@@ -3,23 +3,22 @@
 @import "../../styles/breakpoints";
 
 .notificationsmenu {
-  display: flex;
-  flex-direction: column;
-  height: 35.02rem;
-  width: auto;
-  background: $white;
+  width: 52.625rem;
   border-radius: 10px;
+  background-color: $white;
+  min-height: 35.02rem;
+  @include tablet {
+    width: auto;
+  }
 
   &_header {
+    border-bottom: 1px solid $border;
+    padding: 1rem 2.688rem;
     display: flex;
-    width: 842px;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid $border;
 
-    > h1 {
+    > h3 {
       font-family: $Poppins;
       font-style: normal;
       font-weight: 600;
@@ -46,11 +45,10 @@
 
   &_body {
     display: flex;
-    width: 842px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem;
     gap: 1rem;
 
     &_notification {
