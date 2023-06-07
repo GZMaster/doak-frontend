@@ -2,10 +2,57 @@
 @import "../../styles/fonts";
 @import "../../styles/breakpoints";
 
+.faqpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 100vw;
+}
+
 .faqpage__header {
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../assets/Images/others/faq_background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 18.75rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  margin-top: 0;
+  align-items: center;
+  margin-bottom: 5.125rem;
+
+  > p {
+    font-size: 36px;
+    margin-top: 138px;
+    font-weight: 700;
+    text-align: center;
+    width: 322px;
+    line-height: 2.5rem;
+
+    @include mobile {
+      margin-top: 60px;
+    }
+  }
+
+  @include mobile {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    height: 12.5rem;
+    margin-bottom: 6rem;
+    margin-top: 5rem;
+  }
   & img {
-    width: 100%;
     padding-bottom: 5.125rem;
+    overflow: hidden;
+    align-self: center;
+
+    @include mobile {
+      padding-bottom: 0;
+      height: 12.5rem;
+    }
   }
 }
 .faqpage__body {
@@ -13,8 +60,16 @@
   flex-direction: column;
   padding-left: 18.813rem;
   padding-right: 18.75rem;
-  // gap: 2.563rem;
+  // gap: 32.563rem;
   padding-bottom: 6rem;
+
+  @include mobile {
+    width: 100vw;
+    overflow: hidden;
+    padding: 0;
+    align-items: center;
+    margin-bottom: 5.5rem;
+  }
 }
 .faqpage__body__item:nth-child(1) {
   border-bottom-left-radius: 0;
@@ -37,11 +92,27 @@
   padding-left: 1.875rem;
   padding-right: 1.875rem;
   padding-bottom: 1.25rem;
+
+  @include mobile {
+    width: 24.25rem;
+    padding: 0;
+    // align-self: center;
+    margin: 0;
+    min-height: 4.0625rem;
+    height: auto;
+    align-items: center;
+  }
 }
 .faqpage__body__item__question {
   display: flex;
   flex-direction: row;
   gap: 32.063rem;
+
+  @include mobile {
+    gap: 1.875rem;
+
+    align-items: flex-start;
+  }
   & h1 {
     font-family: $Poppins;
     font-style: normal;
@@ -49,16 +120,28 @@
     font-size: 1.125rem;
     line-height: 1.688rem;
     color: $text;
+    width: 12.75rem;
+
+    @include mobile {
+      width: 18.75rem;
+      margin-left: 1rem;
+    }
   }
   & p {
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.5rem;
     color: $text;
   }
 }
 .faqpage__body__item__question__button {
   border: none;
+}
+
+.faqpage__body__item__answer {
+  @include mobile {
+    margin-left: 1rem;
+  }
 }

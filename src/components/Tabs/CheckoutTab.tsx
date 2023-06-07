@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Tab.scss";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import DeliveryTab from "./DeliveryTab";
 import SummaryTab from "./SummaryTab";
 import PaymentTab from "./PaymentTab";
-export default function CheckOutTab() {
+
+const CheckOutTab = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+  const [createdOrder, setCreatedOrder] = useState();
+
+  const handleTabClick = (key: number) => {
+    setTabIndex(key);
+  };
+
   return (
     <>
-      <Tabs className="tabs">
+      <Tabs
+        className="tabs no-border"
+        selectedIndex={tabIndex}
+        onSelect={(index) => setTabIndex(index)}
+      >
         <TabList className="tabs-header">
           <Tab className="tabs-title">DELIVERY</Tab>
           <Tab className="tabs-title">SUMMARY</Tab>
@@ -17,20 +29,25 @@ export default function CheckOutTab() {
 
         <TabPanel>
           <div className="tabs-content">
-            <DeliveryTab />
+            <DeliveryTab handleTabClick={handleTabClick} />
           </div>
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <SummaryTab />
+            <SummaryTab
+              handleTabClick={handleTabClick}
+              setCreatedOrder={setCreatedOrder}
+            />
           </div>
         </TabPanel>
         <TabPanel>
           <div className="tabs-content">
-            <PaymentTab />
+            <PaymentTab createdOrder={createdOrder} />
           </div>
         </TabPanel>
       </Tabs>
     </>
   );
-}
+};
+
+export default CheckOutTab;

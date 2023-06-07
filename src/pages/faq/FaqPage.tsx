@@ -1,7 +1,6 @@
 import React from "react";
 import "./FaqPage.scss";
 import { useState } from "react";
-import faqbg from "../../assets/Images/others/faqbg.png";
 import openbt from "../../assets/Images/others/openbt.png";
 import closebt from "../../assets/Images/others/closebt.png";
 
@@ -29,7 +28,8 @@ const FaqPage = () => {
   return (
     <div className="faqpage">
       <div className="faqpage__header">
-        <img src={faqbg} alt="faq page background" />
+        <p> Frequently asked questions</p>
+        {/* <img src="faq_background.svg" alt="faq page background" /> */}
       </div>
       <div className="faqpage__body">
         <div className="faqpage__body__items">

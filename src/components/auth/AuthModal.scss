@@ -31,6 +31,9 @@
   background: $white;
   align-items: flex-start;
   justify-content: center;
+  @include tablet {
+    width: auto;
+  }
 
   > h1 {
     font-family: $Poppins;
@@ -52,7 +55,7 @@
     left: calc(85% + 6px);
   }
   .forgot_back {
-    right: calc(85% - 6px);
+    left: calc(11% - 6px);
   }
 }
 .auth_continue_btn {
@@ -64,6 +67,7 @@
   background-color: $black;
   color: $white;
   padding: 10px 0;
+  cursor: pointer;
   border-radius: 5px;
 }
 .authmodal__footer {
@@ -124,6 +128,9 @@
   align-items: center;
   width: 100%;
   overflow: hidden;
+  @include tablet {
+    overflow: visible;
+  }
 
   > form {
     display: flex;

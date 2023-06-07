@@ -9,7 +9,7 @@ export default function Main() {
   const isPageWidth = UseMediaQuery("(min-width: 769px)");
   return (
     <>
-      {isPageWidth ? <Hero /> : <></>}
+      <Hero />
       <section className="main-content">
         {isPageWidth ? <Sidebar /> : <></>}
         <Products />

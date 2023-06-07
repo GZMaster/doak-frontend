@@ -1,16 +1,23 @@
 import React from "react";
 import { InputFields, TextFields } from "../../lib/Main";
+import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
 import "./ContactPage.scss";
 import contactpagebg from "../../assets/Images/others/contactpagebg.png";
+import Mobilebg from "../../assets/Images/others/ContactUsmobilebg.png";
 import fbicon from "../../assets/Images/icons/facebook.svg";
 import wicon from "../../assets/Images/icons/whatsapp.svg";
 import igicon from "../../assets/Images/icons/instagram.svg";
 
 const ContactPage = () => {
+  const isPageTab = UseMediaQuery("(max-width: 768px)");
   return (
     <div className="contact">
       <div className="contactimg">
-        <img src={contactpagebg} alt="get in touch" className="cntctimg" />
+        <img
+          src={isPageTab ? Mobilebg : contactpagebg}
+          alt="get in touch"
+          className="cntctimg"
+        />
       </div>
       <div className="more_info">
         <div className="feedback">
@@ -37,7 +44,7 @@ const ContactPage = () => {
             <button className="submit">Send Message</button>
           </form>
         </div>
-        <div className="contact">
+        <div className="contactus_channel">
           <div className="call">
             <h2>CALL US:</h2>
             <p>+234 903 038 3868</p>

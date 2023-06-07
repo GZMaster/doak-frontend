@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "react-modal";
+import { useLoading } from "../../services/LoadingContext";
 import NotificationsMenu from "../../pages/account/NotificationsMenu";
-import "./NotificationsMenu.scss";
+import "./NotificationsModal.scss";
 
 interface props {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface props {
 }
 
 const NotificationsModal: React.FC<props> = ({ isOpen, onClose }) => {
+  const { setIsLoading } = useLoading();
   return (
     <Modal
       isOpen={isOpen}
@@ -34,7 +36,7 @@ const NotificationsModal: React.FC<props> = ({ isOpen, onClose }) => {
         },
       }}
     >
-      <NotificationsMenu />
+      <NotificationsMenu setIsLoading={setIsLoading} />
     </Modal>
   );
 };
