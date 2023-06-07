@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { IUser } from "../../types/user";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../services/AuthContext";
+import { useProducts } from "../../services/ProductsContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import logo from "../../assets/Images/logo/logo.svg";
@@ -13,16 +14,13 @@ import NotificationsModal from "../notification/NotificationModal";
 import "./NavBar.scss";
 import Search from "../mobileSearch";
 
-interface Props {
-  context: { user: IUser | null; setUser: (user: IUser | null) => void };
-}
-
-const NavBar: React.FC<Props> = ({ context }) => {
+const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const { user } = context;
+  const { isLoggedIn } = useContext(AuthContext);
+  const { searchTerm, setSearchTerm, searchProducts } = useProducts();
 
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
   const handleAuthClose = () => {
@@ -35,6 +33,14 @@ const NavBar: React.FC<Props> = ({ context }) => {
 
   const handleReload = () => {
     navigate("/");
+  };
+
+  const handleSearchTermChange = (event: { target: { value: string } }) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    searchProducts();
   };
 
   return (
@@ -52,8 +58,15 @@ const NavBar: React.FC<Props> = ({ context }) => {
                 <input
                   type="text"
                   placeholder="Search drinks in any category"
+                  value={searchTerm}
+                  onChange={handleSearchTermChange}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      handleSearchButtonClick();
+                    }
+                  }}
                 />
-                <button>Search</button>
+                <button onClick={handleSearchButtonClick}>Search</button>
               </div>
               <div className="right">
                 <img
@@ -62,14 +75,25 @@ const NavBar: React.FC<Props> = ({ context }) => {
                   onClick={() => setIsNotifiOpen(true)}
                 />
 
-                <button onClick={() => setIsAuthOpen(true)}>
+                <button
+                  onClick={() => {
+                    if (isLoggedIn) navigate("/account");
+                    else setIsAuthOpen(true);
+                  }}
+                >
                   <img src={usericon} alt="" />
                   Account
                 </button>
-                <Link to="/cart" className="cart">
+                <button
+                  className="cart"
+                  onClick={() => {
+                    if (isLoggedIn) navigate("/cart");
+                    else setIsAuthOpen(true);
+                  }}
+                >
                   <img src={cart} alt="" />
                   Cart
-                </Link>
+                </button>
               </div>
             </div>
           ) : (
@@ -79,11 +103,7 @@ const NavBar: React.FC<Props> = ({ context }) => {
         {!isPageWide && <Search />}
       </nav>
 
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={handleAuthClose}
-        isUserLoggedIn={!!user}
-      />
+      <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />
     </>
   );

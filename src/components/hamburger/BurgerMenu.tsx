@@ -1,6 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 // import { Turn as Hamburger } from "hamburger-react";
+import { AuthContext } from "../../services/AuthContext";
 import AuthModal from "../auth/AuthModal";
 import NotificationsModal from "../notification/NotificationModal";
 import "./BurgerMenu.scss";
@@ -11,12 +13,11 @@ import userIcon from "../../assets/Images/icons/navbar/user-square(1).svg";
 import userLoggedIcon from "../../assets/Images/icons/navbar/user-square-logged.svg";
 import cartLogged from "../../assets/Images/icons/navbar/shopping-cart-logged.svg";
 import notificationLogged from "../../assets/Images/icons/navbar/Notifications-logged.svg";
-import { Link } from "react-router-dom";
 
 const BurgerMenu = () => {
-  const user = false;
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(AuthContext);
   const [isOpen] = useState(false);
-  const isUserLogged = true;
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
@@ -39,7 +40,7 @@ const BurgerMenu = () => {
       /> */}
       <div className="content">
         <div className="right">
-          {isUserLogged ? (
+          {isLoggedIn ? (
             <img
               src={notificationLogged}
               alt="notification"
@@ -53,29 +54,36 @@ const BurgerMenu = () => {
             />
           )}
 
-          <button onClick={() => setIsAuthOpen(true)}>
-            {isUserLogged ? (
+          <button
+            onClick={() => {
+              if (isLoggedIn) navigate("/account");
+              else setIsAuthOpen(true);
+            }}
+          >
+            {isLoggedIn ? (
               <img src={userLoggedIcon} alt="user" />
             ) : (
               <img src={userIcon} alt="user" />
             )}
           </button>
-          <Link to="/cart" className="cart">
-            {isUserLogged ? (
+          <button
+            className="cart"
+            onClick={() => {
+              if (isLoggedIn) navigate("/cart");
+              else setIsAuthOpen(true);
+            }}
+          >
+            {isLoggedIn ? (
               <img src={cartLogged} alt="cart" />
             ) : (
               <img src={cart} alt="cart" />
             )}
-          </Link>
+          </button>
         </div>
       </div>
       <div className={`panel ${isOpen ? "open" : "close"}`}></div>
       {isAuthOpen && (
-        <AuthModal
-          isOpen={isAuthOpen}
-          onClose={handleAuthClose}
-          isUserLoggedIn={!!user}
-        />
+        <AuthModal isOpen={isAuthOpen} onClose={handleAuthClose} />
       )}
       {isNotifiOpen && (
         <NotificationsModal isOpen={isNotifiOpen} onClose={handleNotifiClose} />

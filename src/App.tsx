@@ -1,43 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
-import Loader from "react-loader-advanced";
-import { IUser } from "./types/user";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AuthProvider from "./providers/authentication/AuthProvider";
+import { LoadingProvider } from "./services/LoadingContext";
+import { ProductsProvider } from "./services/ProductsContext";
+import { CartProvider } from "./services/CartContext";
 import Loading from "./components/Loader/Loading";
 import NavBar from "./components/navbar/NavBar";
 import Footer from "./components/footer/Footer";
 
-type ContextType = { user: IUser | null };
-
 function App() {
-  const [user, setUser] = useState<IUser | null>(null);
-  const [loading, isLoading] = useState<boolean>(false);
-
-  const handleLoading = () => {
-    isLoading(true);
-    setTimeout(() => {
-      isLoading(false);
-    }, 3000);
-  };
-
-  useEffect(() => {
-    handleLoading();
-  }, [window.onload]);
-
-  const spinner = <Loading />;
-
   return (
-    <Loader show={loading} message={spinner}>
-      <NavBar context={{ user, setUser }} />
+    <AuthProvider>
+      <ProductsProvider>
+        <CartProvider>
+          <LoadingProvider LoadingComponent={Loading}>
+            <NavBar />
 
-      <Outlet context={{ user, setUser }} />
+            <Outlet />
 
-      <Footer />
-    </Loader>
+            <Footer />
+          </LoadingProvider>
+        </CartProvider>
+      </ProductsProvider>
+    </AuthProvider>
   );
-}
-
-export function useUser() {
-  return useOutletContext<ContextType>();
 }
 
 export default App;

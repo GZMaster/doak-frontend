@@ -1,30 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import options from "../../assets/Images/icons/options.svg";
 
-const notifications = [
-  {
-    id: 1,
-    title: "Order No. 11267880 Arriving Today!",
-    description:
-      "Samuel Enikhan (09030383868) is delivering your order today from 12pm to 3pm.",
-  },
-  {
-    id: 2,
-    title: "Updates from DOAK",
-    description:
-      "Hey Gbemisola, Doak is having a black Friday week, join us on June 14th and be one of our lucky customers this week.",
-  },
-];
+interface Notifications {
+  _id: string;
+  userId: string;
+  head: string;
+  body: string;
+  date: Date;
+  read: boolean;
+}
 
 interface MobileNotificationsMenuProps {
   handleBack: () => void;
+  setIsLoading: (value: boolean) => void;
 }
 
 const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
   handleBack,
+  setIsLoading,
 }) => {
+  const [notifications, setNotifications] = useState<Array<Notifications>>();
+
+  useEffect(() => {
+    setIsLoading(true);
+    getNotifications();
+  }, []);
+
+  const getNotifications = async () => {
+    const response = await fetch(
+      `https://doakbackend.cyclic.app/api/v1/notifications`,
+      // `http://localhost:3000/api/v1/notifications`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    setNotifications(data.data);
+    setIsLoading(false);
+  };
+
   return (
     <div className="mobilenotificationsmenu">
       <div className="mobilenotificationsmenu_header">
@@ -38,20 +59,21 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
       </div>
 
       <div className="mobilenotificationsmenu_body">
-        {notifications.map((notification) => (
-          <div
-            className="mobilenotificationsmenu_body_notification"
-            key={notification.id}
-          >
-            <div className="mobilenotificationsmenu_body_notification__text">
-              <h2>{notification.title}</h2>
-              <p>{notification.description}</p>
+        {notifications &&
+          Object.values(notifications).map((notification) => (
+            <div
+              className="mobilenotificationsmenu_body_notification"
+              key={notification._id}
+            >
+              <div className="mobilenotificationsmenu_body_notification__text">
+                <h2>{notification.head}</h2>
+                <p>{notification.body}</p>
+              </div>
+              <div className="mobilenotificationsmenu_body_notification__logo">
+                <img src="" alt="" />
+              </div>
             </div>
-            <div className="mobilenotificationsmenu_body_notification__logo">
-              <img src="" alt="" />
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@
   padding: 2rem 2rem;
   @include tablet {
     width: auto;
+    height: auto;
   }
   &__header {
     display: flex;
@@ -29,12 +30,17 @@
 
     > button {
       all: unset;
+      margin-top: 0.5rem;
     }
   }
   &__body {
     display: flex;
     flex-direction: column;
     &__form {
+      @include tablet {
+        display: flex;
+        flex-direction: column;
+      }
       display: grid;
       width: 100%;
       column-gap: 0.875rem;
