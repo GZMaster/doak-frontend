@@ -5,13 +5,14 @@ import backbtn from "../../assets/Images/icons/backbtn.svg";
 
 interface MobileHelpMenuProps {
   handleBack: () => void;
+  setIsLoading?: (value: boolean) => void;
 }
 
 const MobileHelpMenu: React.FC<MobileHelpMenuProps> = ({ handleBack }) => {
   const [messages] = useState("");
 
   const handleSendMessage = (message: string) => {
-    console.log(message);
+    return message;
   };
 
   return (

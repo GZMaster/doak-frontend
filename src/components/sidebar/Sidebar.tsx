@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useProducts } from "../../services/ProductsContext";
 import "./sidebar.scss";
 import filter from "../../assets/Images/icons/sort.svg";
 import arrowUp from "../../assets/Images/icons/arrow-up.svg";
 import arrowDown from "../../assets/Images/icons/arrow-down.svg";
-import { useState } from "react";
 
 interface FilterOption {
   name: string;
@@ -22,24 +22,36 @@ const wineOptions: FilterOption[] = [
   { name: "liqueur", label: "Liqueur" },
   { name: "spirit", label: "Spirit" },
 ];
-const drinkOptions: FilterOption[] = [
-  { name: "all", label: "All" },
-  { name: "100ml", label: "100ml" },
-  { name: "120ml", label: "120ml" },
-  { name: "150ml", label: "150ml" },
-];
-const brandOptions: FilterOption[] = [
-  { name: "all", label: "All" },
-  { name: "star", label: "Star" },
-  { name: "gulder", label: "Gulder" },
-  { name: "trophy", label: "Trophy" },
-  { name: "33 export", label: "33 Export" },
-];
 
 function FilterSection({ options }: FilterSectionProps) {
+  const { fetchProducts } = useProducts();
   const [filters, setFilters] = useState<{ [key: string]: boolean }>(
     options.reduce((acc, { name }) => ({ ...acc, [name]: name === "all" }), {})
   );
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      const filter = Object.entries(filters)
+        .filter(([, value]) => value)
+        .map(([key]) => key)
+        .join(",");
+
+      if (filter.includes("all")) {
+        // "All" filter option selected, fetch products without filter
+        fetchProducts(12, 1);
+      } else if (filter.length > 0) {
+        fetchProducts(10, 1, undefined, {
+          field: "categories",
+          operator: "",
+          value: filter,
+        });
+      }
+    };
+
+    // Call the fetchFilteredProducts function inside the effect
+    fetchFilteredProducts();
+  }, [filters]); // Add the dependencies fetchProducts and filters
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
     setFilters({ ...filters, [name]: checked });
@@ -62,8 +74,9 @@ function FilterSection({ options }: FilterSectionProps) {
   );
 }
 export default function Sidebar() {
-  const [show, setShow] = useState(false);
-  const toggleShow = () => setShow(!show);
+  const [wineShow, setWineShow] = useState(false);
+  const toggleWineShow = () => setWineShow(!wineShow);
+
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
@@ -75,20 +88,8 @@ export default function Sidebar() {
       <SortOption
         title="Category"
         options={wineOptions}
-        show={show}
-        toggleShow={toggleShow}
-      />
-      <SortOption
-        title="Drink sizes"
-        options={drinkOptions}
-        show={show}
-        toggleShow={toggleShow}
-      />
-      <SortOption
-        title="Brand"
-        options={brandOptions}
-        show={show}
-        toggleShow={toggleShow}
+        show={wineShow}
+        toggleShow={toggleWineShow}
       />
     </aside>
   );

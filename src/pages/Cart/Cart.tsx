@@ -1,40 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLoading } from "../../services/LoadingContext";
+import { useCart } from "../../services/CartContext";
 import "./Cart.scss";
 import Trash from "../../assets/Images/icons/trash.svg";
-import product from "../../assets/Images/others/itemDrink.png";
-import { Link } from "react-router-dom";
+import productImg from "../../assets/Images/others/itemDrink.png";
+import { useNavigate } from "react-router-dom";
 import UseMediaQuery from "../../components/mediaquery/UseMediaQuerry";
+import { FormatNaira } from "../../utils/FormatCurrency";
 
 export default function Cart() {
-  const [quantity, setQuantity] = useState("1");
-  const handleQuantityDecrease = () => {
-    setQuantity((prevQuantity) => {
-      if (!prevQuantity || prevQuantity === "1") {
-        return "1";
-      }
-      return String(parseInt(prevQuantity, 10) - 1);
-    });
-  };
-
-  const handleQuantityIncrease = () => {
-    setQuantity((prevQuantity) => {
-      if (!prevQuantity) {
-        return "1";
-      }
-      return String(parseInt(prevQuantity, 10) + 1);
-    });
-  };
-  function handleQuantityChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const newQuantity = event.target.value.replace(/\D/g, ""); // remove non-digit characters
-    if (Number(newQuantity) > 100) {
-      setQuantity("100");
-    } else {
-      setQuantity(newQuantity);
-    }
-  }
+  const navigate = useNavigate();
+  const { cartItems, removeFromCart, getTotalCartPrice, quantityChange } =
+    useCart();
+  const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
+  const [cartLength, setCartLength] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    if (cartItems) {
+      const total = getTotalCartPrice();
+      setTotalPrice(total);
+      setCartLength(Object.keys(cartItems).length);
+    }
+
+    setIsLoading(false);
+  }, [cartItems]);
+
   return (
     <section className="Cart">
+      {isLoading && <LoadingComponent />}
       <div className="wrapper">
         <h2 className="title">Shopping Cart</h2>
         {isPageWide ? (
@@ -51,55 +48,81 @@ export default function Cart() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="product__cart">
-                      <img className="product__image" src={product} alt="" />
-                      <div className="product__details">
-                        <p className="product__name">
-                          Hennessy VS Cognac ORIGINAL 70cl X6
-                        </p>
-                        <p>70cl</p>
-                      </div>
-                    </td>
-                    <td className="price">N23,000</td>
-                    <td>
-                      <div className="product-quantity">
-                        <div className="quantity-controls">
-                          <button
-                            className="decrease-quantity"
-                            onClick={handleQuantityDecrease}
+                  {cartItems &&
+                    Object.values(cartItems).map((items) => {
+                      const { id, name, price, quantity } = items;
+                      const totalPrice = price * quantity;
+
+                      const decreaseQuantity = () => {
+                        if (quantity > 1) {
+                          quantityChange(id, quantity - 1);
+                        }
+                      };
+
+                      const increaseQuantity = () => {
+                        if (quantity < 100) {
+                          quantityChange(id, quantity + 1);
+                        }
+                      };
+
+                      return (
+                        <tr key={id}>
+                          <td className="product__cart">
+                            <img
+                              className="product__image"
+                              src={productImg}
+                              alt=""
+                            />
+                            <div className="product__details">
+                              <p className="product__name">{name}</p>
+                            </div>
+                          </td>
+
+                          <td className="price">{FormatNaira(price)}</td>
+
+                          <td className="product_quantity">
+                            <div className="product-quantity">
+                              <div className="quantity-controls">
+                                <button
+                                  className="btn"
+                                  onClick={decreaseQuantity}
+                                >
+                                  -
+                                </button>
+                                <input
+                                  type="number"
+                                  name="quantity"
+                                  value={quantity}
+                                  maxLength={3}
+                                />
+
+                                <button
+                                  className="btn"
+                                  onClick={increaseQuantity}
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="total">{totalPrice}</td>
+                          <td
+                            className="product_delete"
+                            onClick={() => removeFromCart(id)}
                           >
-                            -
-                          </button>
-                          <input
-                            type="text"
-                            name="quantity"
-                            value={quantity}
-                            maxLength={3}
-                            onChange={handleQuantityChange}
-                          />
-                          <button
-                            className="increase-quantity"
-                            onClick={handleQuantityIncrease}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="total">N230,000</td>
-                    <td>
-                      <img src={Trash} alt="delete" />
-                    </td>
-                  </tr>
+                            <img src={Trash} alt="delete" />
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
             <div className="cart-summary">
               <div className="title">Cart Summary</div>
               <p className="items-total">
-                3 Items
-                <span>N3,000,000</span>
+                {cartLength} Items
+                <span>{FormatNaira(totalPrice)}</span>
               </p>
               {/* future feature */}
               {/* <label htmlFor="promo" className="promo-code">
@@ -109,70 +132,105 @@ export default function Cart() {
               <div className="text">Delivery fees are not included</div>
               <div className="line" />
               <div className="subtotal">
-                Subtotal <span>N3,000,000</span>
+                Subtotal <span>{FormatNaira(totalPrice)}</span>
               </div>
-              <Link to="/checkout" className="btn">
+              <button
+                className="btn"
+                onClick={() => {
+                  navigate("/checkout", { state: { items: cartItems } });
+                }}
+              >
                 CHECK OUT
-              </Link>
+              </button>
             </div>
           </div>
         ) : (
           <div className="cart-wrapper">
             <div className="cart-table">
               <div className="product__cart">
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <img className="product__image" src={product} alt="" />
-                  <div className="product__details">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "5px",
-                      }}
-                    >
-                      <p className="product__name">
-                        Hennessy VS Cognac ORIGINAL 70cl X6
-                      </p>
-                      <div className="total">N230,000</div>
-                    </div>
-                    <div className="product-quantity">
-                      <div className="quantity-controls">
-                        <button
-                          className="decrease-quantity"
-                          onClick={handleQuantityDecrease}
+                {cartItems &&
+                  Object.values(cartItems).map((items) => {
+                    const { id, name, price, quantity } = items;
+
+                    const decreaseQuantity = () => {
+                      if (quantity > 1) {
+                        quantityChange(id, quantity - 1);
+                      }
+                    };
+
+                    const increaseQuantity = () => {
+                      if (quantity < 100) {
+                        quantityChange(id, quantity + 1);
+                      }
+                    };
+
+                    return (
+                      <div key={id}>
+                        <div style={{ display: "flex", gap: "1rem" }}>
+                          <img
+                            className="product__image"
+                            src={productImg}
+                            alt=""
+                          />
+                          <div className="product__details">
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "5px",
+                              }}
+                            >
+                              <p className="product__name">{name}</p>
+                              <div className="total">{FormatNaira(price)}</div>
+                            </div>
+                            <div className="product-quantity">
+                              <div className="quantity-controls">
+                                <button
+                                  className="btn"
+                                  onClick={decreaseQuantity}
+                                >
+                                  -
+                                </button>
+                                <input
+                                  type="text"
+                                  name="quantity"
+                                  value={quantity}
+                                  maxLength={3}
+                                />
+                                <button
+                                  className="btn"
+                                  onClick={increaseQuantity}
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className="cart__delete"
+                          onClick={() => removeFromCart(id)}
                         >
-                          -
-                        </button>
-                        <input
-                          type="text"
-                          name="quantity"
-                          value={quantity}
-                          maxLength={3}
-                          onChange={handleQuantityChange}
-                        />
-                        <button
-                          className="increase-quantity"
-                          onClick={handleQuantityIncrease}
-                        >
-                          +
-                        </button>
+                          <img src={Trash} alt="delete" />
+                          Delete
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="cart__delete">
-                  <img src={Trash} alt="delete" />
-                  Delete
-                </div>
+                    );
+                  })}
               </div>
             </div>
             <div className="cart-summary">
               <div className="subtotal">
-                Subtotal <span>N3,000,000</span>
+                Subtotal <span>{FormatNaira(totalPrice)}</span>
               </div>
-              <Link to="/checkout" className="btn">
+              <button
+                className="btn"
+                onClick={() => {
+                  navigate("/checkout", { state: { items: cartItems } });
+                }}
+              >
                 CHECK OUT
-              </Link>
+              </button>
             </div>
           </div>
         )}
