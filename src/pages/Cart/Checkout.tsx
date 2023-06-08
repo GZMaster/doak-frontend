@@ -49,7 +49,7 @@ export default function Checkout() {
               <div className="subtotal">
                 Subtotal <span>{FormatNaira(total)}</span>
               </div>
-              <button className="btn">CHECK OUT</button>
+              {/* <button className="btn">CHECK OUT</button> */}
             </div>
           )}
         </div>

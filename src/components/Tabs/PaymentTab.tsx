@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useLoading } from "../../services/LoadingContext";
+import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
-// import card from "../../assets/Images/icons/cards.svg";
+import card from "../../assets/Images/icons/cards.svg";
 // import transfer from "../../assets/Images/icons/money-send.svg";
-import Paypal from "../../assets/Images/icons/paypal 1.svg";
+// import Paypal from "../../assets/Images/icons/paypal 1.svg";
 import { InputFields } from "../../lib/Main";
 import "./Tab.scss";
 
@@ -15,29 +16,47 @@ interface Props {
 
 const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
+  const [cardNumber, setCardNumber] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [city, setCity] = useState("");
+  // const [state, setState] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [zipCode, setZipCode] = useState("");
+  const [pin, setPin] = useState("");
 
   const paymentIntent = async () => {
     setIsLoading(true);
     const token = localStorage.getItem("jwt");
 
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/payment/initialize-payment`,
-      // `http://localhost:3000/api/v1/payment/initialize-payment`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userId: createdOrder?.userId,
-          orderId: createdOrder?._id,
-          email,
-          amount: createdOrder?.subtotal,
-        }),
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/payment/pay`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        orderId: createdOrder?._id,
+        card_number: cardNumber,
+        cvv: cvv,
+        expiry_month: expiryDate.split("/")[0],
+        expiry_year: expiryDate.split("/")[1],
+        amount: createdOrder?.total,
+        fullname: fullName,
+        email: email,
+        phone_number: phoneNumber,
+        pin: pin,
+        // city: city,
+        // address: address,
+        // state: state,
+        // country: country,
+        // zip_code: zipCode,
+      }),
+    });
 
     const res = await response.json();
 
@@ -55,10 +74,69 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
       );
     }
 
-    if (res.status) {
+    if (res.status === "redirect") {
       setIsLoading(false);
-      const redirectUrl = res.data.authorization_url;
+      const redirectUrl = res.authUrl;
       window.location.replace(redirectUrl);
+    }
+
+    if (res.status === "success") {
+      setIsLoading(false);
+      alert("Payment Successful");
+      window.location.replace("/");
+    }
+
+    if (res.status === "pending") {
+      setIsLoading(false);
+      alert("Payment Pending");
+      window.location.replace("/");
+    }
+
+    if (res.status === "otp") {
+      setIsLoading(false);
+      alert("Payment OTP");
+
+      const { tx_ref, flw_ref } = res.data;
+
+      const otp = prompt("Enter OTP sent to your phone number");
+
+      if (otp) {
+        const response = await fetch(`${backendURL}/api/v1/payment/validate`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            tx_ref,
+            flw_ref,
+            otp,
+          }),
+        });
+
+        const res = await response.json();
+
+        if (res.status === "error") {
+          setIsLoading(false);
+          return alert(
+            res.message
+              ? res.message
+              : "An error occured, please try again later"
+          );
+        }
+
+        if (res.status === "success") {
+          setIsLoading(false);
+          alert("Payment Successful");
+          window.location.replace("/");
+        }
+
+        if (res.status === "pending") {
+          setIsLoading(false);
+          alert("Payment Pending");
+          window.location.replace("/");
+        }
+      }
     }
 
     setIsLoading(false);
@@ -68,31 +146,115 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
     <Tabs className="Payment_tab">
       {isLoading && <LoadingComponent />}
       <TabList className="payment_tabs">
-        {/* <Tab className="item">
+        <Tab className="item">
           <img src={card} alt="" />
           Pay with Card
         </Tab>
-        <Tab className="item">
+        {/* <Tab className="item">
           <img src={transfer} alt="" />
           Transfer/USSD
         </Tab> */}
-        <Tab className="item">
+        {/* <Tab className="item">
           <img src={Paypal} alt="" />
           Paystack
-        </Tab>
+        </Tab> */}
       </TabList>
-      {/* <TabPanel>
+      <TabPanel>
         <p className="summary_tab_title">Card Payment</p>
         <div className="payment_box">
           <InputFields
             type="text"
             label="Card Number"
             placeholder="xxxx - xxxx- xxxx- xxxx"
+            required={true}
+            value={cardNumber}
+            onChange={(e) => setCardNumber(e.target.value)}
           />
           <div className="cvc">
-            <InputFields type="text" label="CVV" placeholder="***" />
-            <InputFields type="text" label="Expiry Date" placeholder="xx/xx" />
+            <InputFields
+              type="text"
+              label="CVV"
+              placeholder="***"
+              required={true}
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+            />
+            <InputFields
+              type="text"
+              label="Expiry Date"
+              placeholder="xx/xx"
+              required={true}
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+            />
           </div>
+          <InputFields
+            type="password"
+            label="Card Pin"
+            placeholder="Enter card pin"
+            required={true}
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="Full Name"
+            placeholder="Name on Card"
+            required={true}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="Phone Number"
+            placeholder=""
+            required={true}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="Email"
+            placeholder="example@domain.com"
+            required={true}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {/* <InputFields
+            type="text"
+            label="Address"
+            placeholder="Enter your address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="City"
+            placeholder="Enter your city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="State"
+            placeholder="Enter state"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="Country"
+            placeholder="Enter country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+          <InputFields
+            type="text"
+            label="Zip Code"
+            placeholder="Enter zip code"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          /> */}
         </div>
         <div
           style={{ textAlign: "center" }}
@@ -101,9 +263,9 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             paymentIntent();
           }}
         >
-          Pay N3,003,000
+          Pay {FormatNaira(createdOrder?.subtotal)}
         </div>
-      </TabPanel> */}
+      </TabPanel>
       {/* <TabPanel>
         <div className="transfer">
           <p className="summary_tab_title">Transfer N3,000,300 to:</p>
@@ -132,7 +294,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
           </div>
         </div>
       </TabPanel> */}
-      <TabPanel>
+      {/* <TabPanel>
         <div className="payment_box">
           <p className="summary_tab_title">Paystack Payment</p>
           <div className="payment_box">
@@ -154,7 +316,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             {`Pay ${FormatNaira(createdOrder?.subtotal)}`}
           </div>
         </div>
-      </TabPanel>
+      </TabPanel> */}
     </Tabs>
   );
 };
