@@ -172,7 +172,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
       if (data.status === "success") {
         setCartItems((prevItems) => {
           if (prevItems) {
-            return prevItems.map((prevItem) =>
+            return Object.values(prevItems).map((prevItem) =>
               prevItem.id === item.id ? { ...prevItem, quantity } : prevItem
             );
           }
@@ -260,7 +260,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
   const quantityChange = async (id: string, quantity: number) => {
     const item = cartItems
-      ? cartItems.find((item) => item.id === id)
+      ? Object.values(cartItems).find((item) => item.id === id)
       : undefined;
 
     if (item) {

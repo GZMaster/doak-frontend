@@ -22,11 +22,11 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  // const [address, setAddress] = useState("");
+  // const [city, setCity] = useState("");
+  // const [state, setState] = useState("");
+  // const [country, setCountry] = useState("");
+  // const [zipCode, setZipCode] = useState("");
   const [pin, setPin] = useState("");
 
   const paymentIntent = async () => {
@@ -45,16 +45,16 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
         cvv: cvv,
         expiry_month: expiryDate.split("/")[0],
         expiry_year: expiryDate.split("/")[1],
-        amount: createdOrder?.totalPrice,
+        amount: createdOrder?.total,
         fullname: fullName,
         email: email,
         phone_number: phoneNumber,
         pin: pin,
-        city: city,
-        address: address,
-        state: state,
-        country: country,
-        zip_code: zipCode,
+        // city: city,
+        // address: address,
+        // state: state,
+        // country: country,
+        // zip_code: zipCode,
       }),
     });
 
@@ -74,10 +74,69 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
       );
     }
 
-    if (res.status) {
+    if (res.status === "redirect") {
       setIsLoading(false);
-      const redirectUrl = res.data.authorization_url;
+      const redirectUrl = res.authUrl;
       window.location.replace(redirectUrl);
+    }
+
+    if (res.status === "success") {
+      setIsLoading(false);
+      alert("Payment Successful");
+      window.location.replace("/");
+    }
+
+    if (res.status === "pending") {
+      setIsLoading(false);
+      alert("Payment Pending");
+      window.location.replace("/");
+    }
+
+    if (res.status === "otp") {
+      setIsLoading(false);
+      alert("Payment OTP");
+
+      const { tx_ref, flw_ref } = res.data;
+
+      const otp = prompt("Enter OTP sent to your phone number");
+
+      if (otp) {
+        const response = await fetch(`${backendURL}/api/v1/payment/validate`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            tx_ref,
+            flw_ref,
+            otp,
+          }),
+        });
+
+        const res = await response.json();
+
+        if (res.status === "error") {
+          setIsLoading(false);
+          return alert(
+            res.message
+              ? res.message
+              : "An error occured, please try again later"
+          );
+        }
+
+        if (res.status === "success") {
+          setIsLoading(false);
+          alert("Payment Successful");
+          window.location.replace("/");
+        }
+
+        if (res.status === "pending") {
+          setIsLoading(false);
+          alert("Payment Pending");
+          window.location.replace("/");
+        }
+      }
     }
 
     setIsLoading(false);
@@ -130,6 +189,14 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             />
           </div>
           <InputFields
+            type="password"
+            label="Card Pin"
+            placeholder="Enter card pin"
+            required={true}
+            value={pin}
+            onChange={(e) => setPin(e.target.value)}
+          />
+          <InputFields
             type="text"
             label="Full Name"
             placeholder="Name on Card"
@@ -153,7 +220,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <InputFields
+          {/* <InputFields
             type="text"
             label="Address"
             placeholder="Enter your address"
@@ -187,15 +254,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             placeholder="Enter zip code"
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
-          />
-          <InputFields
-            type="password"
-            label="Pin"
-            placeholder="Enter card pin"
-            required={true}
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-          />
+          /> */}
         </div>
         <div
           style={{ textAlign: "center" }}
@@ -204,7 +263,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             paymentIntent();
           }}
         >
-          `Pay ${FormatNaira(createdOrder?.subtotal)}`
+          Pay {FormatNaira(createdOrder?.subtotal)}
         </div>
       </TabPanel>
       {/* <TabPanel>
