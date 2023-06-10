@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import PropTypes from "prop-types";
 import { IUser } from "../../types/user";
@@ -10,6 +10,38 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const token = localStorage.getItem("jwt");
+      if (token) {
+        try {
+          // Send a request to the authentication provider's token validation endpoint
+          const res = await fetch(`${backendURL}/api/v1/users/validateToken`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const response = await res.json();
+
+          if (response.status === "success") {
+            setIsLoggedIn(true); // Token is valid, user is logged in
+          } else {
+            setIsLoggedIn(false); // Token is invalid, user is not logged in
+            localStorage.removeItem("jwt"); // Remove the invalid token from storage
+          }
+        } catch (error) {
+          // console.error("Token validation error:", error);
+          setIsLoggedIn(false); // Token is invalid, user is not logged in
+        }
+      }
+    };
+
+    checkTokenValidity();
+  }, []);
 
   const signup = async (
     name: string,
