@@ -16,7 +16,6 @@ export default function Cart() {
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [cartLength, setCartLength] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-
   useEffect(() => {
     setIsLoading(true);
 
@@ -90,7 +89,6 @@ export default function Cart() {
                                   -
                                 </button>
                                 <input
-                                  type="number"
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
@@ -192,7 +190,6 @@ export default function Cart() {
                                   -
                                 </button>
                                 <input
-                                  type="text"
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
