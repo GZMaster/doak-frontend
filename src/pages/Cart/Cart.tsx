@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
 import "./Cart.scss";
@@ -64,6 +64,16 @@ export default function Cart() {
                         }
                       };
 
+                      const handleQuantityChange = (
+                        e: ChangeEvent<HTMLInputElement>
+                      ) => {
+                        const { value } = e.target;
+
+                        if (parseInt(value) > 0 && parseInt(value) < 100) {
+                          quantityChange(id, parseInt(value));
+                        }
+                      };
+
                       return (
                         <tr key={id}>
                           <td className="product__cart">
@@ -91,6 +101,7 @@ export default function Cart() {
                                 <input
                                   name="quantity"
                                   value={quantity}
+                                  onChange={(e) => handleQuantityChange(e)}
                                   maxLength={3}
                                 />
 
@@ -162,6 +173,16 @@ export default function Cart() {
                       }
                     };
 
+                    const handleQuantityChange = (
+                      e: ChangeEvent<HTMLInputElement>
+                    ) => {
+                      const { value } = e.target;
+
+                      if (parseInt(value) > 0 && parseInt(value) < 100) {
+                        quantityChange(id, parseInt(value));
+                      }
+                    };
+
                     return (
                       <div key={id}>
                         <div style={{ display: "flex", gap: "1rem" }}>
@@ -193,6 +214,7 @@ export default function Cart() {
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
+                                  onChange={(e) => handleQuantityChange(e)}
                                 />
                                 <button
                                   className="btn"
