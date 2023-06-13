@@ -11,6 +11,9 @@
     width: auto;
     box-shadow: none;
   }
+  @include landscape {
+    width: auto;
+  }
   .tabs-header {
     padding: 20px;
     display: flex;
