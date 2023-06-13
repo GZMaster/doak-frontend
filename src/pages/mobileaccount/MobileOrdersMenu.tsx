@@ -10,7 +10,17 @@ interface Order {
   userId: string;
   orderId: string;
   orderStatus: string;
-  address: string;
+  contact: {
+    address: {
+      address: string;
+      city: string;
+      email: string;
+      name: string;
+      phoneNumber: string;
+      state: string;
+      _id: string;
+    };
+  };
   items: [
     {
       productId: string;
@@ -89,7 +99,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
 
           <div className="mobileordersmenu__body">
             {orders ? (
-              orders.map((order) => (
+              Object.values(orders).map((order) => (
                 <form
                   className="mobileordersmenu__order"
                   key={order.userId}
@@ -107,9 +117,11 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
                       <div className="mobileordersmenu__order__body">
                         <div className="mobileordersmenu__order__body__left">
                           <div className="mobileordersmenu__order__item">
-                            {order.items.map(({ productId, name }) => (
-                              <p key={productId}>{name}</p>
-                            ))}
+                            {Object.values(order.items).map(
+                              ({ productId, name }) => (
+                                <p key={productId}>{name}</p>
+                              )
+                            )}
                           </div>
                         </div>
                       </div>

@@ -11,7 +11,17 @@ interface ViewOrderMenuProps {
     userId: string;
     orderId: string;
     orderStatus: string;
-    address: string;
+    contact: {
+      address: {
+        address: string;
+        city: string;
+        email: string;
+        name: string;
+        phoneNumber: string;
+        state: string;
+        _id: string;
+      };
+    };
     items: [
       {
         productId: string;
@@ -60,7 +70,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
 
   const getAddress = async () => {
     const res = await fetch(
-      `${backendURL}/api/v1/addresses/${order?.address}`,
+      `${backendURL}/api/v1/addresses/${order?.contact.address._id}`,
       {
         method: "GET",
         headers: {
