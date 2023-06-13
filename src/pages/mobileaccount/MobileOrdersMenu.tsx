@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import backendURL from "../../api";
 import ViewOrderMenu from "../account/ViewOrderMenu";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
@@ -44,17 +45,13 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
   }, []);
 
   const getOrders = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/`,
-      // `http://localhost:3000/api/v1/orders/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/orders/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await res.json();
 

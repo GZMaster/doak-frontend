@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import backendURL from "../../api";
 import "./NotificationsMenu.scss";
 
 interface Notifications {
@@ -23,17 +24,13 @@ const NotificationsMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   }, []);
 
   const getNotifications = async () => {
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/notifications`,
-      // `http://localhost:3000/api/v1/notifications`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/notifications`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await response.json();
     setNotifications(data.data);

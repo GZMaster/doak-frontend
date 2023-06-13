@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import "./AccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
@@ -59,8 +60,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
 
   const getAddress = async () => {
     const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/${order?.address}`,
-      // `http://localhost:3000/api/v1/addresses/${order?.address}`,
+      `${backendURL}/api/v1/addresses/${order?.address}`,
       {
         method: "GET",
         headers: {
@@ -79,8 +79,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
 
   const handleCancelOrder = async () => {
     const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/cancelOrder/{order?.orderId}`,
-      // `http://localhost:3000/api/v1/orders/cancelOrder/{order?.orderId}`,
+      `${backendURL}/api/v1/orders/cancelOrder/{order?.orderId}`,
       {
         method: "GET",
         headers: {
