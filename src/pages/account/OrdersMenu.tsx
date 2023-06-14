@@ -110,11 +110,12 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
                       <div className="ordersmenu__order__body">
                         <div className="ordersmenu__order__body__left">
                           <div className="ordersmenu__order__item">
-                            {Object.values(order.items).map(
-                              ({ productId, name }) => (
-                                <p key={productId}>{name}</p>
-                              )
-                            )}
+                            {order.items &&
+                              Object.values(order.items).map(
+                                ({ productId, name }) => (
+                                  <p key={productId}>{name}</p>
+                                )
+                              )}
                           </div>
                         </div>
                       </div>
