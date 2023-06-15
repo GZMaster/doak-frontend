@@ -30,7 +30,7 @@ export default function Checkout() {
       <div className="wrapper">
         <h2 className="title">Checkout</h2>
         <div className="cart-wrapper">
-          <div style={{width:"100%"}}>
+          <div style={{ width: "100%" }}>
             <CheckOutTab />
           </div>
           {isPageWide && (
