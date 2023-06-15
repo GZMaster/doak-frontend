@@ -160,7 +160,6 @@ export default function ProductPage() {
                 -
               </button>
               <input
-                type="number"
                 name="quantity"
                 value={quantity}
                 maxLength={3}

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
 import { useProducts } from "../../services/ProductsContext";
@@ -17,11 +17,19 @@ import Search from "../mobileSearch";
 const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, checkTokenValidity } = useContext(AuthContext);
   const { searchTerm, setSearchTerm, searchProducts } = useProducts();
 
-  const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
+
+  useEffect(() => {
+    const checkToken = checkTokenValidity();
+
+    if (isLoggedIn && !checkToken) {
+      setIsAuthOpen(true);
+    }
+  }, [isLoggedIn, checkTokenValidity]);
 
   const handleAuthClose = () => {
     setIsAuthOpen(false);

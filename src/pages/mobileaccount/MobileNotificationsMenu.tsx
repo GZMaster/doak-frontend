@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import backendURL from "../../api";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import options from "../../assets/Images/icons/options.svg";
@@ -29,17 +30,13 @@ const MobileNotificationsMenu: React.FC<MobileNotificationsMenuProps> = ({
   }, []);
 
   const getNotifications = async () => {
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/notifications`,
-      // `http://localhost:3000/api/v1/notifications`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/notifications`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await response.json();
     setNotifications(data.data);

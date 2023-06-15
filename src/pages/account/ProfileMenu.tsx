@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
+import backendURL from "../../api";
 import { InputFields } from "../../lib/Main";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./AccountPage.scss";
@@ -45,22 +46,18 @@ const ProfileMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const updateUser = async () => {
     setIsLoading(true);
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/users/updateMe`,
-      // `http://localhost:3000/api/v1/users/updateMe`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({
-          name: `${firstName} ${lastName}`,
-          phoneNumber,
-          email,
-        }),
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/users/updateMe`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`,
+        phoneNumber,
+        email,
+      }),
+    });
 
     const response = await res.json();
 
@@ -84,17 +81,13 @@ const ProfileMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   };
 
   const getDefaultAddress = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/default`,
-      // `http://localhost:3000/api/v1/addresses/default`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses/default`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
 
     const response = await res.json();
 

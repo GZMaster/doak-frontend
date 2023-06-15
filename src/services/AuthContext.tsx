@@ -18,6 +18,7 @@ interface AuthContextType {
     passwordConfirm: string,
     restToken: string
   ) => Promise<boolean>;
+  checkTokenValidity: () => Promise<boolean>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -36,4 +37,5 @@ export const AuthContext = createContext<AuthContextType>({
   },
   forgotPassword: async () => false,
   resetPassword: async () => false,
+  checkTokenValidity: async () => false,
 });
