@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLoading } from "../../services/LoadingContext";
+import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import AddAddressModal from "../address/AddAddressModal";
 import "../address/AddressModal.scss";
@@ -40,6 +41,7 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
   const [address, setAddress] = useState<Array<Address>>();
   const [addressModal, setAddressModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [toastState, setToastState] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -83,7 +85,13 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
     const response = await res.json();
 
     if (response.status === "success") {
-      handleTabClick(1);
+      setToastState("success");
+
+      setTimeout(() => {
+        handleTabClick(1);
+      }, 2000);
+    } else {
+      setToastState("error");
     }
 
     setIsLoading(false);
@@ -92,6 +100,16 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
   return (
     <>
       {isLoading && <LoadingComponent />}
+      {toastState && (
+        <HandleToast
+          status={toastState}
+          message={
+            toastState === "success"
+              ? "default addressed saved"
+              : "Error setting address"
+          }
+        />
+      )}
       <AddAddressModal isOpen={addressModal} onClose={closeModal} />
       <div className="selectaddress">
         <div className="selectaddress__header">

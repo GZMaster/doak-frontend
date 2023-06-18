@@ -178,6 +178,10 @@
             color: #333333;
             padding: 1rem 1.5rem;
             text-align: left;
+
+            > img {
+              cursor: pointer;
+            }
           }
           .total {
             font-family: $Poppins;
@@ -246,6 +250,7 @@
           justify-content: space-between;
         }
         .cart__delete {
+          cursor: pointer;
           align-content: center;
           display: flex;
           align-items: center;

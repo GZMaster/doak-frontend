@@ -10,12 +10,23 @@ import { FormatNaira } from "../../utils/FormatCurrency";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart, getTotalCartPrice, quantityChange } =
-    useCart();
+  const {
+    cartItems,
+    getCart,
+    removeFromCart,
+    getTotalCartPrice,
+    quantityChange,
+    isLoading: cartIsLoading,
+  } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [cartLength, setCartLength] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -27,6 +38,14 @@ export default function Cart() {
 
     setIsLoading(false);
   }, [cartItems]);
+
+  useEffect(() => {
+    if (!cartIsLoading) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  }, [cartIsLoading]);
 
   return (
     <section className="Cart">
