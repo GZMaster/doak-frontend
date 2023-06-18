@@ -13,4 +13,5 @@ export interface IInput {
   required?: boolean;
   prefix?: ReactNode;
   suffix?: ReactNode;
+  autocomplete?: string;
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
+import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import product from "../../assets/Images/others/itemDrink.png";
@@ -32,6 +33,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
   const [address, setAddress] = useState<Address>();
+  const [toastState, setToastState] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,6 +61,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
       });
 
     if (!address) {
+      setToastState("error");
       return;
     }
 
@@ -71,6 +74,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
       state: address.state,
       country: address.country,
     };
+
+    if (!items) {
+      setToastState("error");
+      return;
+    }
 
     const res = await fetch(`${backendURL}/api/v1/orders`, {
       method: "POST",
@@ -89,7 +97,13 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
 
     if (response.status === "success") {
       setCreatedOrder(response.data.order);
-      handleTabClick(2);
+      setToastState("success");
+
+      setTimeout(() => {
+        handleTabClick(2);
+      }, 2000);
+    } else {
+      setToastState("error");
     }
 
     setIsLoading(false);
@@ -110,6 +124,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
 
     const response = await res.json();
 
+    if (response.status === "error") {
+      setToastState("error");
+      return;
+    }
+
     setAddress(response.data.addressData);
     setIsLoading(false);
   };
@@ -117,6 +136,16 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
   return (
     <section className="summary_tab">
       {isLoading && <LoadingComponent />}
+      {toastState && (
+        <HandleToast
+          status={toastState}
+          message={
+            toastState === "success"
+              ? "Order Created Successfully"
+              : "Error Creating Order"
+          }
+        />
+      )}
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">
