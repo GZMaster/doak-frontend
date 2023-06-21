@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import PropTypes from "prop-types";
 import { IUser } from "../../types/user";
@@ -10,6 +10,46 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  useEffect(() => {
+    checkTokenValidity();
+  }, []);
+
+  const checkTokenValidity = async () => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      try {
+        // Send a request to the authentication provider's token validation endpoint
+        const res = await fetch(`${backendURL}/api/v1/users/validateToken`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const response = await res.json();
+
+        if (response.status === "success") {
+          setIsLoggedIn(true); // Token is valid, user is logged in
+
+          return true;
+        } else {
+          setIsLoggedIn(false); // Token is invalid, user is not logged in
+          localStorage.removeItem("jwt"); // Remove the invalid token from storage
+
+          return false;
+        }
+      } catch (error) {
+        // console.error("Token validation error:", error);
+        setIsLoggedIn(false); // Token is invalid, user is not logged in
+
+        return false;
+      }
+    }
+
+    return false;
+  };
 
   const signup = async (
     name: string,
@@ -93,12 +133,25 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = async () => {
+    // Get token from local storage
+    const token = localStorage.getItem("jwt");
+
     // Make API call to logout endpoint
-    const response = await fetch("/api/logout", { method: "POST" });
+    const response = await fetch(`${backendURL}/api/v1/users/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (response.ok) {
       setIsLoggedIn(false);
     }
+
+    // Remove token from local storage
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("user");
   };
 
   const forgotPassword = async (email: string) => {
@@ -159,6 +212,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         logout,
         forgotPassword,
         resetPassword,
+        checkTokenValidity,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
+import backendURL from "../../api";
 import SelectAddress from "../../components/address/SelectAddressModal";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
@@ -50,22 +51,18 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
   const updateUser = async () => {
     setIsLoading(true);
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/users/updateMe`,
-      // `http://localhost:3000/api/v1/users/updateMe`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({
-          name: `${firstName} ${lastName}`,
-          phoneNumber,
-          email,
-        }),
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/users/updateMe`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify({
+        name: `${firstName} ${lastName}`,
+        phoneNumber,
+        email,
+      }),
+    });
 
     const response = await res.json();
 
@@ -89,17 +86,13 @@ const MobileProfilemenu: React.FC<MobileProfilemenuProps> = ({
   };
 
   const getDefaultAddress = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/default`,
-      // `http://localhost:3000/api/v1/addresses/default`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses/default`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
 
     const response = await res.json();
 

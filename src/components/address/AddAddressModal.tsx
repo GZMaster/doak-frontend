@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import { InputFields, TextFields } from "../../lib/Main";
+import backendURL from "../../api";
 import "./AddAddressModal.scss";
 import Cancel from "../../assets/Images/icons/Cancel.svg";
 
@@ -23,26 +24,22 @@ const AddAddressModal: React.FC<AddressModalProps> = ({ isOpen, onClose }) => {
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses`,
-      // `http://localhost:3000/api/v1/addresses`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name,
-          address,
-          city,
-          phoneNumber,
-          state,
-          // country,
-          // zipCode,
-        }),
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name,
+        address,
+        city,
+        phoneNumber,
+        state,
+        // country,
+        // zipCode,
+      }),
+    });
 
     const response = await res.json();
 

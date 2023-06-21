@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import backendURL from "../api";
 import { ICartItem } from "../types/cartitem";
 
@@ -50,11 +50,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<ICartItem[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Get the cart items
-  useEffect(() => {
-    getCart();
-  }, []);
 
   const getCart = async () => {
     try {
@@ -228,11 +223,8 @@ const CartProvider = ({ children }: CartProviderProps) => {
       const res = await deleteItem(itemId);
 
       if (res) {
-        setCartItems((prevItems) => {
-          const updatedItems = Array.isArray(prevItems) ? [...prevItems] : [];
+        getCart();
 
-          return updatedItems.filter((item) => item.id !== itemId);
-        });
         return true;
       } else {
         return false;

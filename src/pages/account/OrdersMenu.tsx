@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import backendURL from "../../api";
 import ViewOrderMenu from "./ViewOrderMenu";
 import "./AccountPage.scss";
 import NoOrder from "../../assets/Images/icons/NoOrderIcon.svg";
@@ -9,7 +10,17 @@ interface Order {
   userId: string;
   orderId: string;
   orderStatus: string;
-  address: string;
+  contact: {
+    address: {
+      address: string;
+      city: string;
+      email: string;
+      name: string;
+      phoneNumber: string;
+      state: string;
+      _id: string;
+    };
+  };
   items: [
     {
       productId: string;
@@ -40,17 +51,13 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   }, []);
 
   const getOrders = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/`,
-      // `http://localhost:3000/api/v1/orders/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/orders/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await res.json();
 
@@ -85,7 +92,7 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
 
           <div className="ordersmenu__body">
             {orders ? (
-              orders.map((order) => (
+              Object.values(orders).map((order) => (
                 <form
                   className="ordersmenu__order"
                   key={order.userId}
@@ -103,9 +110,12 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
                       <div className="ordersmenu__order__body">
                         <div className="ordersmenu__order__body__left">
                           <div className="ordersmenu__order__item">
-                            {order.items.map(({ productId, name }) => (
-                              <p key={productId}>{name}</p>
-                            ))}
+                            {order.items &&
+                              Object.values(order.items).map(
+                                ({ productId, name }) => (
+                                  <p key={productId}>{name}</p>
+                                )
+                              )}
                           </div>
                         </div>
                       </div>

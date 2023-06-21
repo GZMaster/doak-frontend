@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
+import backendURL from "../../api";
 import "./SelectAddressModal.scss";
 import Cancel from "../../assets/Images/icons/Cancel.svg";
 
@@ -33,17 +34,13 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/default`,
-      // `http://localhost:3000/api/v1/addresses/default`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses/default`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const response = await res.json();
     setSelectedAddress(response.data.address);
@@ -53,17 +50,13 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses`,
-      // `http://localhost:3000/api/v1/addresses`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const response = await res.json();
     setAddress(response.data.addresses);
@@ -73,17 +66,13 @@ const SelectAddress: React.FC<SelectAddressProps> = ({
     // Get jwt Bear token from local storage
     const token = localStorage.getItem("jwt");
 
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/default/${id}`,
-      // `http://localhost:3000/api/v1/addresses/default/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/addresses/default/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const response = await res.json();
 

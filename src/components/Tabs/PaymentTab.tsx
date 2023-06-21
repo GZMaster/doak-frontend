@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useLoading } from "../../services/LoadingContext";
+import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import card from "../../assets/Images/icons/cards.svg";
@@ -28,6 +29,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
   // const [country, setCountry] = useState("");
   // const [zipCode, setZipCode] = useState("");
   const [pin, setPin] = useState("");
+  const [toastState, setToastState] = useState("");
 
   const paymentIntent = async () => {
     setIsLoading(true);
@@ -62,16 +64,19 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
 
     if (res.status === "error") {
       setIsLoading(false);
-      return alert(
-        res.message ? res.message : "An error occured, please try again later"
-      );
+      setToastState("error");
+      // return alert(
+      //   res.message ? res.message : "An error occured, please try again later"
+      // );
     }
 
     if (res.status === "fail") {
       setIsLoading(false);
-      return alert(
-        res.message ? res.message : "An error occured, please try again later"
-      );
+      setToastState("error");
+
+      // return alert(
+      //   res.message ? res.message : "An error occured, please try again later"
+      // );
     }
 
     if (res.status === "redirect") {
@@ -82,19 +87,23 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
 
     if (res.status === "success") {
       setIsLoading(false);
-      alert("Payment Successful");
+      setToastState("success");
+
+      // alert("Payment Successful");
       window.location.replace("/");
     }
 
     if (res.status === "pending") {
       setIsLoading(false);
+      setToastState("success");
+
       alert("Payment Pending");
       window.location.replace("/");
     }
 
     if (res.status === "otp") {
       setIsLoading(false);
-      alert("Payment OTP");
+      // alert("Payment OTP");
 
       const { tx_ref, flw_ref } = res.data;
 
@@ -118,21 +127,27 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
 
         if (res.status === "error") {
           setIsLoading(false);
-          return alert(
-            res.message
-              ? res.message
-              : "An error occured, please try again later"
-          );
+          setToastState("error");
+
+          // return alert(
+          //   res.message
+          //     ? res.message
+          //     : "An error occured, please try again later"
+          // );
         }
 
         if (res.status === "success") {
           setIsLoading(false);
-          alert("Payment Successful");
+          setToastState("success");
+
+          // alert("Payment Successful");
           window.location.replace("/");
         }
 
         if (res.status === "pending") {
           setIsLoading(false);
+          setToastState("success");
+
           alert("Payment Pending");
           window.location.replace("/");
         }
@@ -145,6 +160,16 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
   return (
     <Tabs className="Payment_tab">
       {isLoading && <LoadingComponent />}
+      {toastState && (
+        <HandleToast
+          status={toastState}
+          message={
+            toastState === "success"
+              ? "Order Created Successfully"
+              : "Error Creating Order"
+          }
+        />
+      )}
       <TabList className="payment_tabs">
         <Tab className="item">
           <img src={card} alt="" />
@@ -169,6 +194,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             required={true}
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
+            autocomplete="off"
           />
           <div className="cvc">
             <InputFields
@@ -178,6 +204,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
               required={true}
               value={cvv}
               onChange={(e) => setCvv(e.target.value)}
+              autocomplete="off"
             />
             <InputFields
               type="text"
@@ -186,6 +213,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
               required={true}
               value={expiryDate}
               onChange={(e) => setExpiryDate(e.target.value)}
+              autocomplete="off"
             />
           </div>
           <InputFields
@@ -195,6 +223,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             required={true}
             value={pin}
             onChange={(e) => setPin(e.target.value)}
+            autocomplete="new-password"
           />
           <InputFields
             type="text"
