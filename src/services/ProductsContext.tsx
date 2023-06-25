@@ -19,6 +19,7 @@ type ProductsContextType = {
     filter?: { field?: string; operator?: string; value?: string }
   ) => void;
   getProduct: (id: string) => Promise<IProducts | undefined>;
+  getProductImage: (url: string) => string | undefined;
   searchProducts: () => void;
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
@@ -35,6 +36,9 @@ const ProductsContext = createContext<ProductsContextType>({
   fetchProducts: () => {},
   getProduct: () => {
     return new Promise(() => {});
+  },
+  getProductImage: () => {
+    return undefined;
   },
   searchProducts: () => {},
   currentPage: 1,
@@ -167,6 +171,25 @@ function ProductsProvider({ children }: ProductsProviderProps) {
     }
   };
 
+  const getProductImage = (url: string): string | undefined => {
+    try {
+      setIsLoading(true);
+
+      const imagePath = url.replace("public", "");
+
+      if (imagePath) {
+        setIsLoading(false);
+        return `${backendURL}${imagePath}`;
+      } else {
+        setIsLoading(false);
+        return;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
+
   async function searchProducts() {
     try {
       setIsLoading(true);
@@ -218,6 +241,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         getNumberOfPages,
         fetchProducts,
         getProduct,
+        getProductImage,
         searchProducts,
         currentPage,
         setCurrentPage,

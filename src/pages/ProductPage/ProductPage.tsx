@@ -22,7 +22,7 @@ interface CartItem {
 export default function ProductPage() {
   const params = useParams();
   const productId = params.productId;
-  const { getProduct } = useProducts();
+  const { getProduct, getProductImage } = useProducts();
   const { addToCart } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   // const [size, setSize] = useState("");
@@ -126,7 +126,10 @@ export default function ProductPage() {
       )}
       <div className="product-wrapper">
         <div className="product-image">
-          <img src={img} alt="product" />
+          <img
+            src={product?.image ? getProductImage(product.image) : img}
+            alt="product"
+          />
         </div>
         <div className="product-details">
           <div className="product-brand">
