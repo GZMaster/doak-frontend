@@ -17,6 +17,7 @@ export default function Products() {
     isLoading,
     currentPage,
     setCurrentPage,
+    getProductImage,
   } = useProducts();
   const { setIsLoading, LoadingComponent } = useLoading();
   const [limit] = useState(12);
@@ -53,7 +54,9 @@ export default function Products() {
               price={product.price}
               summary={product.summary}
               description={product.description}
-              image={randomImage()}
+              image={
+                product.image ? getProductImage(product.image) : randomImage()
+              }
               categories={product.categories}
               quantity={product.quantity}
             />
