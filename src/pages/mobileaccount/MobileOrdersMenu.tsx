@@ -12,13 +12,14 @@ interface Order {
   orderStatus: string;
   contact: {
     address: {
+      name: string;
+      email: string;
       address: string;
       city: string;
-      email: string;
-      name: string;
       phoneNumber: string;
       state: string;
-      _id: string;
+      country: string;
+      zipCode: string;
     };
   };
   items: [
@@ -65,8 +66,8 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
 
     const data = await res.json();
 
-    if (data.success) {
-      setOrders(data.data);
+    if (data.status === "success") {
+      setOrders(data.data.orders);
     }
 
     setIsLoading(false);
