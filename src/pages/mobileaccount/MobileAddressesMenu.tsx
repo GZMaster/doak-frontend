@@ -34,7 +34,7 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
   }, []);
 
   const getAddresses = async () => {
-    const response = await fetch("${backendURL}/api/v1/addresses", {
+    const response = await fetch(`${backendURL}/api/v1/addresses`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

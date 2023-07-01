@@ -14,13 +14,15 @@ interface FilterSectionProps {
 }
 const wineOptions: FilterOption[] = [
   { name: "all", label: "All" },
-  { name: "wine", label: "Wine" },
-  { name: "champagne", label: "Champagne" },
   { name: "beer", label: "Beer" },
+  { name: "Alcoholic bitters", label: "Alcoholic Bitters" },
+  { name: "pet drinks", label: "Pet Drinks" },
+  { name: "rum", label: "Rum" },
   { name: "whiskey", label: "Whiskey" },
-  { name: "brandy", label: "Brandy" },
-  { name: "liqueur", label: "Liqueur" },
-  { name: "spirit", label: "Spirit" },
+  { name: "non alcoholic wine", label: "Non Alcoholic Wine" },
+  { name: "liquor", label: "Liquor" },
+  { name: "sparkling wine", label: "Sparkling Wine" },
+  { name: "champagne", label: "Champagne" },
 ];
 
 function FilterSection({ options }: FilterSectionProps) {
