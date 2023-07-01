@@ -12,13 +12,14 @@ interface Order {
   orderStatus: string;
   contact: {
     address: {
+      name: string;
+      email: string;
       address: string;
       city: string;
-      email: string;
-      name: string;
       phoneNumber: string;
       state: string;
-      _id: string;
+      country: string;
+      zipCode: string;
     };
   };
   items: [
@@ -62,7 +63,8 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
     const data = await res.json();
 
     if (data.status === "success") {
-      setOrders(data.data);
+      setOrders(data.data.orders);
+      console.log(data);
     }
 
     setIsLoading(false);

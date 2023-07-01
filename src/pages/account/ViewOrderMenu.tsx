@@ -13,13 +13,14 @@ interface ViewOrderMenuProps {
     orderStatus: string;
     contact: {
       address: {
+        name: string;
+        email: string;
         address: string;
         city: string;
-        email: string;
-        name: string;
         phoneNumber: string;
         state: string;
-        _id: string;
+        country: string;
+        zipCode: string;
       };
     };
     items: [
@@ -53,12 +54,6 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
   handleViewDetail,
   order,
 }) => {
-  const [address, setAddress] = useState<Address>();
-
-  useEffect(() => {
-    getAddress();
-  }, [address]);
-
   const getDate = (date: Date) => {
     const newDate = new Date(date);
     const day = newDate.getDate();
@@ -66,25 +61,6 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
     const year = newDate.getFullYear();
     const dateString = `${day}/${month}/${year}`;
     return dateString;
-  };
-
-  const getAddress = async () => {
-    const res = await fetch(
-      `${backendURL}/api/v1/addresses/${order?.contact.address._id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    if (data.status === "success") {
-      setAddress(data.data);
-    }
   };
 
   const handleCancelOrder = async () => {
@@ -191,12 +167,13 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
               </div>
 
               <div className="viewordermenu__body__body__address__details">
-                <h4>{address?.name}</h4>
+                <h4>{order?.contact.address.name}</h4>
                 <p>
-                  {address?.address}, {address?.city}, {address?.state}{" "}
-                  {address?.country}
+                  {order?.contact.address.address},{" "}
+                  {order?.contact.address.city}, {order?.contact.address.state}{" "}
+                  {order?.contact.address.country}
                 </p>
-                <p>{address?.phoneNumber}</p>
+                <p>{order?.contact.address.phoneNumber}</p>
               </div>
             </div>
 

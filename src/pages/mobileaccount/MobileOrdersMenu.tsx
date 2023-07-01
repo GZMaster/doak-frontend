@@ -12,13 +12,14 @@ interface Order {
   orderStatus: string;
   contact: {
     address: {
+      name: string;
+      email: string;
       address: string;
       city: string;
-      email: string;
-      name: string;
       phoneNumber: string;
       state: string;
-      _id: string;
+      country: string;
+      zipCode: string;
     };
   };
   items: [

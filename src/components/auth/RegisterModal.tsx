@@ -132,8 +132,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
         password,
         passwordConfirm
       );
-
-      onChangeStep("step3");
     };
     return (
       <form onSubmit={handleContinue}>
