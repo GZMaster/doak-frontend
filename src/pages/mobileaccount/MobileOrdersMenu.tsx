@@ -66,8 +66,8 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
 
     const data = await res.json();
 
-    if (data.success) {
-      setOrders(data.data);
+    if (data.status === "success") {
+      setOrders(data.data.orders);
     }
 
     setIsLoading(false);

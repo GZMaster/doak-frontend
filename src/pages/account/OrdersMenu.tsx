@@ -64,7 +64,6 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
 
     if (data.status === "success") {
       setOrders(data.data.orders);
-      console.log(data);
     }
 
     setIsLoading(false);

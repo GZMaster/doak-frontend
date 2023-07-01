@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
 import "./AccountPage.scss";
@@ -36,18 +36,6 @@ interface ViewOrderMenuProps {
     deliveryFee: number;
     total: number;
   };
-}
-
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-  _id: string;
 }
 
 const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
