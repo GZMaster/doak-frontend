@@ -23,6 +23,8 @@ const NavBar = () => {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
 
+  console.log(isLoggedIn);
+
   useEffect(() => {
     const checkToken = checkTokenValidity();
 

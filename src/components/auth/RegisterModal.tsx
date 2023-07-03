@@ -54,10 +54,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   ) => {
     authContext.signup(name, email, password, passwordConfirm).then((res) => {
       if (res) {
-        handleToast("Account Created Successfully", "--success");
+        handleToast("Account Created Successfully", "success");
+        setButtonText("Create Account");
         onChangeStep("step3");
       } else {
-        handleToast("Something went wrong", "--error");
+        handleToast("Something went wrong", "error");
       }
     });
   };
@@ -65,14 +66,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const handleVerify = (otp: string) => {
     authContext.verify(otp).then((res) => {
       if (res) {
-        handleToast("Account Verified Successfully", "--success");
+        handleToast("Account Verified Successfully", "success");
 
         // set is logged in to true after 2 seconds
         setTimeout(() => {
           authContext.setIsLoggedIn(true);
         }, 2000);
       } else {
-        handleToast("Something went wrong", "--error");
+        handleToast("Something went wrong", "error");
       }
     });
   };
@@ -124,7 +125,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const step2 = () => {
     const handleContinue = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      setButtonText("Create Account");
 
       handleRegister(
         `${firstName} ${lastName}`,
