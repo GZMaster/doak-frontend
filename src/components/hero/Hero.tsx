@@ -38,10 +38,10 @@ export default function Hero() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="text-container">
             <h1>We give you only the best. Top notch quality services.</h1>
-            <p>
+            {/* <p>
               Integer quam adipiscing vestibulum nunc. Id nunc amet at sed orci
               diam. Cras venenatis sit faucibus.
-            </p>
+            </p> */}
             <Link
               className="hero__button"
               smooth={true}
