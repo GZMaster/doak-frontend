@@ -3,6 +3,8 @@ import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import ToastBar from "../notification/ToastBar";
 import "./AuthModal.scss";
+import successicon from "../../assets/Images/icons/success-icon.svg";
+import erroricon from "../../assets/Images/icons/error-icon.svg";
 
 interface RegisterModalProps {
   onClose: () => void;
@@ -27,6 +29,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
       onClose();
     }
   }, [authContext.isLoggedIn, onClose]);
+
+  useEffect(() => {
+    if (showToastBar) {
+      setTimeout(() => {
+        setToastBar(false);
+      }, 3000);
+    }
+  }, [showToastBar]);
 
   useEffect(() => {
     // Get otp from local storage
@@ -185,7 +195,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
 
   return (
     <div className="registermodal">
-      {showToastBar && <ToastBar message={toastMessage} type={toastType} />}
+      {showToastBar && (
+        <ToastBar
+          message={toastMessage}
+          type={toastType}
+          icon={toastType === "success" ? successicon : erroricon}
+        />
+      )}
       {step === "step1" && step1()}
       {step === "step2" && step2()}
       {step === "step3" && step3()}
