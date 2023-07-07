@@ -42,10 +42,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onClose }) => {
     authContext
       .login(email, password)
       .then((res) => {
-        authContext.setIsLoggedIn(res);
-        setToastMessage("Login successful");
-        setToastType("success");
-        setToastBar(true);
+        if (res) {
+          authContext.setIsLoggedIn(res);
+          setToastMessage("Login successful");
+          setToastType("success");
+          setToastBar(true);
+        } else {
+          setToastMessage("Login failed");
+          setToastType("error");
+          setToastBar(true);
+        }
       })
       .catch((err) => {
         setToastMessage(err.message);
