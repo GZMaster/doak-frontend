@@ -3,6 +3,8 @@ import { AuthContext } from "../../services/AuthContext";
 import { InputFields } from "../../lib/Main";
 import ToastBar from "../notification/ToastBar";
 import "./AuthModal.scss";
+import successicon from "../../assets/Images/icons/success-icon.svg";
+import erroricon from "../../assets/Images/icons/error-icon.svg";
 
 interface RegisterModalProps {
   onClose: () => void;
@@ -27,6 +29,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
       onClose();
     }
   }, [authContext.isLoggedIn, onClose]);
+
+  useEffect(() => {
+    if (showToastBar) {
+      setTimeout(() => {
+        setToastBar(false);
+      }, 3000);
+    }
+  }, [showToastBar]);
 
   useEffect(() => {
     // Get otp from local storage
@@ -54,10 +64,11 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   ) => {
     authContext.signup(name, email, password, passwordConfirm).then((res) => {
       if (res) {
-        handleToast("Account Created Successfully", "--success");
+        handleToast("Account Created Successfully", "success");
+        setButtonText("Create Account");
         onChangeStep("step3");
       } else {
-        handleToast("Something went wrong", "--error");
+        handleToast("Something went wrong", "error");
       }
     });
   };
@@ -65,14 +76,14 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const handleVerify = (otp: string) => {
     authContext.verify(otp).then((res) => {
       if (res) {
-        handleToast("Account Verified Successfully", "--success");
+        handleToast("Account Verified Successfully", "success");
 
         // set is logged in to true after 2 seconds
         setTimeout(() => {
           authContext.setIsLoggedIn(true);
         }, 2000);
       } else {
-        handleToast("Something went wrong", "--error");
+        handleToast("Something went wrong", "error");
       }
     });
   };
@@ -124,7 +135,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
   const step2 = () => {
     const handleContinue = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      setButtonText("Create Account");
 
       handleRegister(
         `${firstName} ${lastName}`,
@@ -185,7 +195,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose }) => {
 
   return (
     <div className="registermodal">
-      {showToastBar && <ToastBar message={toastMessage} type={toastType} />}
+      {showToastBar && (
+        <ToastBar
+          message={toastMessage}
+          type={toastType}
+          icon={toastType === "success" ? successicon : erroricon}
+        />
+      )}
       {step === "step1" && step1()}
       {step === "step2" && step2()}
       {step === "step3" && step3()}

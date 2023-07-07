@@ -161,7 +161,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
                 return (
                   <div className="item" key={item.id}>
                     <div className="product__cart">
-                      <img className="product__image" src={product} alt="" />
+                      <img
+                        className="product__image"
+                        src={item.image ? item.image : product}
+                        alt=""
+                      />
                       <div className="product__details">
                         <p className="product__name">{item.name}</p>
                         {!isPageWide && (

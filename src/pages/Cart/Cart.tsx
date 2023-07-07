@@ -68,7 +68,7 @@ export default function Cart() {
                 <tbody>
                   {cartItems &&
                     Object.values(cartItems).map((items) => {
-                      const { id, name, price, quantity } = items;
+                      const { id, name, price, quantity, image } = items;
                       const totalPrice = price * quantity;
 
                       const decreaseQuantity = () => {
@@ -98,7 +98,7 @@ export default function Cart() {
                           <td className="product__cart">
                             <img
                               className="product__image"
-                              src={productImg}
+                              src={image ? image : productImg}
                               alt=""
                             />
                             <div className="product__details">

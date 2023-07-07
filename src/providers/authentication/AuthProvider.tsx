@@ -138,20 +138,23 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Make API call to logout endpoint
     const response = await fetch(`${backendURL}/api/v1/users/logout`, {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
+      // Remove token from local storage
+      localStorage.removeItem("jwt");
+      localStorage.removeItem("user");
       setIsLoggedIn(false);
-    }
 
-    // Remove token from local storage
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("user");
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const forgotPassword = async (email: string) => {

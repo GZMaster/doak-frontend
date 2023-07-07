@@ -224,7 +224,6 @@ const CartProvider = ({ children }: CartProviderProps) => {
 
       if (res) {
         getCart();
-
         return true;
       } else {
         return false;
