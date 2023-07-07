@@ -50,6 +50,7 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
 
   const closeModal = () => {
     setAddressModal(false);
+    getAddress();
   };
 
   const getAddress = async () => {
