@@ -13,8 +13,8 @@ import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
 import usericon from "../../assets/Images/icons/user-square.svg";
 import cart from "../../assets/Images/icons/shopping-cart.svg";
-import cartLogged from "../../assets/Images/icons/navbar/notifactionsloggedin.svg";
-import notificationLogged from "../../assets/Images/icons/navbar/cart-notificationloggedin.svg";
+import notificationLogged from "../../assets/Images/icons/navbar/notifactionsloggedin.svg";
+import cartLogged from "../../assets/Images/icons/navbar/cart-notificationloggedin.svg";
 import userLoggedIcon from "../../assets/Images/icons/navbar/user-square-logged.svg";
 
 const NavBar = () => {
