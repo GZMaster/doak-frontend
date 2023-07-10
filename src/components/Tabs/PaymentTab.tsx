@@ -8,14 +8,10 @@ import card from "../../assets/Images/icons/cards.svg";
 // import transfer from "../../assets/Images/icons/money-send.svg";
 // import Paypal from "../../assets/Images/icons/paypal 1.svg";
 import { InputFields } from "../../lib/Main";
+import { IPaymentTab } from "../../types/checkout";
 import "./Tab.scss";
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  createdOrder: any;
-}
-
-const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
+const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [cardNumber, setCardNumber] = useState("");
   const [cvv, setCvv] = useState("");
@@ -292,7 +288,7 @@ const PaymentTab: React.FC<Props> = ({ createdOrder }) => {
             paymentIntent();
           }}
         >
-          Pay {FormatNaira(createdOrder?.subtotal)}
+          Pay {createdOrder && FormatNaira(createdOrder?.subtotal)}
         </div>
       </TabPanel>
       {/* <TabPanel>

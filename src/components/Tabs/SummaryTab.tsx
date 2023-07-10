@@ -5,34 +5,21 @@ import { useCart } from "../../services/CartContext";
 import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { ISummaryTab, IAddress } from "../../types/checkout";
 import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
 
-interface Props {
-  handleTabClick: (key: number) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setCreatedOrder: (order: any) => void;
-}
-
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-  _id: string;
-}
-
-const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
+const SummaryTab: React.FC<ISummaryTab> = ({
+  handleTabClick,
+  setCreatedOrder,
+  selectedDelivery,
+}) => {
   const { cartItems, getTotalCartPrice } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
-  const [address, setAddress] = useState<Address>();
+  const [address, setAddress] = useState<IAddress>();
   const [toastState, setToastState] = useState("");
 
   useEffect(() => {
@@ -65,6 +52,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
       return;
     }
 
+    if (!selectedDelivery) {
+      setToastState("error");
+      return;
+    }
+
     const orderAddress = {
       name: address.name,
       email: user.email,
@@ -90,6 +82,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         items: items,
         address: orderAddress,
         subtotal: total,
+        deliveryFee: selectedDelivery.price,
+        deliveryMethod: selectedDelivery.type,
       }),
     });
 
@@ -184,7 +178,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         <div className="wrapper">
           <div className="summary_tab_header">
             <p>Address</p>
-            <p className="edit">Edit</p>
+            {/* <p className="edit">Edit</p> */}
           </div>
           {address && (
             <div className="summary_tab_body" key={address.userId}>
@@ -199,13 +193,17 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         <div className="wrapper">
           <div className="summary_tab_header">
             <p>Delivery</p>
-            <p className="edit">Edit</p>
+            {/* <p className="edit">Edit</p> */}
           </div>
-          <div className="summary_tab_body">
-            <h2>Door Delivery</h2>
-            <p>To be delivered between 3 working days</p>
-            <p style={{ color: "#ff3426", fontWeight: "600" }}></p>
-          </div>
+          {selectedDelivery && (
+            <div className="summary_tab_body" key={selectedDelivery.id}>
+              <h2>{selectedDelivery.type}</h2>
+              <p>{selectedDelivery.text}</p>
+              <p style={{ color: "#ff3426", fontWeight: "600" }}>
+                {selectedDelivery.price === 0 ? "Free" : selectedDelivery.price}
+              </p>
+            </div>
+          )}
         </div>
         <div
           style={{ textAlign: "center" }}

@@ -3,45 +3,34 @@ import { useLoading } from "../../services/LoadingContext";
 import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import AddAddressModal from "../address/AddAddressModal";
+import { IDeliveryTab, IAddress, IDelivery } from "../../types/checkout";
 import "../address/AddressModal.scss";
 
-const delivery = [
+const Delivery = [
   {
-    type: "Door Delivery",
-    text: "To be delivered between 3 working days",
+    type: "delivery",
+    text: "To be delivered between 5 working days",
     id: 1,
-    price: "",
+    price: 1500,
   },
   {
-    type: "Pick Up",
-    text: "Available for pick up between 5 working days",
+    type: "pickup",
+    text: "Available for pick up between Monday to Sunday",
     id: 2,
-    phone: "Free within opening hours",
+    prince: 0,
   },
 ];
 
-interface Props {
-  handleTabClick: (key: number) => void;
-}
-
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-  _id: string;
-}
-
-const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
+const DeliveryTab: React.FC<IDeliveryTab> = ({
+  handleTabClick,
+  setSelectedDelivery,
+}) => {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
-  const [address, setAddress] = useState<Array<Address>>();
+  const [address, setAddress] = useState<Array<IAddress>>();
   const [addressModal, setAddressModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [toastState, setToastState] = useState("");
+  const delivery = Delivery as unknown as IDelivery[];
 
   useEffect(() => {
     setIsLoading(true);
@@ -157,7 +146,12 @@ const DeliveryTab: React.FC<Props> = ({ handleTabClick }) => {
         <div className="selectaddress__body">
           {delivery.map((item) => (
             <div className="selectaddress__body__field" key={item.id}>
-              <input type="radio" id={item.type} name="delivery" />
+              <input
+                type="radio"
+                id={item.type}
+                name="delivery"
+                onClick={() => setSelectedDelivery(item)}
+              />
               <form>
                 <label
                   className="selectaddress__body__field__box"
