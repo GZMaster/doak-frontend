@@ -11,8 +11,8 @@ import notification from "../../assets/Images/icons/navbar/notification.svg";
 import cart from "../../assets/Images/icons/navbar/shopping-cart(1).svg";
 import userIcon from "../../assets/Images/icons/navbar/user-square(1).svg";
 import userLoggedIcon from "../../assets/Images/icons/navbar/user-square-logged.svg";
-import cartLogged from "../../assets/Images/icons/navbar/shopping-cart-logged.svg";
-import notificationLogged from "../../assets/Images/icons/navbar/Notifications-logged.svg";
+import cartLogged from "../../assets/Images/icons/navbar/cart-notificationloggedin.svg";
+import notificationLogged from "../../assets/Images/icons/navbar/notifactionsloggedin.svg";
 
 const BurgerMenu = () => {
   const navigate = useNavigate();

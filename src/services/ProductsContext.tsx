@@ -197,6 +197,17 @@ function ProductsProvider({ children }: ProductsProviderProps) {
       // Get jwt Bear token from local storage
       const token = localStorage.getItem("jwt");
 
+      if (
+        searchTerm === "" ||
+        searchTerm === undefined ||
+        searchTerm === null ||
+        searchTerm === " "
+      ) {
+        await fetchProducts(12, 1, "name");
+
+        return;
+      }
+
       const response = await fetch(
         `${backendURL}/api/v1/wine/search?search=${searchTerm}`,
         {
@@ -211,11 +222,11 @@ function ProductsProvider({ children }: ProductsProviderProps) {
       const responseJson = await response.json();
 
       if (!response.ok) {
-        throw new Error(responseJson.message);
+        setError(responseJson.message);
       }
 
       if (responseJson.status === "fail") {
-        throw new Error(responseJson.message);
+        setError(responseJson.message);
       }
 
       setProducts(responseJson.data.wineProducts);
