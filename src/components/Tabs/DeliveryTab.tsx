@@ -17,7 +17,7 @@ const Delivery = [
     type: "pickup",
     text: "Available for pick up between Monday to Sunday",
     id: 2,
-    prince: 0,
+    price: 0,
   },
 ];
 
@@ -30,16 +30,38 @@ const DeliveryTab: React.FC<IDeliveryTab> = ({
   const [addressModal, setAddressModal] = useState<boolean>(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [toastState, setToastState] = useState("");
-  const delivery = Delivery as unknown as IDelivery[];
+  const [delivery, setDelivery] = useState<Array<IDelivery>>(Delivery);
 
   useEffect(() => {
     setIsLoading(true);
     getAddress();
+    getDelivery();
   }, []);
 
   const closeModal = () => {
     setAddressModal(false);
     getAddress();
+  };
+
+  const getDelivery = async () => {
+    // Get jwt Bear token from local storage
+    const token = localStorage.getItem("jwt");
+
+    const res = await fetch(`${backendURL}/api/v1/deliveries`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const response = await res.json();
+
+    if (response.status === "success") {
+      setDelivery(response.data.deliveries);
+    }
+
+    setIsLoading(false);
   };
 
   const getAddress = async () => {

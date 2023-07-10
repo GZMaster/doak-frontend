@@ -288,7 +288,7 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
             paymentIntent();
           }}
         >
-          Pay {createdOrder && FormatNaira(createdOrder?.subtotal)}
+          Pay {createdOrder && FormatNaira(createdOrder?.total)}
         </div>
       </TabPanel>
       {/* <TabPanel>

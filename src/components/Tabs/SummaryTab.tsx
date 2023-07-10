@@ -200,7 +200,9 @@ const SummaryTab: React.FC<ISummaryTab> = ({
               <h2>{selectedDelivery.type}</h2>
               <p>{selectedDelivery.text}</p>
               <p style={{ color: "#ff3426", fontWeight: "600" }}>
-                {selectedDelivery.price === 0 ? "Free" : selectedDelivery.price}
+                {selectedDelivery.price === 0
+                  ? "Free"
+                  : FormatNaira(selectedDelivery.price)}
               </p>
             </div>
           )}
