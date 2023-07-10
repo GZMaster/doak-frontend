@@ -1,41 +1,14 @@
 import React from "react";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { IOrder } from "../../types/order";
 import "./AccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import cancel from "../../assets/Images/icons/redcancel.svg";
 
 interface ViewOrderMenuProps {
   handleViewDetail: () => void;
-  order?: {
-    userId: string;
-    orderId: string;
-    orderStatus: string;
-    contact: {
-      address: {
-        name: string;
-        email: string;
-        address: string;
-        city: string;
-        phoneNumber: string;
-        state: string;
-        country: string;
-        zipCode: string;
-      };
-    };
-    items: [
-      {
-        productId: string;
-        name: string;
-        quantity: number;
-        price: number;
-      }
-    ];
-    date: Date;
-    subtotal: number;
-    deliveryFee: number;
-    total: number;
-  };
+  order: IOrder | undefined;
 }
 
 const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
@@ -137,8 +110,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
                 <div className="viewordermenu__body__body__details__shipping__right">
                   <p>{order?.deliveryFee}</p>
                   <h4>
-                    Door Delivery, to be delivered between the dates 16th of may
-                    to 20th of may(usually 3 days after order is confirmed)
+                    {order?.deliveryMethod === "pickup" ? "Pickup" : "Delivery"}
                   </h4>
                 </div>
               </div>

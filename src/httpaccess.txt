@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} ^drinksofallkind\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.drinksofallkind\.com$
+RewriteRule ^/?$ "https\:\/\/drinksofallkind\.com\/" [R=301,L]
