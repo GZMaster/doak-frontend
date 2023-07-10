@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import backendURL from "../../api";
 import ViewOrderMenu from "../account/ViewOrderMenu";
+import { IOrder } from "../../types/order";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import ArrowRight from "../../assets/Images/icons/arrow-right.svg";
-
-interface Order {
-  userId: string;
-  orderId: string;
-  orderStatus: string;
-  address: string;
-  items: [
-    {
-      productId: string;
-      name: string;
-      quantity: number;
-      price: number;
-    }
-  ];
-  date: Date;
-  subtotal: number;
-  deliveryFee: number;
-  total: number;
-}
 
 interface MobilrOrdersMenuProps {
   handleBack: () => void;
@@ -35,8 +18,8 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
 }) => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
-  const [orders, setOrders] = useState<Array<Order>>();
-  const [selectedOrder, setSelectedOrder] = useState<Order>();
+  const [orders, setOrders] = useState<Array<IOrder>>();
+  const [selectedOrder, setSelectedOrder] = useState<IOrder>();
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,22 +27,18 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
   }, []);
 
   const getOrders = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/`,
-      // `http://localhost:3000/api/v1/orders/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/orders/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await res.json();
 
-    if (data.success) {
-      setOrders(data.data);
+    if (data.status === "success") {
+      setOrders(data.data.orders);
     }
 
     setIsLoading(false);
@@ -69,7 +48,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
     setViewDetails(!viewDetails);
   };
 
-  const passOrder = (order: Order) => {
+  const passOrder = (order: IOrder) => {
     setSelectedOrder(order);
     handleViewDetails();
   };
@@ -92,7 +71,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
 
           <div className="mobileordersmenu__body">
             {orders ? (
-              orders.map((order) => (
+              Object.values(orders).map((order) => (
                 <form
                   className="mobileordersmenu__order"
                   key={order.userId}
@@ -110,9 +89,11 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
                       <div className="mobileordersmenu__order__body">
                         <div className="mobileordersmenu__order__body__left">
                           <div className="mobileordersmenu__order__item">
-                            {order.items.map(({ productId, name }) => (
-                              <p key={productId}>{name}</p>
-                            ))}
+                            {Object.values(order.items).map(
+                              ({ productId, name }) => (
+                                <p key={productId}>{name}</p>
+                              )
+                            )}
                           </div>
                         </div>
                       </div>

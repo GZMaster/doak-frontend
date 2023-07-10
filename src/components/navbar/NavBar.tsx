@@ -1,27 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
 import { useProducts } from "../../services/ProductsContext";
 import BurgerMenu from "../hamburger/BurgerMenu";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
+import AuthModal from "../auth/AuthModal";
+import NotificationsModal from "../notification/NotificationModal";
+import Search from "../mobileSearch";
+import "./NavBar.scss";
 import logo from "../../assets/Images/logo/logo.svg";
 import search from "../../assets/Images/icons/search-normal.svg";
 import notification from "../../assets/Images/icons/notification.svg";
-import cart from "../../assets/Images/icons/shopping-cart.svg";
 import usericon from "../../assets/Images/icons/user-square.svg";
-import AuthModal from "../auth/AuthModal";
-import NotificationsModal from "../notification/NotificationModal";
-import "./NavBar.scss";
-import Search from "../mobileSearch";
+import cart from "../../assets/Images/icons/shopping-cart.svg";
+import notificationLogged from "../../assets/Images/icons/navbar/notifactionsloggedin.svg";
+import cartLogged from "../../assets/Images/icons/navbar/cart-notificationloggedin.svg";
+import userLoggedIcon from "../../assets/Images/icons/navbar/user-square-logged.svg";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, checkTokenValidity } = useContext(AuthContext);
   const { searchTerm, setSearchTerm, searchProducts } = useProducts();
 
-  const [isAuthOpen, setIsAuthOpen] = useState(!isLoggedIn);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isNotifiOpen, setIsNotifiOpen] = useState(false);
+
+  useEffect(() => {
+    const checkToken = checkTokenValidity();
+
+    if (isLoggedIn && !checkToken) {
+      setIsAuthOpen(true);
+    }
+  }, [isLoggedIn, checkTokenValidity]);
 
   const handleAuthClose = () => {
     setIsAuthOpen(false);
@@ -70,7 +81,7 @@ const NavBar = () => {
               </div>
               <div className="right">
                 <img
-                  src={notification}
+                  src={isLoggedIn ? notificationLogged : notification}
                   alt="notification"
                   onClick={() => setIsNotifiOpen(true)}
                 />
@@ -81,7 +92,7 @@ const NavBar = () => {
                     else setIsAuthOpen(true);
                   }}
                 >
-                  <img src={usericon} alt="" />
+                  <img src={isLoggedIn ? userLoggedIcon : usericon} alt="" />
                   Account
                 </button>
                 <button
@@ -91,7 +102,7 @@ const NavBar = () => {
                     else setIsAuthOpen(true);
                   }}
                 >
-                  <img src={cart} alt="" />
+                  <img src={isLoggedIn ? cartLogged : cart} alt="" />
                   Cart
                 </button>
               </div>

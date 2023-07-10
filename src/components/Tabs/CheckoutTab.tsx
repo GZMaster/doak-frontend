@@ -5,13 +5,20 @@ import "react-tabs/style/react-tabs.css";
 import DeliveryTab from "./DeliveryTab";
 import SummaryTab from "./SummaryTab";
 import PaymentTab from "./PaymentTab";
+import { IDelivery } from "../../types/checkout";
+import { IOrder } from "../../types/order";
 
 const CheckOutTab = () => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [createdOrder, setCreatedOrder] = useState();
+  const [createdOrder, setCreatedOrder] = useState<IOrder>();
+  const [delevery, setDelevery] = useState<IDelivery>();
 
   const handleTabClick = (key: number) => {
     setTabIndex(key);
+  };
+
+  const setDelivery = (delivery: IDelivery) => {
+    setDelevery(delivery);
   };
 
   return (
@@ -29,7 +36,10 @@ const CheckOutTab = () => {
 
         <TabPanel>
           <div className="tabs-content">
-            <DeliveryTab handleTabClick={handleTabClick} />
+            <DeliveryTab
+              handleTabClick={handleTabClick}
+              setSelectedDelivery={setDelivery}
+            />
           </div>
         </TabPanel>
         <TabPanel>
@@ -37,6 +47,7 @@ const CheckOutTab = () => {
             <SummaryTab
               handleTabClick={handleTabClick}
               setCreatedOrder={setCreatedOrder}
+              selectedDelivery={delevery}
             />
           </div>
         </TabPanel>

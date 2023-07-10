@@ -30,7 +30,7 @@ export default function Checkout() {
       <div className="wrapper">
         <h2 className="title">Checkout</h2>
         <div className="cart-wrapper">
-          <div>
+          <div style={{ width: "100%" }}>
             <CheckOutTab />
           </div>
           {isPageWide && (
@@ -49,7 +49,7 @@ export default function Checkout() {
               <div className="subtotal">
                 Subtotal <span>{FormatNaira(total)}</span>
               </div>
-              <button className="btn">CHECK OUT</button>
+              {/* <button className="btn">CHECK OUT</button> */}
             </div>
           )}
         </div>

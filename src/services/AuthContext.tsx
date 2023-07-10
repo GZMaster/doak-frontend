@@ -11,13 +11,14 @@ interface AuthContextType {
   ) => Promise<boolean>;
   login: (email: string, password: string) => Promise<boolean>;
   verify: (otp: string) => Promise<boolean>;
-  logout: () => Promise<void>;
+  logout: () => Promise<boolean>;
   forgotPassword: (email: string) => Promise<boolean>;
   resetPassword: (
     password: string,
     passwordConfirm: string,
     restToken: string
   ) => Promise<boolean>;
+  checkTokenValidity: () => Promise<boolean>;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -26,14 +27,8 @@ export const AuthContext = createContext<AuthContextType>({
   signup: async () => false,
   login: async () => false,
   verify: async () => false,
-  logout: async () => {
-    // Make API call to logout endpoint
-    const response = await fetch("/api/logout", { method: "POST" });
-
-    if (response.ok) {
-      return;
-    }
-  },
+  logout: async () => false,
   forgotPassword: async () => false,
   resetPassword: async () => false,
+  checkTokenValidity: async () => false,
 });

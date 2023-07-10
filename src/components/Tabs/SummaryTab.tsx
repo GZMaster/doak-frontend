@@ -2,36 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
+import { HandleToast } from "../../lib/Main";
 import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { ISummaryTab, IAddress } from "../../types/checkout";
 import product from "../../assets/Images/others/itemDrink.png";
 import UseMediaQuery from "../mediaquery/UseMediaQuerry";
 import "./Tab.scss";
 
-interface Props {
-  handleTabClick: (key: number) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setCreatedOrder: (order: any) => void;
-}
-
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-  _id: string;
-}
-
-const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
+const SummaryTab: React.FC<ISummaryTab> = ({
+  handleTabClick,
+  setCreatedOrder,
+  selectedDelivery,
+}) => {
   const { cartItems, getTotalCartPrice } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const navigate = useNavigate();
-  const [address, setAddress] = useState<Address>();
+  const [address, setAddress] = useState<IAddress>();
+  const [toastState, setToastState] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,6 +48,12 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
       });
 
     if (!address) {
+      setToastState("error");
+      return;
+    }
+
+    if (!selectedDelivery) {
+      setToastState("error");
       return;
     }
 
@@ -72,6 +67,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
       country: address.country,
     };
 
+    if (!items) {
+      setToastState("error");
+      return;
+    }
+
     const res = await fetch(`${backendURL}/api/v1/orders`, {
       method: "POST",
       headers: {
@@ -82,6 +82,8 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         items: items,
         address: orderAddress,
         subtotal: total,
+        deliveryFee: selectedDelivery.price,
+        deliveryMethod: selectedDelivery.type,
       }),
     });
 
@@ -89,7 +91,13 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
 
     if (response.status === "success") {
       setCreatedOrder(response.data.order);
-      handleTabClick(2);
+      setToastState("success");
+
+      setTimeout(() => {
+        handleTabClick(2);
+      }, 2000);
+    } else {
+      setToastState("error");
     }
 
     setIsLoading(false);
@@ -110,6 +118,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
 
     const response = await res.json();
 
+    if (response.status === "error") {
+      setToastState("error");
+      return;
+    }
+
     setAddress(response.data.addressData);
     setIsLoading(false);
   };
@@ -117,6 +130,16 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
   return (
     <section className="summary_tab">
       {isLoading && <LoadingComponent />}
+      {toastState && (
+        <HandleToast
+          status={toastState}
+          message={
+            toastState === "success"
+              ? "Order Created Successfully"
+              : "Error Creating Order"
+          }
+        />
+      )}
       <p className="summary_tab_title">Order Summary</p>
       <div className="summary_tab_wrapper">
         <div className="wrapper">
@@ -132,7 +155,11 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
                 return (
                   <div className="item" key={item.id}>
                     <div className="product__cart">
-                      <img className="product__image" src={product} alt="" />
+                      <img
+                        className="product__image"
+                        src={item.image ? item.image : product}
+                        alt=""
+                      />
                       <div className="product__details">
                         <p className="product__name">{item.name}</p>
                         {!isPageWide && (
@@ -151,7 +178,7 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         <div className="wrapper">
           <div className="summary_tab_header">
             <p>Address</p>
-            <p className="edit">Edit</p>
+            {/* <p className="edit">Edit</p> */}
           </div>
           {address && (
             <div className="summary_tab_body" key={address.userId}>
@@ -166,13 +193,19 @@ const SummaryTab: React.FC<Props> = ({ handleTabClick, setCreatedOrder }) => {
         <div className="wrapper">
           <div className="summary_tab_header">
             <p>Delivery</p>
-            <p className="edit">Edit</p>
+            {/* <p className="edit">Edit</p> */}
           </div>
-          <div className="summary_tab_body">
-            <h2>Door Delivery</h2>
-            <p>To be delivered between 3 working days</p>
-            <p style={{ color: "#ff3426", fontWeight: "600" }}></p>
-          </div>
+          {selectedDelivery && (
+            <div className="summary_tab_body" key={selectedDelivery.id}>
+              <h2>{selectedDelivery.type}</h2>
+              <p>{selectedDelivery.text}</p>
+              <p style={{ color: "#ff3426", fontWeight: "600" }}>
+                {selectedDelivery.price === 0
+                  ? "Free"
+                  : FormatNaira(selectedDelivery.price)}
+              </p>
+            </div>
+          )}
         </div>
         <div
           style={{ textAlign: "center" }}

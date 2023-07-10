@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import backendURL from "../../api";
 import AddAddressModal from "../../components/address/AddAddressModal";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
@@ -33,17 +34,13 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
   }, []);
 
   const getAddresses = async () => {
-    const response = await fetch(
-      "https://doakbackend.cyclic.app/api/v1/addresses",
-      // "http://localhost:3000/api/v1/addresses",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/addresses`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await response.json();
 
@@ -58,17 +55,13 @@ const MobileAddressesMenu: React.FC<MobileAddressesMenuProps> = ({
 
   const deleteAddress = async (id: string) => {
     setIsLoading(true);
-    const response = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/${id}`,
-      // `http://localhost:3000/api/v1/addresses/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const response = await fetch(`${backendURL}/api/v1/addresses/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await response.json();
 

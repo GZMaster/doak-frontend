@@ -1,28 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import backendURL from "../../api";
 import ViewOrderMenu from "./ViewOrderMenu";
+import { IOrder } from "../../types/order";
 import "./AccountPage.scss";
 import NoOrder from "../../assets/Images/icons/NoOrderIcon.svg";
 import shoppingcart from "../../assets/Images/icons/shopping-cart-white.svg";
-
-interface Order {
-  userId: string;
-  orderId: string;
-  orderStatus: string;
-  address: string;
-  items: [
-    {
-      productId: string;
-      name: string;
-      quantity: number;
-      price: number;
-    }
-  ];
-  date: Date;
-  subtotal: number;
-  deliveryFee: number;
-  total: number;
-}
 
 interface MenuProps {
   setIsLoading: (value: boolean) => void;
@@ -31,8 +14,8 @@ interface MenuProps {
 const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   const navigate = useNavigate();
   const [viewDetails, setViewDetails] = useState(false);
-  const [orders, setOrders] = useState<Array<Order>>();
-  const [selectedOrder, setSelectedOrder] = useState<Order>();
+  const [orders, setOrders] = useState<Array<IOrder>>();
+  const [selectedOrder, setSelectedOrder] = useState<IOrder>();
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,22 +23,18 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
   }, []);
 
   const getOrders = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/`,
-      // `http://localhost:3000/api/v1/orders/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const res = await fetch(`${backendURL}/api/v1/orders/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    });
 
     const data = await res.json();
 
     if (data.status === "success") {
-      setOrders(data.data);
+      setOrders(data.data.orders);
     }
 
     setIsLoading(false);
@@ -65,7 +44,7 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
     setViewDetails(!viewDetails);
   };
 
-  const passOrder = (order: Order) => {
+  const passOrder = (order: IOrder) => {
     setSelectedOrder(order);
     handleViewDetails();
   };
@@ -85,7 +64,7 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
 
           <div className="ordersmenu__body">
             {orders ? (
-              orders.map((order) => (
+              Object.values(orders).map((order) => (
                 <form
                   className="ordersmenu__order"
                   key={order.userId}
@@ -103,9 +82,12 @@ const OrdersMenu: React.FC<MenuProps> = ({ setIsLoading }) => {
                       <div className="ordersmenu__order__body">
                         <div className="ordersmenu__order__body__left">
                           <div className="ordersmenu__order__item">
-                            {order.items.map(({ productId, name }) => (
-                              <p key={productId}>{name}</p>
-                            ))}
+                            {order.items &&
+                              Object.values(order.items).map(
+                                ({ productId, name }) => (
+                                  <p key={productId}>{name}</p>
+                                )
+                              )}
                           </div>
                         </div>
                       </div>

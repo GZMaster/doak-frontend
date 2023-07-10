@@ -71,9 +71,14 @@ const AccountPage = () => {
     setActiveMenu(e);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
+  const handleLogout = async () => {
+    const logUserOut = await logout();
+
+    if (logUserOut) {
+      navigate("/");
+    } else {
+      navigate("/account");
+    }
   };
 
   const getUserNames = () => {

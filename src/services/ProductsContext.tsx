@@ -19,6 +19,7 @@ type ProductsContextType = {
     filter?: { field?: string; operator?: string; value?: string }
   ) => void;
   getProduct: (id: string) => Promise<IProducts | undefined>;
+  getProductImage: (url: string) => string | undefined;
   searchProducts: () => void;
   currentPage: number;
   setCurrentPage: (currentPage: number) => void;
@@ -35,6 +36,9 @@ const ProductsContext = createContext<ProductsContextType>({
   fetchProducts: () => {},
   getProduct: () => {
     return new Promise(() => {});
+  },
+  getProductImage: () => {
+    return undefined;
   },
   searchProducts: () => {},
   currentPage: 1,
@@ -167,12 +171,42 @@ function ProductsProvider({ children }: ProductsProviderProps) {
     }
   };
 
+  const getProductImage = (url: string): string | undefined => {
+    try {
+      setIsLoading(true);
+
+      const imagePath = url.replace("public", "");
+
+      if (imagePath) {
+        setIsLoading(false);
+        return `${backendURL}${imagePath}`;
+      } else {
+        setIsLoading(false);
+        return;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      setError(error.message);
+    }
+  };
+
   async function searchProducts() {
     try {
       setIsLoading(true);
 
       // Get jwt Bear token from local storage
       const token = localStorage.getItem("jwt");
+
+      if (
+        searchTerm === "" ||
+        searchTerm === undefined ||
+        searchTerm === null ||
+        searchTerm === " "
+      ) {
+        await fetchProducts(12, 1, "name");
+
+        return;
+      }
 
       const response = await fetch(
         `${backendURL}/api/v1/wine/search?search=${searchTerm}`,
@@ -188,11 +222,11 @@ function ProductsProvider({ children }: ProductsProviderProps) {
       const responseJson = await response.json();
 
       if (!response.ok) {
-        throw new Error(responseJson.message);
+        setError(responseJson.message);
       }
 
       if (responseJson.status === "fail") {
-        throw new Error(responseJson.message);
+        setError(responseJson.message);
       }
 
       setProducts(responseJson.data.wineProducts);
@@ -218,6 +252,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         getNumberOfPages,
         fetchProducts,
         getProduct,
+        getProductImage,
         searchProducts,
         currentPage,
         setCurrentPage,

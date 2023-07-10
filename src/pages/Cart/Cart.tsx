@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useLoading } from "../../services/LoadingContext";
 import { useCart } from "../../services/CartContext";
 import "./Cart.scss";
@@ -10,12 +10,22 @@ import { FormatNaira } from "../../utils/FormatCurrency";
 
 export default function Cart() {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart, getTotalCartPrice, quantityChange } =
-    useCart();
+  const {
+    cartItems,
+    getCart,
+    removeFromCart,
+    getTotalCartPrice,
+    quantityChange,
+    isLoading: cartIsLoading,
+  } = useCart();
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const isPageWide = UseMediaQuery("(min-width: 769px)");
   const [cartLength, setCartLength] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    getCart();
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -28,6 +38,14 @@ export default function Cart() {
 
     setIsLoading(false);
   }, [cartItems]);
+
+  useEffect(() => {
+    if (!cartIsLoading) {
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+  }, [cartIsLoading]);
 
   return (
     <section className="Cart">
@@ -50,7 +68,7 @@ export default function Cart() {
                 <tbody>
                   {cartItems &&
                     Object.values(cartItems).map((items) => {
-                      const { id, name, price, quantity } = items;
+                      const { id, name, price, quantity, image } = items;
                       const totalPrice = price * quantity;
 
                       const decreaseQuantity = () => {
@@ -65,12 +83,22 @@ export default function Cart() {
                         }
                       };
 
+                      const handleQuantityChange = (
+                        e: ChangeEvent<HTMLInputElement>
+                      ) => {
+                        const { value } = e.target;
+
+                        if (parseInt(value) > 0 && parseInt(value) < 100) {
+                          quantityChange(id, parseInt(value));
+                        }
+                      };
+
                       return (
                         <tr key={id}>
                           <td className="product__cart">
                             <img
                               className="product__image"
-                              src={productImg}
+                              src={image ? image : productImg}
                               alt=""
                             />
                             <div className="product__details">
@@ -90,9 +118,9 @@ export default function Cart() {
                                   -
                                 </button>
                                 <input
-                                  type="number"
                                   name="quantity"
                                   value={quantity}
+                                  onChange={(e) => handleQuantityChange(e)}
                                   maxLength={3}
                                 />
 
@@ -164,6 +192,16 @@ export default function Cart() {
                       }
                     };
 
+                    const handleQuantityChange = (
+                      e: ChangeEvent<HTMLInputElement>
+                    ) => {
+                      const { value } = e.target;
+
+                      if (parseInt(value) > 0 && parseInt(value) < 100) {
+                        quantityChange(id, parseInt(value));
+                      }
+                    };
+
                     return (
                       <div key={id}>
                         <div style={{ display: "flex", gap: "1rem" }}>
@@ -192,10 +230,10 @@ export default function Cart() {
                                   -
                                 </button>
                                 <input
-                                  type="text"
                                   name="quantity"
                                   value={quantity}
                                   maxLength={3}
+                                  onChange={(e) => handleQuantityChange(e)}
                                 />
                                 <button
                                   className="btn"

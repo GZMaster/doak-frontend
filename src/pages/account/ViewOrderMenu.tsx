@@ -1,53 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import backendURL from "../../api";
 import { FormatNaira } from "../../utils/FormatCurrency";
+import { IOrder } from "../../types/order";
 import "./AccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import cancel from "../../assets/Images/icons/redcancel.svg";
 
 interface ViewOrderMenuProps {
   handleViewDetail: () => void;
-  order?: {
-    userId: string;
-    orderId: string;
-    orderStatus: string;
-    address: string;
-    items: [
-      {
-        productId: string;
-        name: string;
-        quantity: number;
-        price: number;
-      }
-    ];
-    date: Date;
-    subtotal: number;
-    deliveryFee: number;
-    total: number;
-  };
-}
-
-interface Address {
-  userId?: string;
-  name: string;
-  address: string;
-  city: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  zipCode?: string;
-  _id: string;
+  order: IOrder | undefined;
 }
 
 const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
   handleViewDetail,
   order,
 }) => {
-  const [address, setAddress] = useState<Address>();
-
-  useEffect(() => {
-    getAddress();
-  }, [address]);
-
   const getDate = (date: Date) => {
     const newDate = new Date(date);
     const day = newDate.getDate();
@@ -57,30 +24,9 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
     return dateString;
   };
 
-  const getAddress = async () => {
-    const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/addresses/${order?.address}`,
-      // `http://localhost:3000/api/v1/addresses/${order?.address}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    if (data.status === "success") {
-      setAddress(data.data);
-    }
-  };
-
   const handleCancelOrder = async () => {
     const res = await fetch(
-      `https://doakbackend.cyclic.app/api/v1/orders/cancelOrder/{order?.orderId}`,
-      // `http://localhost:3000/api/v1/orders/cancelOrder/{order?.orderId}`,
+      `${backendURL}/api/v1/orders/cancelOrder/{order?.orderId}`,
       {
         method: "GET",
         headers: {
@@ -164,8 +110,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
                 <div className="viewordermenu__body__body__details__shipping__right">
                   <p>{order?.deliveryFee}</p>
                   <h4>
-                    Door Delivery, to be delivered between the dates 16th of may
-                    to 20th of may(usually 3 days after order is confirmed)
+                    {order?.deliveryMethod === "pickup" ? "Pickup" : "Delivery"}
                   </h4>
                 </div>
               </div>
@@ -182,12 +127,13 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
               </div>
 
               <div className="viewordermenu__body__body__address__details">
-                <h4>{address?.name}</h4>
+                <h4>{order?.contact.address.name}</h4>
                 <p>
-                  {address?.address}, {address?.city}, {address?.state}{" "}
-                  {address?.country}
+                  {order?.contact.address.address},{" "}
+                  {order?.contact.address.city}, {order?.contact.address.state}{" "}
+                  {order?.contact.address.country}
                 </p>
-                <p>{address?.phoneNumber}</p>
+                <p>{order?.contact.address.phoneNumber}</p>
               </div>
             </div>
 

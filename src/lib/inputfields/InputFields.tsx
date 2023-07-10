@@ -15,6 +15,7 @@ function InputFields({
   required,
   prefix,
   suffix,
+  autocomplete,
 }: IInput) {
   return (
     <label className="inputfield">
@@ -33,6 +34,7 @@ function InputFields({
           disabled={disabled}
           required={required}
           name={name}
+          autoComplete={autocomplete}
         />
         {suffix && <span className="inputfield__verify">{suffix}</span>}
       </div>
