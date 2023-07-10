@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLoading } from "../../services/LoadingContext";
 import { HandleToast } from "../../lib/Main";
+import { FormatNaira } from "../../utils/FormatCurrency";
 import backendURL from "../../api";
 import AddAddressModal from "../address/AddAddressModal";
 import { IDeliveryTab, IAddress, IDelivery } from "../../types/checkout";
@@ -182,7 +183,7 @@ const DeliveryTab: React.FC<IDeliveryTab> = ({
                   <h2>{item.type}</h2>
                   <p>{item.text}</p>
                   <p style={{ color: "#ff3426", fontWeight: "600" }}>
-                    {item.price}
+                    {FormatNaira(item.price)}
                   </p>
                 </label>
               </form>

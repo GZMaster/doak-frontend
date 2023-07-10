@@ -38,15 +38,12 @@ function SearchProvider({ children }: SearchProviderProps) {
   async function searchProducts(searchTerm: string) {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${backendURL}/api/v1/wine/?name=${searchTerm}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${backendURL}/api/v1/wine/?${searchTerm}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       const responseJson = await response.json();
 
