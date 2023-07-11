@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../../services/LoadingContext";
-
 import MobileProfilemenu from "./MobileProfileMenu";
 import MobileOrdersMenu from "./MobileOrdersMenu";
 import MobileNotificationsMenu from "./MobileNotificationsMenu";
@@ -17,6 +16,7 @@ import addressicon from "../../assets/Images/icons/addressicon.svg";
 import vouchericon from "../../assets/Images/icons/vouchericon.svg";
 import rateicon from "../../assets/Images/icons/rateicon.svg";
 import helpicon from "../../assets/Images/icons/helpicon.svg";
+import { AuthContext } from "../../services/AuthContext";
 
 const sidbaritems = [
   {
@@ -54,6 +54,7 @@ const sidbaritems2 = [
 
 const MobileAccountPage = () => {
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
   const [activeMenu, setActiveMenu] = useState("menu");
   const [userNames, setUserNames] = useState("");
@@ -81,8 +82,14 @@ const MobileAccountPage = () => {
     setActiveMenu(e);
   };
 
-  const handleLogout = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    const logUserOut = await logout();
+
+    if (logUserOut) {
+      navigate("/");
+    } else {
+      navigate("/account");
+    }
   };
 
   const handleBack = () => {
