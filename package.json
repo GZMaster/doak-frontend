@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:DEV": "SET NODE_ENV=development_test& react-scripts start",
+    "start:DEV": "react-scripts start && set NODE_ENV=development_test",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
