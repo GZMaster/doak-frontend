@@ -74,7 +74,8 @@
 .mobileaddressesmenu,
 .mobilevouchersmenu,
 .mobilerateusmenu,
-.mobilehelpmenu {
+.mobilehelpmenu,
+.MobileViewOrderMenu {
   padding-top: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -85,7 +86,8 @@
 .mobileaddressesmenu_header,
 .mobilevouchersmenu_header,
 .mobilerateusmenu_header,
-.mobilehelpmenu_header {
+.mobilehelpmenu_header,
+.MobileViewOrderMenu__header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -745,6 +747,187 @@
         color: $white;
         background: $black;
         border-radius: 0.313rem;
+      }
+    }
+  }
+}
+
+//view order
+.MobileViewOrderMenu {
+  &__body {
+    &__header {
+      > h1 {
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding-bottom: 0.69rem;
+      }
+    }
+    &__body {
+      &__header {
+        padding-bottom: 1.31rem;
+        > h3,
+        p {
+          font-family: Poppins;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          padding-bottom: 0.69rem;
+        }
+        > h2 {
+          font-family: Poppins;
+          font-size: 14px;
+          line-height: 21px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          padding-bottom: 0.69rem;
+        }
+      }
+      &__details {
+        display: flex;
+        flex-direction: column;
+        &__items {
+          border-radius: 0.625rem;
+          border: 1px solid #c5c5c5;
+          padding: 1rem;
+          &__header {
+            padding-bottom: 1rem;
+            > h1 {
+              color: #333;
+              font-family: Poppins;
+              font-size: 1rem;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+            }
+          }
+          &__body {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            &__left {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              &__name {
+                > h1 {
+                  color: #333;
+                  font-family: Poppins;
+                  font-size: 0.75rem;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+              &__qty {
+                > p {
+                  color: #333;
+                  font-family: Poppins;
+                  font-size: 0.75rem;
+                  font-style: normal;
+                  font-weight: 600;
+                  line-height: normal;
+                }
+              }
+            }
+            &__right {
+              > p {
+                color: #333;
+                font-family: Poppins;
+                font-size: 0.75rem;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+              }
+            }
+          }
+        }
+        &__subtotal {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          border-radius: 0.625rem;
+          border: 1px solid #c5c5c5;
+          padding: 1rem;
+          > h4 {
+            color: #333;
+            font-family: Poppins;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+          > p {
+            color: #333;
+            font-family: Poppins;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+          }
+        }
+        &__shipping {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          border-radius: 0.625rem;
+          border: 1px solid #c5c5c5;
+          padding: 1rem;
+          > p {
+            color: #333;
+            font-family: Poppins;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+          &__right {
+            > p {
+              color: #333;
+              font-family: Poppins;
+              font-size: 0.75rem;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+            }
+            > h4 {
+              color: #333;
+              font-family: Poppins;
+              font-size: 0.75rem;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+            }
+          }
+        }
+        &__total {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          border-radius: 0.625rem;
+          border: 1px solid #c5c5c5;
+          padding: 1rem;
+          > h4 {
+            color: #333;
+            font-family: Poppins;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+          }
+          > p {
+            color: #333;
+            font-family: Poppins;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+          }
+        }
       }
     }
   }

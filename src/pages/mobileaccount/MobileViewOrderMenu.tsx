@@ -6,12 +6,12 @@ import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
 import cancel from "../../assets/Images/icons/redcancel.svg";
 
-interface ViewOrderMenuProps {
+interface MobileViewOrderMenuProps {
   handleViewDetail: () => void;
   order: IOrder | undefined;
 }
 
-const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
+const MobileViewOrderMenu: React.FC<MobileViewOrderMenuProps> = ({
   handleViewDetail,
   order,
 }) => {
@@ -45,22 +45,22 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
 
   return (
     <>
-      <div className="viewordermenu">
-        <div className="viewordermenu__header">
+      <div className="MobileViewOrderMenu">
+        <div className="MobileViewOrderMenu__header">
           <button onClick={handleViewDetail}>
             <img src={backbtn} alt="go back" />
           </button>
-          <h1>Back To All Orders</h1>
+          <h1>Order Details</h1>
         </div>
 
-        <div className="viewordermenu__body">
-          <div className="viewordermenu__body__header">
+        <div className="MobileViewOrderMenu__body">
+          <div className="MobileViewOrderMenu__body__header">
             <h1>Order No. {order?.orderId}</h1>
             {/* THIS SHOULD CONTAIN THE ORDER PROGRESS BAR */}
           </div>
 
-          <div className="viewordermenu__body__body">
-            <div className="viewordermenu__body__body__header">
+          <div className="MobileViewOrderMenu__body__body">
+            <div className="MobileViewOrderMenu__body__body__header">
               <h3 className={`${order?.orderStatus}`}>{order?.orderStatus}</h3>
               <h2>
                 Order{order?.orderId} was placed on{" "}
@@ -69,30 +69,30 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
               <p>Total: {order && FormatNaira(order.total)}</p>
             </div>
 
-            <div className="viewordermenu__body__body__details">
-              <div className="viewordermenu__body__body__details__header">
+            <div className="MobileViewOrderMenu__body__body__details">
+              {/* <div className="MobileViewOrderMenu__body__body__details__header">
                 <h1>Order Details</h1>
-              </div>
+              </div> */}
 
-              <div className="viewordermenu__body__body__details__items">
-                <div className="viewordermenu__body__body__details__items__header">
+              <div className="MobileViewOrderMenu__body__body__details__items">
+                <div className="MobileViewOrderMenu__body__body__details__items__header">
                   <h1>Cart Items</h1>
                 </div>
-                <div className="viewordermenu__body__body__details__items__body">
+                <div className="MobileViewOrderMenu__body__body__details__items__body">
                   {order?.items.map((item) => (
                     <>
                       <div
-                        className="viewordermenu__body__body__details__items__body__left"
+                        className="MobileViewOrderMenu__body__body__details__items__body__left"
                         key={item.productId}
                       >
-                        <div className="viewordermenu__body__body__details__items__body__left__name">
+                        <div className="MobileViewOrderMenu__body__body__details__items__body__left__name">
                           <h1>{item.name}</h1>
                         </div>
+                        <div className="MobileViewOrderMenu__body__body__details__items__body__left__qty">
+                          <p>{item.quantity}</p>
+                        </div>
                       </div>
-                      <div className="viewordermenu__body__body__details__items__body__middle">
-                        <p>{item.quantity}</p>
-                      </div>
-                      <div className="viewordermenu__body__body__details__items__body__right">
+                      <div className="MobileViewOrderMenu__body__body__details__items__body__right">
                         <p>{item.price}</p>
                       </div>
                     </>
@@ -100,14 +100,14 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
                 </div>
               </div>
 
-              <div className="viewordermenu__body__body__details__subtotal">
+              <div className="MobileViewOrderMenu__body__body__details__subtotal">
                 <h4>Subtotal:</h4>
                 <p>{order && FormatNaira(order.subtotal)}</p>
               </div>
 
-              <div className="viewordermenu__body__body__details__shipping">
+              <div className="MobileViewOrderMenu__body__body__details__shipping">
                 <p>Shipping:</p>
-                <div className="viewordermenu__body__body__details__shipping__right">
+                <div className="MobileViewOrderMenu__body__body__details__shipping__right">
                   <p>{order?.deliveryFee}</p>
                   <h4>
                     {order?.deliveryMethod === "pickup" ? "Pickup" : "Delivery"}
@@ -115,18 +115,18 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
                 </div>
               </div>
 
-              <div className="viewordermenu__body__body__details__total">
-                <p>Total:</p>
+              <div className="MobileViewOrderMenu__body__body__details__total">
+                <h4>Total:</h4>
                 <p>{order?.total}</p>
               </div>
             </div>
 
-            <div className="viewordermenu__body__body__address">
-              <div className="viewordermenu__body__body__address__header">
+            <div className="MobileViewOrderMenu__body__body__address">
+              <div className="MobileViewOrderMenu__body__body__address__header">
                 <h1>Delivery Address</h1>
               </div>
 
-              <div className="viewordermenu__body__body__address__details">
+              <div className="MobileViewOrderMenu__body__body__address__details">
                 <h4>{order?.contact.address.name}</h4>
                 <p>
                   {order?.contact.address.address},{" "}
@@ -137,7 +137,7 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
               </div>
             </div>
 
-            <div className="viewordermenu__body__body__cancel">
+            <div className="MobileViewOrderMenu__body__body__cancel">
               <button onClick={handleCancelOrder}>
                 <span>
                   <img src={cancel} alt="cancel" />
@@ -156,4 +156,4 @@ const ViewOrderMenu: React.FC<ViewOrderMenuProps> = ({
   );
 };
 
-export default ViewOrderMenu;
+export default MobileViewOrderMenu;
