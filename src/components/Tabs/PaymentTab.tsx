@@ -13,9 +13,9 @@ import "./Tab.scss";
 
 const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
   const { isLoading, setIsLoading, LoadingComponent } = useLoading();
-  const [cardNumber, setCardNumber] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [cvv, setCvv] = useState("");
+  // const [expiryDate, setExpiryDate] = useState("");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -24,7 +24,7 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
   // const [state, setState] = useState("");
   // const [country, setCountry] = useState("");
   // const [zipCode, setZipCode] = useState("");
-  const [pin, setPin] = useState("");
+  // const [pin, setPin] = useState("");
   const [toastState, setToastState] = useState("");
 
   const paymentIntent = async () => {
@@ -39,15 +39,15 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
       },
       body: JSON.stringify({
         orderId: createdOrder?._id,
-        card_number: cardNumber,
-        cvv: cvv,
-        expiry_month: expiryDate.split("/")[0],
-        expiry_year: expiryDate.split("/")[1],
+        // card_number: cardNumber,
+        // cvv: cvv,
+        // expiry_month: expiryDate.split("/")[0],
+        // expiry_year: expiryDate.split("/")[1],
         amount: createdOrder?.total,
         fullname: fullName,
         email: email,
         phone_number: phoneNumber,
-        pin: pin,
+        // pin: pin,
         // city: city,
         // address: address,
         // state: state,
@@ -77,7 +77,7 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
 
     if (res.status === "redirect") {
       setIsLoading(false);
-      const redirectUrl = res.authUrl;
+      const redirectUrl = res.redirectUrl;
       window.location.replace(redirectUrl);
     }
 
@@ -183,7 +183,7 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
       <TabPanel>
         <p className="summary_tab_title">Card Payment</p>
         <div className="payment_box">
-          <InputFields
+          {/* <InputFields
             type="text"
             label="Card Number"
             placeholder="xxxx - xxxx- xxxx- xxxx"
@@ -220,7 +220,7 @@ const PaymentTab: React.FC<IPaymentTab> = ({ createdOrder }) => {
             value={pin}
             onChange={(e) => setPin(e.target.value)}
             autocomplete="new-password"
-          />
+          /> */}
           <InputFields
             type="text"
             label="Full Name"

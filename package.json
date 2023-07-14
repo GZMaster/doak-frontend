@@ -14,6 +14,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/react-scroll": "^1.8.6",
     "firebase-tools": "^11.26.0",
+    "got": "^13.0.0",
     "hamburger-react": "^2.5.0",
     "react": "^18.2.0",
     "react-advanced-loader": "^2.0.1",
