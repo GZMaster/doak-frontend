@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import backendURL from "../../api";
-import ViewOrderMenu from "../account/ViewOrderMenu";
+import MobileViewOrderMenu from "../mobileaccount/MobileViewOrderMenu";
 import { IOrder } from "../../types/order";
 import "./MobileAccountPage.scss";
 import backbtn from "../../assets/Images/icons/backbtn.svg";
@@ -56,7 +56,7 @@ const MobileOrdersMenu: React.FC<MobilrOrdersMenuProps> = ({
   return (
     <div className="mobileordersmenu">
       {viewDetails ? (
-        <ViewOrderMenu
+        <MobileViewOrderMenu
           handleViewDetail={handleViewDetails}
           order={selectedOrder}
         />
