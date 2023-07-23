@@ -115,7 +115,7 @@ function ProductsProvider({ children }: ProductsProviderProps) {
         url += `&sort=${sort}`;
       }
       if (filter) {
-        url += `&${filter.field}=${filter.operator}${filter.value}`;
+        url += `?${filter.field}=${filter.operator}${filter.value}`;
       }
 
       const response = await fetch(url, {
