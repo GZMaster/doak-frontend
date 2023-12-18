@@ -42,6 +42,7 @@ To deploy the application, simply push to the master branch. The deployment proc
 ## Authors
 
 - **Ohiosumua Daniel** - _Senior Developer_ - [Ohiosumua Daniel](https://github.com/GZMaster)
+- **Your name** - _Initial work_ - [Your name](https://github.com/GZMaster)
 
 ## Acknowledgments
 
